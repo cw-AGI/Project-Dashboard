@@ -439,7 +439,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 // ══════════════════════════════════════════════════════════════
 // CONSTANTS
 // ══════════════════════════════════════════════════════════════
-const STATUS_WEIGHT = {'RFI完成':1,'安装完成':2,'开通完成':3,'PAT完成':4};
+const STATUS_WEIGHT = {'RFI Complete':1,'Installation Complete':2,'On Air Complete':3,'PAT Complete':4};
 const PIE_COLORS = ['#1d4ed8','#059669','#d97706','#dc2626','#0891b2','#7c3aed','#db2777','#0284c7','#16a34a','#b45309','#6366f1','#0d9488'];
 const MAP_STYLE = {
   completed: {fill:'#059669',stroke:'#047857',hover:'#10b981',label:'✓ Completed'},
@@ -467,8 +467,8 @@ async function loadProject(pid) {
   try {
     const ts = '?t=' + Date.now();
     const [dRes, cRes] = await Promise.all([
-      fetch(pid + '/data.json'   + ts),
-      fetch(pid + '/config.json' + ts),
+      fetch('projects/' + pid + '/data.json'   + ts),
+      fetch('projects/' + pid + '/config.json' + ts),
     ]);
     if (!dRes.ok) throw new Error('data.json HTTP ' + dRes.status);
     if (!cRes.ok) throw new Error('config.json HTTP ' + cRes.status);
@@ -593,7 +593,7 @@ function computeProvinceStats(sites) {
   const result = {};
   Object.entries(byProv).forEach(([prov, ps]) => {
     const total = ps.length;
-    const sc = {'RFI完成':0,'安装完成':0,'开通完成':0,'PAT完成':0};
+    const sc = {'RFI Complete':0,'Installation Complete':0,'On Air Complete':0,'PAT Complete':0};
     let wt = 0;
     ps.forEach(s => { if (sc[s.status] !== undefined) { sc[s.status]++; wt += STATUS_WEIGHT[s.status]||0; } });
     const pct = total ? wt / (4 * total) * 100 : 0;
@@ -968,8 +968,8 @@ function initVNMap() {
       const siteInfo = ps
         ? `${ps.total} sites · ${MAP_STYLE[ps.mapStatus].label}<br>
            <small style="font-family:var(--mono)">
-             RFI: ${ps.statusCounts['RFI完成']}  |  Install: ${ps.statusCounts['安装完成']}<br>
-             On-Air: ${ps.statusCounts['开通完成']}  |  PAT: ${ps.statusCounts['PAT完成']}
+             RFI: ${ps.statusCounts['RFI Complete']}  |  Install: ${ps.statusCounts['Installation Complete']}<br>
+             On-Air: ${ps.statusCounts['On Air Complete']}  |  PAT: ${ps.statusCounts['PAT Complete']}
            </small>`
         : 'No sites recorded';
       tip.style.display = 'block';
@@ -1410,7 +1410,7 @@ async function initApp() {
 
   try {
     const ts   = '?t=' + Date.now();
-    const resp = await fetch('index.json' + ts);
+    const resp = await fetch('projects/index.json' + ts);
     if (!resp.ok) throw new Error('index.json HTTP ' + resp.status);
     const projects = await resp.json();
 
