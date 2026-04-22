@@ -14,5 +14,13 @@
     "color": "#059669",
     "active": true,
     "updated": "2026-04-19"
+  },
+  {
+    "id": "PRJ001",
+    "name": "VN 4G Rollout Phase 1",
+    "path": "projects/PRJ001/",
+    "color": "#1D4ED8",
+    "active": true,
+    "updated": "2026-04-22"
   }
 ]
