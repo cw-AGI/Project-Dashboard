@@ -1,0 +1,120 @@
+{
+  "project_name": "VNPT 4G Expansion Phase 2",
+  "project": "vnpt",
+  "client": "VNPT Vietnam",
+  "vendor": "Huawei",
+  "start_date": "2025-09-01",
+  "end_date": "2026-12-31",
+  "pm": "Nguyen Van An",
+  "contract_value": "USD 45M",
+  "target_onair": "260 sites",
+  "weekly_target": 35,
+  "region": "Nationwide",
+  "build_types": [
+    {
+      "key": "swap",
+      "label": "SWAP Sites"
+    },
+    {
+      "key": "new",
+      "label": "New Sites"
+    },
+    {
+      "key": "expansion",
+      "label": "Expansion"
+    }
+  ],
+  "milestones": [
+    {
+      "key": "ms_TSS",
+      "label": "TSS"
+    },
+    {
+      "key": "ms_TSSR",
+      "label": "TSSR"
+    },
+    {
+      "key": "ms_RFI",
+      "label": "RFI"
+    },
+    {
+      "key": "ms_MW_On_Air",
+      "label": "MW On Air",
+      "scope": [
+        "swap",
+        "new"
+      ]
+    },
+    {
+      "key": "ms_Power_On_Air",
+      "label": "Power On Air"
+    },
+    {
+      "key": "ms_TX_Readiness",
+      "label": "TX Readiness"
+    },
+    {
+      "key": "ms_BTS_MOS",
+      "label": "BTS MOS"
+    },
+    {
+      "key": "ms_BTS_HI",
+      "label": "BTS HI"
+    },
+    {
+      "key": "ms_BTS_Integration",
+      "label": "BTS Integration"
+    },
+    {
+      "key": "ms_BTS_On_Air",
+      "label": "BTS On Air"
+    },
+    {
+      "key": "ms_Dismantle",
+      "label": "Dismantle",
+      "scope": [
+        "swap"
+      ]
+    },
+    {
+      "key": "ms_SSV",
+      "label": "SSV"
+    },
+    {
+      "key": "ms_PAT",
+      "label": "PAT"
+    },
+    {
+      "key": "ms_PAC",
+      "label": "PAC"
+    },
+    {
+      "key": "ms_OSS_KPI",
+      "label": "OSS KPI"
+    },
+    {
+      "key": "ms_FAC",
+      "label": "FAC"
+    }
+  ],
+  "status_colors": {
+    "RFI完成": "#FFC107",
+    "安装完成": "#42A5F5",
+    "开通完成": "#66BB6A",
+    "PAT完成": "#AB47BC"
+  },
+  "equipment": [
+    {
+      "type": "BBU",
+      "model": "Huawei BBU5900"
+    },
+    {
+      "type": "RRU",
+      "model": "Huawei AAUR"
+    },
+    {
+      "type": "ANT",
+      "model": "Huawei MMMB"
+    }
+  ]
+}
