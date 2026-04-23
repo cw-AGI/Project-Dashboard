@@ -1182,8 +1182,8 @@ function renderMilestones() {
     <div class="card">${gaugeHTML('Average Province Progress', avgProgress, 100)}</div>
     <div class="card">${gaugeHTML(topProvince ? topProvince.province : 'Top Province', topProvince ? topProvince.avgProgress : 0, topProvince ? topProvince.total : 0)}</div>
   `;
-  document.getElementById('province-progress').innerHTML = provinceRows.map((row, index) => `
-    <details class="province-card" ${index === 0 ? 'open' : ''}>
+  document.getElementById('province-progress').innerHTML = provinceRows.map((row) => `
+    <details class="province-card" open>
       <summary>
         <div>
           <div class="province-name">${row.province}</div>
