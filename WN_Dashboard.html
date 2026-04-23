@@ -229,8 +229,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 
 .province-grid{display:grid;grid-template-columns:1fr;gap:14px;}
 .province-card{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
-.province-card summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.province-card summary::-webkit-details-marker{display:none;}
+.province-head{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
 .province-name{font-size:15px;font-weight:800;color:var(--text);}
 .province-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--sub);margin-top:4px;}
 .province-open{font-size:11px;color:var(--muted);font-family:var(--mono);}
@@ -1201,8 +1200,8 @@ function renderMilestones() {
     <div class="card">${gaugeHTML(topProvince ? topProvince.province : 'Top Province', topProvince ? topProvince.avgProgress : 0, topProvince ? topProvince.total : 0)}</div>
   `;
   document.getElementById('province-progress').innerHTML = provinceRows.map((row) => `
-    <details class="province-card" open>
-      <summary>
+    <div class="province-card">
+      <div class="province-head">
         <div>
           <div class="province-name">${row.province}</div>
           <div class="province-meta">
@@ -1211,8 +1210,8 @@ function renderMilestones() {
             <span>Completed Sites: <b>${row.siteRows.filter(site => site.progress >= 100).length}</b></span>
           </div>
         </div>
-        <div class="province-open">Click to expand</div>
-      </summary>
+        <div class="province-open">Expanded</div>
+      </div>
       <div class="province-body">
         <div class="province-bars">
           ${row.milestones.map(ms => `
@@ -1226,25 +1225,9 @@ function renderMilestones() {
             </div>
           `).join('')}
         </div>
-        <table class="province-site-table">
-          <thead><tr><th>Site ID</th><th>Site Name</th><th>Build Type</th><th>Status</th><th>Latest Work Package</th><th style="text-align:right">Progress</th></tr></thead>
-          <tbody>
-            ${row.siteRows.map(site => `
-              <tr>
-                <td>${site.site_id || '—'}</td>
-                <td>${site.site_name || '—'}</td>
-                <td>${site.build_type || '—'}</td>
-                <td>${site.status || '—'}</td>
-                <td>${site.latest}</td>
-                <td style="text-align:right;font-family:var(--mono);font-weight:700">${site.progress}%</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
       </div>
-    </details>
+    </div>
   `).join('') || '<div class="risk-top-empty">No province-level progress available.</div>';
-  document.querySelectorAll('#province-progress details').forEach(el => { el.open = true; el.setAttribute('open', 'open'); });
 }
 
 function renderGap() {
