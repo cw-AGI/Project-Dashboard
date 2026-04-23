@@ -12,7 +12,7 @@
   --border:#e2e8f0;--border2:#cbd5e1;
   --green:#059669;--yellow:#d97706;--orange:#ea580c;--red:#dc2626;
   --blue:#1d4ed8;--blue2:#2563eb;--teal:#0891b2;--purple:#7c3aed;--pink:#db2777;
-  --text:#0f172a;--sub:#475569;--muted:#94a3b8;--light:#f1f5f9;
+  --text:#0f172a;--sub:#334155;--muted:#64748b;--light:#f1f5f9;
   --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
   --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
   --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
@@ -104,7 +104,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 /* CARDS */
 .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);}
 .card-sm{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);}
-.card-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:7px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.card-title{font-size:11px;font-weight:800;color:#334155;letter-spacing:.7px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:7px;padding-bottom:10px;border-bottom:1px solid var(--border);}
 .ct-icon{font-size:13px;}
 
 /* STAT CARDS */
@@ -119,13 +119,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .sv{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1;margin-bottom:6px;}
 .sv.g{color:#059669;}.sv.b{color:#1d4ed8;}.sv.o{color:#ea580c;}.sv.r{color:#dc2626;}.sv.t{color:#0891b2;}.sv.p{color:#7c3aed;}
 .sl{font-size:12px;font-weight:600;color:var(--sub);}
-.ss{font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono);}
+.ss{font-size:11px;color:#475569;margin-top:4px;font-family:var(--mono);}
 
 /* GAUGE */
 .gauge-wrap{display:flex;flex-direction:column;align-items:center;padding:6px 0;}
 .gauge-title{font-size:14px;font-weight:700;margin-bottom:6px;text-align:center;color:var(--text);}
 .gauge-pct{font-family:var(--mono);font-size:26px;font-weight:700;text-align:center;margin-top:4px;}
-.gauge-meta{font-size:11px;color:var(--muted);text-align:center;font-family:var(--mono);margin-top:2px;}
+.gauge-meta{font-size:11px;color:#475569;text-align:center;font-family:var(--mono);margin-top:2px;}
 
 /* MILESTONE TABLE */
 .mt{width:100%;border-collapse:collapse;font-size:12px;}
@@ -141,7 +141,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .po{background:#ffedd5;color:#9a3412;}
 .pr{background:#fee2e2;color:#991b1b;}
 .pm{background:#f1f5f9;color:var(--muted);}
-.num{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.num{font-family:var(--mono);font-size:11px;color:#475569;}
 
 /* STATUS TABLE */
 .st{width:100%;border-collapse:collapse;font-size:12px;}
@@ -1132,16 +1132,16 @@ function renderOverview() {
           <div style="font-size:11px;font-family:var(--mono);color:${item.delta >= 0 ? '#059669' : '#dc2626'}">${item.delta >= 0 ? '+' : ''}${item.delta} vs plan</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div style="width:58px;font-size:10px;color:var(--muted);text-align:right">Plan</div>
+          <div style="width:58px;font-size:10px;color:#475569;text-align:right;font-weight:600">Plan</div>
           <div class="pbt"><div class="pbf" style="width:${item.pctPlan}%;background:#1d4ed8"></div></div>
           <div class="pbv">${item.plan}</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div style="width:58px;font-size:10px;color:var(--muted);text-align:right">Actual</div>
+          <div style="width:58px;font-size:10px;color:#475569;text-align:right;font-weight:600">Actual</div>
           <div class="pbt"><div class="pbf" style="width:${item.pctActual}%;background:#059669"></div></div>
           <div class="pbv">${item.actual}</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted)">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#475569">
           <span>Total: ${item.total}</span>
           <span>Gap: <b style="color:${item.gap ? '#dc2626' : '#059669'}">${item.gap}</b></span>
         </div>
@@ -1154,7 +1154,7 @@ function renderOverview() {
       <div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#059669">${DATA.issues.closed || 0}</div><div style="font-size:11px;color:#065f46;font-weight:600;margin-top:3px">Closed</div></div>
       <div style="flex:1;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#dc2626">${DATA.issues.open || 0}</div><div style="font-size:11px;color:#991b1b;font-weight:600;margin-top:3px">Open</div></div>
     </div>
-    <div style="font-size:11px;color:var(--muted);text-align:center">Closure Rate: <b style="color:#059669">${p((DATA.issues.closed || 0) / Math.max(DATA.issues.raised || 0, 1) * 100)}%</b></div>`;
+    <div style="font-size:11px;color:#475569;text-align:center;font-weight:600">Closure Rate: <b style="color:#059669">${p((DATA.issues.closed || 0) / Math.max(DATA.issues.raised || 0, 1) * 100)}%</b></div>`;
 
   const installMax = Math.max(...resWeekly.map(row => Number(row.install || 0)), 1);
   document.getElementById('ov-teams').innerHTML = `
