@@ -1,18 +1,18 @@
 [
   {
     "id": "vnpt",
-    "name": "VNPT 4G Expansion Phase 2",
+    "name": "VNPT Central Region Sample",
     "path": "projects/vnpt/",
     "color": "#1D4ED8",
     "active": true,
-    "updated": "2026-04-23"
+    "updated": "2026-04-24"
   },
   {
     "id": "zte",
-    "name": "ZTE Network Rollout",
+    "name": "ZTE Central Region Sample",
     "path": "projects/zte/",
     "color": "#059669",
     "active": true,
-    "updated": "2026-04-23"
+    "updated": "2026-04-24"
   }
 ]

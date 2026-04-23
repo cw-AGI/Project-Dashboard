@@ -1,15 +1,15 @@
 {
-  "project_name": "VNPT 4G Expansion Phase 2",
+  "project_name": "ZTE Central Region Sample",
   "project_id": "vnpt",
-  "client": "VNPT Vietnam",
-  "contractor": "Huawei",
+  "client": "Vietnam Mobile Operators",
+  "contractor": "Multi Vendor",
   "country": "Vietnam",
   "currency": "USD",
-  "target_sites": 260,
-  "start_date": "2025-09-01",
-  "end_date": "2026-12-31",
+  "target_sites": 14,
+  "start_date": "2026-03-01",
+  "end_date": "2026-06-30",
   "pat_target_pct": 95,
-  "pm_name": "Project Manager",
+  "pm_name": "Sample PM",
   "pm_email": "pm@example.com",
   "milestones": [
     {
@@ -192,5 +192,6 @@
       "visible": true
     }
   ],
-  "project": "zte"
+  "project": "zte",
+  "region": "Central Vietnam"
 }
