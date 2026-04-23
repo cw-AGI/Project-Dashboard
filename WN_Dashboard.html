@@ -28,6 +28,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 .topbar-btn{padding:6px 14px;border-radius:7px;border:1px solid var(--border2);background:#fff;color:var(--sub);font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--sans);font-weight:500;}
 .topbar-btn:hover{border-color:var(--blue2);color:var(--blue2);background:#eff6ff;}
+.role-switch{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border2);border-radius:10px;background:#fff;}
+.role-btn{padding:6px 10px;border:none;border-radius:8px;background:transparent;color:var(--muted);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:var(--sans);}
+.role-btn.on{background:#eff6ff;color:var(--blue2);}
 .import-btn{padding:7px 16px;border-radius:8px;background:linear-gradient(135deg,#1d4ed8,#0891b2);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:opacity .15s;box-shadow:0 2px 6px rgba(29,78,216,.3);}
 .import-btn:hover{opacity:.9;}
 .last-upd{font-family:var(--mono);font-size:11px;color:var(--muted);}
@@ -205,6 +208,50 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .toast.ok{border-left:3px solid #059669;color:#065f46;}
 .toast.err{border-left:3px solid #dc2626;color:#991b1b;}
 
+.risk-top-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.risk-top-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+.risk-top-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.risk-top-card.high::before{background:linear-gradient(90deg,#dc2626,#ef4444);}
+.risk-top-card.medium::before{background:linear-gradient(90deg,#ea580c,#f59e0b);}
+.risk-top-card.low::before{background:linear-gradient(90deg,#0891b2,#22c55e);}
+.risk-top-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.risk-top-title{font-size:14px;font-weight:800;line-height:1.3;color:var(--text);}
+.risk-top-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 8px;border-radius:999px;white-space:nowrap;}
+.risk-top-badge.high{background:#fee2e2;color:#991b1b;}
+.risk-top-badge.medium{background:#ffedd5;color:#9a3412;}
+.risk-top-badge.low{background:#dcfce7;color:#166534;}
+.risk-top-desc{font-size:12px;color:var(--sub);line-height:1.5;margin-bottom:12px;min-height:54px;}
+.risk-top-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;margin-bottom:12px;}
+.risk-top-meta div{font-size:11px;color:var(--sub);}
+.risk-top-meta b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;}
+.risk-top-footer{padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--sub);}
+.risk-top-empty{padding:18px;border:1px dashed var(--border2);border-radius:12px;background:#f8fafc;font-size:12px;color:var(--muted);text-align:center;}
+
+.province-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+.province-card{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
+.province-card summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.province-card summary::-webkit-details-marker{display:none;}
+.province-name{font-size:15px;font-weight:800;color:var(--text);}
+.province-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--sub);margin-top:4px;}
+.province-open{font-size:11px;color:var(--muted);font-family:var(--mono);}
+.province-body{padding:0 20px 18px;border-top:1px solid var(--border);background:#fcfdff;}
+.province-bars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:16px;}
+.province-site-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:11px;}
+.province-site-table th{background:#f8fafc;padding:8px 10px;text-align:left;font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);}
+.province-site-table td{padding:8px 10px;border-bottom:1px solid #edf2f7;}
+.mini-pill{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;display:inline-block;}
+.mini-pill.ok{background:#dcfce7;color:#166534;}
+.mini-pill.warn{background:#fef3c7;color:#92400e;}
+
+.settings-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+.settings-section{border:1px solid var(--border);border-radius:12px;padding:16px;background:#fcfdff;}
+.settings-title{font-size:12px;font-weight:800;color:var(--text);margin-bottom:12px;text-transform:uppercase;letter-spacing:.6px;}
+.settings-list{display:flex;flex-direction:column;gap:10px;}
+.settings-row{display:grid;grid-template-columns:110px minmax(0,1fr) 90px 70px;gap:8px;align-items:center;}
+.settings-row input,.settings-row select{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 9px;font-size:12px;color:var(--text);font-family:var(--sans);outline:none;}
+.settings-row button{padding:7px 10px;border:1px solid var(--border2);background:#fff;border-radius:8px;color:var(--sub);font-size:11px;cursor:pointer;}
+.settings-help{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5;}
+
 .divider{height:1px;background:var(--border);margin:12px 0;}
 .hidden{display:none!important;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -228,10 +275,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <!-- PROJECT SWITCHER — populated in Step 4 -->
   <div id="proj-switcher-wrap" style="margin-left:16px;display:none"></div>
   <div class="topbar-right">
+    <div class="role-switch">
+      <button class="role-btn on" id="role-visitor-btn" onclick="switchUserRole('visitor')">Visitor</button>
+      <button class="role-btn" id="role-admin-btn" onclick="switchUserRole('admin')">Admin</button>
+    </div>
     <span class="last-upd" id="last-upd">Loading…</span>
     <button class="topbar-btn" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
     <button class="topbar-btn" onclick="refreshData()" title="Re-fetch data.json from server">🔄 Refresh</button>
-    <button class="topbar-btn" onclick="openEditProj()">✏ Edit Project Info</button>
+    <button class="topbar-btn admin-only hidden" onclick="openSettings()">⚙ Settings</button>
+    <button class="topbar-btn admin-only hidden" onclick="openEditProj()">✏ Edit Project Info</button>
   </div>
 </div>
 
@@ -322,27 +374,19 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 <div class="page" id="page-milestones">
   <div class="grid-3" id="ms-gauges"></div>
   <div class="card">
-    <div class="card-title"><span class="ct-icon">🎯</span>Detailed Milestone Progress — All Build Types</div>
-    <div style="overflow-x:auto">
-      <table class="mt" id="ms-table">
-        <thead id="ms-thead"><tr><th style="width:150px">Milestone</th></tr></thead>
-        <tbody id="ms-tbody"></tbody>
-      </table>
-    </div>
+    <div class="card-title"><span class="ct-icon">🎯</span>Province Progress</div>
+    <div class="province-grid" id="province-progress"></div>
   </div>
 </div>
 
 <!-- ══ GAP ANALYSIS PAGE ══ -->
 <div class="page" id="page-gap">
-  <div class="grid-3" id="gap-cards">
-    <div class="card" id="gap-card-0"><div class="card-title" id="gap-title-0"><span class="ct-icon">📊</span>—</div><div class="pie-wrap" id="gap-pie-0"></div><div class="divider"></div><table class="st" id="gap-tbl-0"></table></div>
-    <div class="card" id="gap-card-1"><div class="card-title" id="gap-title-1"><span class="ct-icon">📊</span>—</div><div class="pie-wrap" id="gap-pie-1"></div><div class="divider"></div><table class="st" id="gap-tbl-1"></table></div>
-    <div class="card" id="gap-card-2"><div class="card-title" id="gap-title-2"><span class="ct-icon">📊</span>—</div><div class="pie-wrap" id="gap-pie-2"></div><div class="divider"></div><table class="st" id="gap-tbl-2"></table></div>
-  </div>
+  <div class="grid-4" id="gap-cards"></div>
 </div>
 
 <!-- ══ ISSUES PAGE ══ -->
 <div class="page" id="page-issues">
+  <div class="risk-top-grid" id="risk-top"></div>
   <div class="grid-4" id="issue-stats"></div>
   <div class="card">
     <div class="card-title"><span class="ct-icon">📉</span>Burndown Issue &amp; Risk — Weekly Trend</div>
@@ -352,29 +396,20 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 
 <!-- ══ TRENDS PAGE ══ -->
 <div class="page" id="page-trends">
-  <div class="card mb">
-    <div class="card-title"><span class="ct-icon">⚠</span>Issue &amp; Risk Weekly Trend</div>
-    <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:14px;height:3px;background:var(--red);border-radius:2px"></div>Open</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:14px;height:10px;background:rgba(255,109,0,.7);border-radius:2px"></div>Raised</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:14px;height:10px;background:rgba(0,230,118,.7);border-radius:2px"></div>Closed</div>
-    </div>
-    <canvas id="trend-issue-chart" height="70"></canvas>
-  </div>
-  <div class="card mb">
-    <div class="card-title"><span class="ct-icon">👷</span>Resource &amp; Team Deployment Trend</div>
-    <div style="display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap" id="res-legend"></div>
-    <canvas id="trend-resource-chart" height="70"></canvas>
-  </div>
   <div class="grid-2">
     <div class="card">
-      <div class="card-title"><span class="ct-icon">📈</span>Weekly Site On-Air Rate</div>
+      <div class="card-title"><span class="ct-icon">📈</span>Daily Progress</div>
       <canvas id="trend-sites-chart" height="120"></canvas>
     </div>
     <div class="card">
-      <div class="card-title"><span class="ct-icon">🎯</span>Cumulative Progress by Build Type</div>
+      <div class="card-title"><span class="ct-icon">🎯</span>Cumulative Progress</div>
       <canvas id="trend-cumulative-chart" height="120"></canvas>
     </div>
+  </div>
+  <div class="card mb" style="margin-top:16px">
+    <div class="card-title"><span class="ct-icon">👷</span>Resource &amp; Team Deployment Trend</div>
+    <div style="display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap" id="res-legend"></div>
+    <canvas id="trend-resource-chart" height="70"></canvas>
   </div>
 </div>
 
@@ -401,6 +436,34 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeProjEdit()">Cancel</button>
       <button class="import-btn" onclick="saveProjEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SETTINGS MODAL ══ -->
+<div class="overlay" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
+  <div class="modal" style="width:860px">
+    <div class="modal-title">⚙ Dashboard Settings</div>
+    <div class="settings-grid">
+      <div class="settings-section">
+        <div class="settings-title">Build Types</div>
+        <div class="settings-list" id="settings-build-types"></div>
+        <div class="settings-help">Edit labels, visibility, and order for site scope cards and charts. New build type keys can be added if the source data uses the same key.</div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-title">Milestones</div>
+        <div class="settings-list" id="settings-milestones"></div>
+        <div class="settings-help">Control which work packages are shown by default and rename labels without changing exported JSON keys.</div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-title">Equipment &amp; Team Labels</div>
+        <div class="settings-list" id="settings-teams"></div>
+        <div class="settings-help">Team keys must match resource columns in JSON, such as <code>install</code>, <code>mw</code>, <code>power</code>, <code>optim</code>, or <code>total</code>.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeSettings()">Cancel</button>
+      <button class="import-btn" onclick="saveSettings()">Save</button>
     </div>
   </div>
 </div>
@@ -440,23 +503,314 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 // CONSTANTS
 // ══════════════════════════════════════════════════════════════
 const STATUS_WEIGHT = {'RFI Complete':1,'Installation Complete':2,'On Air Complete':3,'PAT Complete':4};
-const PIE_COLORS = ['#1d4ed8','#059669','#d97706','#dc2626','#0891b2','#7c3aed','#db2777','#0284c7','#16a34a','#b45309','#6366f1','#0d9488'];
+const PIE_COLORS = ['#059669','#dc2626','#94a3b8','#1d4ed8','#d97706','#0891b2','#7c3aed','#db2777','#0284c7','#16a34a','#b45309','#6366f1'];
 const MAP_STYLE = {
-  completed: {fill:'#059669',stroke:'#047857',hover:'#10b981',label:'✓ Completed'},
-  inprogress:{fill:'#d97706',stroke:'#92400e',hover:'#f59e0b',label:'⏳ In Progress'},
-  planned:   {fill:'#94a3b8',stroke:'#64748b',hover:'#cbd5e1',label:'○ No Data'},
+  completed: {fill:'#059669',stroke:'#047857',hover:'#10b981',label:'Completed'},
+  inprogress:{fill:'#d97706',stroke:'#92400e',hover:'#f59e0b',label:'In Progress'},
+  planned:   {fill:'#94a3b8',stroke:'#64748b',hover:'#cbd5e1',label:'No Data'},
 };
-const BT_COLORS = ['rgba(29,78,216,.75)','rgba(5,150,105,.75)','rgba(8,145,178,.75)'];
+const BT_COLORS = ['rgba(29,78,216,.75)','rgba(5,150,105,.75)','rgba(8,145,178,.75)','rgba(124,58,237,.75)'];
+const ROLE_STORAGE_KEY = 'wnd_user_role';
+const SETTINGS_STORAGE_KEY = 'wnd_display_settings';
+const ADMIN_PASSWORD = 'admin999';
+const DEFAULT_BUILD_TYPES = [
+  {key:'new', label:'New Sites'},
+  {key:'expansion', label:'Expansion Sites'},
+  {key:'swap', label:'SWAP Sites'},
+];
+const DEFAULT_TEAM_FIELDS = [
+  {key:'install', label:'Installation Teams', visible:true},
+  {key:'mw', label:'Microwave Teams', visible:false},
+  {key:'power', label:'Power Teams', visible:false},
+  {key:'optim', label:'Optimization Teams', visible:false},
+  {key:'total', label:'Total Teams', visible:false},
+];
+const DEFAULT_MILESTONE_META = {
+  ms_TSS:{label:'TSS', visible:true},
+  ms_TSSR:{label:'TSSR', visible:true},
+  ms_RFI:{label:'RFI', visible:true},
+  ms_BTS_MOS:{label:'MOS', visible:true},
+  ms_BTS_On_Air:{label:'On Air', visible:true},
+  ms_PAT:{label:'PAT', visible:true},
+  ms_PAC:{label:'PAC', visible:true},
+  ms_SSV:{label:'SSV', visible:true},
+  ms_MW_On_Air:{label:'MW On Air', visible:false},
+  ms_Power_On_Air:{label:'Power On Air', visible:false},
+  ms_TX_Readiness:{label:'TX Readiness', visible:false},
+  ms_BTS_HI:{label:'BTS HI', visible:false},
+  ms_BTS_Integration:{label:'Integration', visible:false},
+  ms_Dismantle:{label:'Dismantle', visible:false},
+  ms_OSS_KPI:{label:'OSS KPI', visible:false},
+  ms_FAC:{label:'FAC', visible:false},
+};
+const OVERVIEW_MILESTONE_KEYS = ['ms_TSSR','ms_RFI','ms_BTS_MOS','ms_BTS_On_Air'];
+const PLAN_ALIASES = {
+  ms_TSS:['ms_tss','tss_plan','tss','ms_tss_plan'],
+  ms_TSSR:['ms_tssr','tssr_plan','tssr','ms_tssr_plan'],
+  ms_RFI:['ms_rfi','rfi_plan','rfi','ms_rfi_plan'],
+  ms_BTS_MOS:['ms_bts_mos','mos_plan','mos','install_plan','installation_plan','site_install_plan','ms_bts_mos_plan'],
+  ms_BTS_On_Air:['ms_bts_on_air','on_air_plan','onair_plan','on_air','onair','ms_bts_on_air_plan'],
+  ms_PAT:['ms_pat','pat_plan','pat','ms_pat_plan'],
+  ms_PAC:['ms_pac','pac_plan','pac','ms_pac_plan'],
+  ms_SSV:['ms_ssv','ssv_plan','ssv','ms_ssv_plan'],
+  ms_MW_On_Air:['ms_mw_on_air','mw_on_air_plan','mw_plan','ms_mw_on_air_plan'],
+  ms_Power_On_Air:['ms_power_on_air','power_on_air_plan','power_plan','ms_power_on_air_plan'],
+  ms_TX_Readiness:['ms_tx_readiness','tx_readiness_plan','tx_plan','ms_tx_readiness_plan'],
+  ms_BTS_HI:['ms_bts_hi','hi_plan','ms_bts_hi_plan'],
+  ms_BTS_Integration:['ms_bts_integration','integration_plan','ms_bts_integration_plan'],
+  ms_Dismantle:['ms_dismantle','dismantle_plan','ms_dismantle_plan'],
+  ms_OSS_KPI:['ms_oss_kpi','oss_kpi_plan','ms_oss_kpi_plan'],
+  ms_FAC:['ms_fac','fac_plan','ms_fac_plan'],
+};
 
 // ══════════════════════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════════════════════
-let PROJ = {name:'—',client:'—',start:'',end:'',pm:'',value:'',vendor:'',target:'',weekly:'',region:'',equipment:[],teams:[],totalPersonnel:''};
-let CONFIG = {build_types:[{key:'swap',label:'SWAP'},{key:'new',label:'New'},{key:'expansion',label:'Expansion'}],milestones:[],weekly_target:35};
-let DATA = {sites:[],issues:{raised:0,closed:0,open:0,weekly:[]},resources:{weekly:[]},generated:'',project:''};
-let COMPUTED = {milestones:[],gap:{},provinceStats:{},weeklySites:[]};
+let PROJ = {name:'—',client:'—',start:'',end:'',pm:'',value:'',vendor:'',target:'',weekly:'',region:'',equipment:[]};
+let CONFIG = {build_types:[...DEFAULT_BUILD_TYPES], milestones:[], weekly_target:35, team_fields:[...DEFAULT_TEAM_FIELDS]};
+let DATA = {sites:[], issues:{raised:0,closed:0,open:0,weekly:[]}, resources:{weekly:[]}, rolling_plan:{weekly:[]}, risks:[], generated:'', project:''};
+let COMPUTED = {milestones:[], overviewGap:[], fullGap:[], provinceStats:{}, provinceProgress:[], weeklySites:[], dailyProgress:[]};
 let charts = {};
 let currentProjectId = null;
+let USER_ROLE = 'visitor';
+let DISPLAY_SETTINGS = loadDisplaySettings();
+
+// ══════════════════════════════════════════════════════════════
+// STORAGE / ROLE / SETTINGS
+// ══════════════════════════════════════════════════════════════
+function loadProjOverride() {
+  try { return JSON.parse(localStorage.getItem('wnd_proj_ovr') || '{}'); } catch { return {}; }
+}
+
+function saveProjOverride() {
+  const ovr = loadProjOverride();
+  localStorage.setItem('wnd_proj_ovr', JSON.stringify(ovr));
+}
+
+function loadDisplaySettings() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}');
+    return {
+      build_types: Array.isArray(raw.build_types) ? raw.build_types : [],
+      milestones: raw.milestones || {},
+      team_fields: Array.isArray(raw.team_fields) ? raw.team_fields : [],
+      equipment: Array.isArray(raw.equipment) ? raw.equipment : [],
+    };
+  } catch {
+    return {build_types:[], milestones:{}, team_fields:[], equipment:[]};
+  }
+}
+
+function saveDisplaySettingsState() {
+  localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(DISPLAY_SETTINGS));
+}
+
+function initRoleState() {
+  USER_ROLE = localStorage.getItem(ROLE_STORAGE_KEY) || 'visitor';
+  updateRoleUI();
+}
+
+function switchUserRole(role) {
+  if (role === USER_ROLE) return;
+  if (role === 'admin') {
+    const input = prompt('Enter admin password');
+    if (input !== ADMIN_PASSWORD) {
+      toast('Incorrect admin password', 'err');
+      return;
+    }
+  }
+  USER_ROLE = role;
+  localStorage.setItem(ROLE_STORAGE_KEY, role);
+  updateRoleUI();
+  toast('Switched to ' + role + ' mode', 'ok');
+}
+
+function updateRoleUI() {
+  document.getElementById('role-visitor-btn')?.classList.toggle('on', USER_ROLE === 'visitor');
+  document.getElementById('role-admin-btn')?.classList.toggle('on', USER_ROLE === 'admin');
+  document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden', USER_ROLE !== 'admin'));
+}
+
+function requireAdmin() {
+  if (USER_ROLE !== 'admin') {
+    toast('Admin mode is required for editing', 'err');
+    return false;
+  }
+  return true;
+}
+
+// ══════════════════════════════════════════════════════════════
+// NORMALISATION / HELPERS
+// ══════════════════════════════════════════════════════════════
+function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function p(v) { return Math.round(v || 0); }
+function sp2(comp, sow) { return sow > 0 ? Math.round(comp / sow * 100) : 0; }
+function bc(pp) { return pp >= 75 ? '#059669' : pp >= 50 ? '#d97706' : pp >= 25 ? '#ea580c' : '#dc2626'; }
+function pc(pp) { return pp >= 75 ? 'pg' : pp >= 50 ? 'py' : pp >= 25 ? 'po' : pp > 0 ? 'pr' : 'pm'; }
+function toDate(value) {
+  if (!value) return null;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+function startOfDay(date) {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+function daysBetween(a, b) {
+  return Math.round((startOfDay(b) - startOfDay(a)) / 86400000);
+}
+function isReached(value, refDate = new Date()) {
+  const d = toDate(value);
+  return !!d && startOfDay(d) <= startOfDay(refDate);
+}
+function isoToWeekLabel(ds) {
+  const d = toDate(ds);
+  if (!d) return 'W??';
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+  const w = new Date(d.getFullYear(), 0, 4);
+  const wn = 1 + Math.round(((d - w) / 864e5 - 3 + (w.getDay() + 6) % 7) / 7);
+  return 'W' + String(wn).padStart(2, '0');
+}
+function formatShortDate(value) {
+  const d = toDate(value);
+  return d ? d.toLocaleDateString() : '—';
+}
+function normaliseKeyMap(row) {
+  const out = {};
+  Object.entries(row || {}).forEach(([k, v]) => { out[String(k).trim().toLowerCase()] = v; });
+  return out;
+}
+function normalizeProvinceKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/đ/g, 'd')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+function getProvinceAliasMap() {
+  if (window._provinceAliasMap) return window._provinceAliasMap;
+  const map = {};
+  VN_PROVS.forEach(prov => {
+    map[normalizeProvinceKey(prov.n)] = prov.n;
+  });
+  const manual = {
+    hochiminhcity: 'Hồ Chí Minh',
+    saigon: 'Hồ Chí Minh',
+    hcm: 'Hồ Chí Minh',
+    hcmc: 'Hồ Chí Minh',
+    danang: 'Đà Nẵng',
+    hanoi: 'Hà Nội',
+    haiphong: 'Hải Phòng',
+    cantho: 'Cần Thơ',
+    thuatienhue: 'T.T. Huế',
+    thuathienhue: 'T.T. Huế',
+    tthue: 'T.T. Huế',
+    bariavungtau: 'Bà Rịa - Vũng Tàu',
+  };
+  Object.entries(manual).forEach(([k, v]) => { map[k] = v; });
+  window._provinceAliasMap = map;
+  return map;
+}
+function canonicalProvinceName(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  const aliasMap = getProvinceAliasMap();
+  return aliasMap[normalizeProvinceKey(raw)] || raw;
+}
+function getVisibleBuildTypes() {
+  const configured = Array.isArray(CONFIG.build_types) && CONFIG.build_types.length ? CONFIG.build_types : DEFAULT_BUILD_TYPES;
+  const settingRows = DISPLAY_SETTINGS.build_types.length ? DISPLAY_SETTINGS.build_types : configured.map((bt, index) => ({
+    key: bt.key,
+    label: bt.label,
+    visible: true,
+    order: index + 1,
+  }));
+  const byKey = Object.fromEntries(settingRows.map(row => [row.key, row]));
+  return configured
+    .map((bt, index) => {
+      const row = byKey[bt.key] || {};
+      return {
+        key: bt.key,
+        label: row.label || bt.label,
+        visible: row.visible !== false,
+        order: Number(row.order || index + 1),
+      };
+    })
+    .filter(bt => bt.visible !== false)
+    .sort((a, b) => a.order - b.order);
+}
+function getMilestoneDefs(mode = 'all') {
+  const defs = (CONFIG.milestones || []).map((ms, index) => {
+    const meta = DEFAULT_MILESTONE_META[ms.key] || {};
+    const override = DISPLAY_SETTINGS.milestones?.[ms.key] || {};
+    return {
+      ...ms,
+      label: override.label || ms.label || meta.label || ms.key,
+      visible: override.visible !== undefined ? override.visible : (meta.visible !== false),
+      order: Number(override.order || index + 1),
+    };
+  });
+  const visible = defs.filter(ms => ms.visible !== false);
+  if (mode === 'overview') {
+    return OVERVIEW_MILESTONE_KEYS
+      .map(key => visible.find(ms => ms.key === key))
+      .filter(Boolean);
+  }
+  return visible.sort((a, b) => a.order - b.order);
+}
+function getTeamFields() {
+  const configured = Array.isArray(CONFIG.team_fields) && CONFIG.team_fields.length ? CONFIG.team_fields : DEFAULT_TEAM_FIELDS;
+  const overrides = DISPLAY_SETTINGS.team_fields.length ? DISPLAY_SETTINGS.team_fields : configured;
+  return overrides.filter(row => row.visible !== false);
+}
+function getEquipmentList() {
+  return DISPLAY_SETTINGS.equipment.length ? DISPLAY_SETTINGS.equipment : (CONFIG.equipment || []);
+}
+function getReferenceDate() { return startOfDay(new Date()); }
+function applicableSitesForMilestone(sites, milestoneKey) {
+  const def = (CONFIG.milestones || []).find(ms => ms.key === milestoneKey) || {};
+  if (!def.scope || !def.scope.length) return sites;
+  return sites.filter(site => def.scope.includes(site.build_type));
+}
+function countCompletedForMilestone(sites, milestoneKey, refDate = getReferenceDate()) {
+  return applicableSitesForMilestone(sites, milestoneKey).filter(site => isReached(site[milestoneKey], refDate)).length;
+}
+
+function normaliseConfig(cfg) {
+  const config = clone(cfg || {});
+  const currentBuildTypes = Array.isArray(config.build_types) && config.build_types.length ? config.build_types : DEFAULT_BUILD_TYPES;
+  const buildMap = Object.fromEntries(currentBuildTypes.map(bt => [bt.key, bt]));
+  config.build_types = [...DEFAULT_BUILD_TYPES, ...currentBuildTypes.filter(bt => !DEFAULT_BUILD_TYPES.find(def => def.key === bt.key))]
+    .map(bt => buildMap[bt.key] || bt);
+  config.team_fields = Array.isArray(config.team_fields) && config.team_fields.length ? config.team_fields : DEFAULT_TEAM_FIELDS;
+  config.milestones = (config.milestones || []).map(ms => {
+    const meta = DEFAULT_MILESTONE_META[ms.key] || {};
+    return {...ms, label: ms.label || meta.label || ms.key};
+  });
+  return config;
+}
+
+function buildProjFromConfig(cfg) {
+  const ovr = loadProjOverride();
+  return {
+    name: ovr.name || cfg.project_name || cfg.project || '—',
+    client: ovr.client || cfg.client || '—',
+    start: ovr.start || cfg.start_date || '',
+    end: ovr.end || cfg.end_date || '',
+    pm: ovr.pm || cfg.pm || '',
+    value: ovr.value || cfg.contract_value || '',
+    vendor: ovr.vendor || cfg.vendor || '',
+    target: ovr.target || cfg.target_onair || '',
+    weekly: ovr.weekly || (cfg.weekly_target ? cfg.weekly_target + ' sites/wk' : ''),
+    region: ovr.region || cfg.region || '',
+    equipment: getEquipmentList(),
+  };
+}
 
 // ══════════════════════════════════════════════════════════════
 // DATA LOADING
@@ -467,33 +821,26 @@ async function loadProject(pid) {
   try {
     const ts = '?t=' + Date.now();
     const [dRes, cRes] = await Promise.all([
-      fetch('projects/' + pid + '/data.json'   + ts),
+      fetch('projects/' + pid + '/data.json' + ts),
       fetch('projects/' + pid + '/config.json' + ts),
     ]);
     if (!dRes.ok) throw new Error('data.json HTTP ' + dRes.status);
     if (!cRes.ok) throw new Error('config.json HTTP ' + cRes.status);
 
-    DATA   = await dRes.json();
-    CONFIG = await cRes.json();
+    DATA = await dRes.json();
+    CONFIG = normaliseConfig(await cRes.json());
+    PROJ = buildProjFromConfig(CONFIG);
+    COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
 
-    // Ensure build_types exists
-    if (!CONFIG.build_types || !CONFIG.build_types.length) {
-      CONFIG.build_types = [{key:'swap',label:'SWAP'},{key:'new',label:'New'},{key:'expansion',label:'Expansion'}];
-    }
-    if (!CONFIG.milestones) CONFIG.milestones = [];
-
-    PROJ     = buildProjFromConfig(CONFIG);
-    COMPUTED = computeAnalytics(DATA.sites || [], CONFIG);
-
-    saveProjOverride(); // persist any manual edits
     renderProjBanner();
     render();
 
     const ts2 = DATA.generated ? new Date(DATA.generated).toLocaleString() : new Date().toLocaleString();
     document.getElementById('last-upd').textContent = 'Last updated: ' + ts2;
-    toast('Loaded: ' + (CONFIG.project_name || pid), 'ok');
     updateProjSwitcherActive(pid);
-  } catch(e) {
+    updateRoleUI();
+    toast('Loaded: ' + (CONFIG.project_name || pid), 'ok');
+  } catch (e) {
     showError(e.message);
   } finally {
     showLoading(false);
@@ -505,128 +852,200 @@ async function refreshData() {
   await loadProject(currentProjectId);
 }
 
-function buildProjFromConfig(cfg) {
-  // Merge with any localStorage override
-  const ovr = loadProjOverride();
+// ══════════════════════════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════════════════════════
+function computeAnalytics(sites, cfg, rawData) {
+  const refDate = getReferenceDate();
   return {
-    name:   ovr.name   || cfg.project_name || cfg.project || '—',
-    client: ovr.client || cfg.client  || '—',
-    start:  ovr.start  || cfg.start_date || '',
-    end:    ovr.end    || cfg.end_date   || '',
-    pm:     ovr.pm     || cfg.pm || '',
-    value:  ovr.value  || cfg.contract_value || '',
-    vendor: ovr.vendor || cfg.vendor || '',
-    target: ovr.target || cfg.target_onair || '',
-    weekly: ovr.weekly || (cfg.weekly_target ? cfg.weekly_target + ' sites/wk' : ''),
-    region: ovr.region || cfg.region || '',
-    equipment:      cfg.equipment || [],
-    teams:          [],
-    totalPersonnel: '',
+    milestones: computeMilestones(sites, cfg, refDate),
+    overviewGap: computePlanGap(sites, cfg, rawData?.rolling_plan?.weekly || [], refDate, 'overview'),
+    fullGap: computePlanGap(sites, cfg, rawData?.rolling_plan?.weekly || [], refDate, 'all'),
+    provinceStats: computeProvinceStats(sites, cfg, refDate),
+    provinceProgress: computeProvinceProgress(sites, cfg, refDate),
+    weeklySites: computeWeeklySites(sites, cfg, refDate),
+    dailyProgress: computeDailyProgress(sites, refDate),
   };
 }
 
-// localStorage: only store user-edited project info overrides
-function loadProjOverride() {
-  try { return JSON.parse(localStorage.getItem('wnd_proj_ovr') || '{}'); } catch{ return {}; }
-}
-function saveProjOverride() {
-  // Only save if user has manually edited something
-  const ovr = loadProjOverride();
-  if (Object.keys(ovr).length) {
-    const merged = Object.assign({}, ovr);
-    Object.keys(merged).forEach(k => { if (!merged[k]) delete merged[k]; });
-    localStorage.setItem('wnd_proj_ovr', JSON.stringify(merged));
-  }
-}
-
-// ══════════════════════════════════════════════════════════════
-// ANALYTICS COMPUTATION  (site-level → aggregated)
-// ══════════════════════════════════════════════════════════════
-function computeAnalytics(sites, cfg) {
-  return {
-    milestones:    computeMilestones(sites, cfg),
-    gap:           computeGap(sites, cfg),
-    provinceStats: computeProvinceStats(sites),
-    weeklySites:   computeWeeklySites(sites, cfg),
-  };
-}
-
-function computeMilestones(sites, cfg) {
-  const bts = cfg.build_types.map(b => b.key);
-  return (cfg.milestones || []).map(ms => {
-    const row = {name: ms.label || ms.key};
-    bts.forEach(bt => {
-      const inScope = !ms.scope || ms.scope.includes(bt);
-      if (!inScope) {
-        row[bt + '_sow'] = 0; row[bt + '_comp'] = 0;
-      } else {
-        const btSites = sites.filter(s => s.build_type === bt);
-        row[bt + '_sow']  = btSites.length;
-        row[bt + '_comp'] = btSites.filter(s => s[ms.key]).length;
-      }
+function computeMilestones(sites, cfg, refDate) {
+  const buildTypes = getVisibleBuildTypes();
+  return getMilestoneDefs('all').map(ms => {
+    const row = {key: ms.key, name: ms.label};
+    buildTypes.forEach(bt => {
+      const scoped = applicableSitesForMilestone(sites.filter(site => site.build_type === bt.key), ms.key);
+      row[bt.key + '_sow'] = scoped.length;
+      row[bt.key + '_comp'] = scoped.filter(site => isReached(site[ms.key], refDate)).length;
     });
     return row;
   });
 }
 
-function computeGap(sites, cfg) {
-  const gap = {};
-  cfg.build_types.forEach(bt => {
-    const grp = {};
-    sites.filter(s => s.build_type === bt.key).forEach(s => {
-      const k = (s.gap_reason && String(s.gap_reason).trim()) ? String(s.gap_reason).trim() : (s.status || 'Unknown');
-      grp[k] = (grp[k] || 0) + 1;
-    });
-    gap[bt.key] = Object.entries(grp)
-      .map(([status, count]) => ({status, sites: count}))
-      .sort((a, b) => b.sites - a.sites);
-  });
-  return gap;
+function normalisePlanRows(rows) {
+  return (rows || []).map(row => {
+    const norm = normaliseKeyMap(row);
+    const date = toDate(norm.week_end_date || norm.week_end || norm.date || norm.plan_date || norm.week_date);
+    return {raw: row, norm, date};
+  }).filter(row => row.date).sort((a, b) => a.date - b.date);
 }
 
-function computeProvinceStats(sites) {
+function getPlanValue(row, milestoneKey) {
+  const aliases = PLAN_ALIASES[milestoneKey] || [milestoneKey.toLowerCase(), milestoneKey.toLowerCase() + '_plan'];
+  for (const alias of aliases) {
+    const value = row.norm[alias];
+    if (value !== undefined && value !== null && value !== '') return Number(value) || 0;
+  }
+  return 0;
+}
+
+function interpolatePlanCount(rows, milestoneKey, refDate, applicable) {
+  if (!rows.length) return 0;
+  const target = startOfDay(refDate);
+  const first = rows[0];
+  if (target <= first.date) {
+    const weekStart = new Date(first.date);
+    weekStart.setDate(weekStart.getDate() - 6);
+    const fraction = clamp((daysBetween(weekStart, target) + 1) / 7, 0, 1);
+    return clamp(Math.round(getPlanValue(first, milestoneKey) * fraction), 0, applicable);
+  }
+  for (let i = 1; i < rows.length; i++) {
+    if (target <= rows[i].date) {
+      const prev = rows[i - 1];
+      const curr = rows[i];
+      const currWeekStart = new Date(curr.date);
+      currWeekStart.setDate(currWeekStart.getDate() - 6);
+      const fraction = clamp((daysBetween(currWeekStart, target) + 1) / 7, 0, 1);
+      const prevValue = getPlanValue(prev, milestoneKey);
+      const currValue = getPlanValue(curr, milestoneKey);
+      return clamp(Math.round(prevValue + (currValue - prevValue) * fraction), 0, applicable);
+    }
+  }
+  return clamp(getPlanValue(rows[rows.length - 1], milestoneKey), 0, applicable);
+}
+
+function computePlanGap(sites, cfg, rollingPlanRows, refDate, mode) {
+  const defs = getMilestoneDefs(mode);
+  const planRows = normalisePlanRows(rollingPlanRows);
+  return defs.map(ms => {
+    const scopedSites = applicableSitesForMilestone(sites, ms.key);
+    const applicable = scopedSites.length;
+    const actual = scopedSites.filter(site => isReached(site[ms.key], refDate)).length;
+    const plan = interpolatePlanCount(planRows, ms.key, refDate, applicable);
+    const gap = Math.max(plan - actual, 0);
+    const notYetDue = Math.max(applicable - Math.max(plan, actual), 0);
+    return {
+      key: ms.key,
+      label: ms.label,
+      total: applicable,
+      actual,
+      plan,
+      gap,
+      notYetDue,
+      pctActual: sp2(actual, applicable),
+      pctPlan: sp2(plan, applicable),
+      delta: actual - plan,
+      status: actual >= plan ? 'On or ahead of plan' : 'Behind plan',
+    };
+  }).filter(item => item.total > 0);
+}
+
+function computeProvinceStats(sites, cfg, refDate) {
+  const defs = getMilestoneDefs('overview');
   const byProv = {};
-  sites.forEach(s => {
-    if (!s.province) return;
-    (byProv[s.province] = byProv[s.province] || []).push(s);
+  sites.forEach(site => {
+    const province = canonicalProvinceName(site.province);
+    if (!province) return;
+    (byProv[province] = byProv[province] || []).push(site);
   });
   const result = {};
-  Object.entries(byProv).forEach(([prov, ps]) => {
-    const total = ps.length;
-    const sc = {'RFI Complete':0,'Installation Complete':0,'On Air Complete':0,'PAT Complete':0};
-    let wt = 0;
-    ps.forEach(s => { if (sc[s.status] !== undefined) { sc[s.status]++; wt += STATUS_WEIGHT[s.status]||0; } });
-    const pct = total ? wt / (4 * total) * 100 : 0;
-    result[prov] = {total, statusCounts: sc, mapStatus: pct >= 75 ? 'completed' : total ? 'inprogress' : 'planned', pct};
+  Object.entries(byProv).forEach(([province, provinceSites]) => {
+    const total = provinceSites.length;
+    const statusCounts = {'RFI Complete':0,'Installation Complete':0,'On Air Complete':0,'PAT Complete':0};
+    let completedWeight = 0;
+    provinceSites.forEach(site => {
+      if (statusCounts[site.status] !== undefined) statusCounts[site.status]++;
+      completedWeight += defs.filter(ms => isReached(site[ms.key], refDate)).length;
+    });
+    const pct = total ? completedWeight / (defs.length * total) * 100 : 0;
+    result[province] = {
+      total,
+      statusCounts,
+      pct,
+      mapStatus: pct >= 75 ? 'completed' : total ? 'inprogress' : 'planned',
+    };
   });
   return result;
 }
 
-function computeWeeklySites(sites, cfg) {
-  const bts = cfg.build_types.map(b => b.key);
+function computeProvinceProgress(sites, cfg, refDate) {
+  const defs = getMilestoneDefs('all');
+  const byProv = {};
+  sites.forEach(site => {
+    const province = canonicalProvinceName(site.province);
+    if (!province) return;
+    (byProv[province] = byProv[province] || []).push(site);
+  });
+  return Object.entries(byProv).map(([province, provinceSites]) => {
+    const milestones = defs.map(ms => {
+      const scoped = applicableSitesForMilestone(provinceSites, ms.key);
+      const total = scoped.length;
+      const done = scoped.filter(site => isReached(site[ms.key], refDate)).length;
+      return {key: ms.key, label: ms.label, total, done, pct: sp2(done, total)};
+    }).filter(ms => ms.total > 0);
+    const siteRows = provinceSites.map(site => {
+      const completed = defs.filter(ms => isReached(site[ms.key], refDate)).length;
+      const latest = [...defs].reverse().find(ms => isReached(site[ms.key], refDate));
+      return {
+        site_id: site.site_id,
+        site_name: site.site_name,
+        build_type: site.build_type,
+        status: site.status || 'Unknown',
+        progress: sp2(completed, defs.length),
+        latest: latest ? latest.label : 'Not started',
+      };
+    }).sort((a, b) => b.progress - a.progress || a.site_id.localeCompare(b.site_id));
+    const avgProgress = siteRows.length ? siteRows.reduce((sum, row) => sum + row.progress, 0) / siteRows.length : 0;
+    return {province, total: provinceSites.length, avgProgress, milestones, siteRows};
+  }).sort((a, b) => b.avgProgress - a.avgProgress || a.province.localeCompare(b.province));
+}
+
+function computeWeeklySites(sites, cfg, refDate) {
+  const buildTypes = getVisibleBuildTypes();
   const target = cfg.weekly_target || 35;
   const byWeek = {};
-  sites.forEach(s => {
-    if (!s.ms_BTS_On_Air) return;
-    const wk = isoToWeekLabel(s.ms_BTS_On_Air);
-    if (!byWeek[wk]) { const e = {week: wk, target}; bts.forEach(b => e[b] = 0); byWeek[wk] = e; }
-    if (s.build_type && byWeek[wk][s.build_type] !== undefined) byWeek[wk][s.build_type]++;
+  sites.forEach(site => {
+    if (!isReached(site.ms_BTS_On_Air, refDate)) return;
+    const week = isoToWeekLabel(site.ms_BTS_On_Air);
+    if (!byWeek[week]) {
+      const row = {week, target};
+      buildTypes.forEach(bt => { row[bt.key] = 0; });
+      byWeek[week] = row;
+    }
+    if (site.build_type && byWeek[week][site.build_type] !== undefined) byWeek[week][site.build_type]++;
   });
   return Object.values(byWeek).sort((a, b) => a.week.localeCompare(b.week));
 }
 
-function isoToWeekLabel(ds) {
-  const d = new Date(ds); if (isNaN(d)) return 'W??';
-  d.setHours(0,0,0,0); d.setDate(d.getDate() + 3 - (d.getDay()+6)%7);
-  const w = new Date(d.getFullYear(),0,4);
-  const wn = 1 + Math.round(((d-w)/864e5 - 3 + (w.getDay()+6)%7)/7);
-  return 'W' + String(wn).padStart(2,'0');
+function computeDailyProgress(sites, refDate) {
+  const days = [];
+  for (let i = 13; i >= 0; i--) {
+    const day = new Date(refDate);
+    day.setDate(day.getDate() - i);
+    const dayKey = day.toISOString().slice(0, 10);
+    days.push({
+      day: dayKey,
+      count: sites.filter(site => site.ms_BTS_On_Air === dayKey).length,
+    });
+  }
+  return days;
 }
 
 function getSiteTotals() {
-  const r = {total: DATA.sites.length};
-  CONFIG.build_types.forEach(bt => { r[bt.key] = DATA.sites.filter(s => s.build_type === bt.key).length; });
-  return r;
+  const totals = {total: DATA.sites.length};
+  getVisibleBuildTypes().forEach(bt => {
+    totals[bt.key] = DATA.sites.filter(site => site.build_type === bt.key).length;
+  });
+  return totals;
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -641,235 +1060,334 @@ function render() {
   updateVNMap();
 }
 
-// ── OVERVIEW ──────────────────────────────────────────────────
-function renderOverview() {
-  const bts = CONFIG.build_types;
-  const t   = getSiteTotals();
-  const ms  = COMPUTED.milestones;
-  const resLast = DATA.resources.weekly[DATA.resources.weekly.length - 1] || {total: 0};
-
-  // Stat cards
-  const statRows = bts.slice(0, 4).map((bt, i) => {
-    const cls = ['b','o','t','p'][i] || 'b';
-    const pct = avgPct(ms, bt.key);
-    return `<div class="sc ${cls}"><div class="sv ${cls}">${p(pct)}%</div><div class="sl">${bt.label} Progress</div><div class="ss">${t[bt.key]} sites</div></div>`;
-  }).join('');
-  document.getElementById('ov-stats').innerHTML =
-    `<div class="sc g"><div class="sv g">${t.total}</div><div class="sl">Total Sites (SOW)</div>
-       <div class="ss">${bts.map(b => b.label+':'+t[b.key]).join(' · ')}</div></div>` +
-    statRows +
-    `<div class="sc r"><div class="sv r">${DATA.issues.open}</div><div class="sl">Open Issues</div>
-       <div class="ss">Raised:${DATA.issues.raised} Closed:${DATA.issues.closed}</div></div>
-     <div class="sc p"><div class="sv p">${resLast.total||'—'}</div><div class="sl">Teams on Field</div><div class="ss">This week</div></div>`;
-
-  // Gauges (first 3 build types)
-  document.getElementById('ov-gauges').innerHTML = bts.slice(0, 3).map(bt =>
-    `<div class="card">${gaugeHTML(bt.label, avgPct(ms, bt.key), t[bt.key])}</div>`
-  ).join('');
-
-  // Milestone bars (first build type)
-  const bt0 = bts[0] || {key:'swap', label:'SWAP'};
-  document.getElementById('ov-ms-title').textContent = 'Milestone Progress — ' + bt0.label;
-  document.getElementById('ov-ms').innerHTML = ms.map(m => {
-    const sp = sp2(m[bt0.key+'_comp'], m[bt0.key+'_sow']);
-    return `<div class="pbr">
-      <div class="pbl" title="${m.name}">${m.name}</div>
-      <div class="pbt"><div class="pbf" style="width:${sp}%;background:${bc(sp)}"></div></div>
-      <div class="pbv">${p(sp)}%</div></div>`;
-  }).join('');
-
-  // Issues
-  const {raised, closed, open} = DATA.issues;
-  document.getElementById('ov-issues').innerHTML = `
-    <div style="display:flex;gap:8px;text-align:center;margin-bottom:12px">
-      <div style="flex:1;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#ea580c">${raised}</div>
-        <div style="font-size:11px;color:#9a3412;font-weight:600;margin-top:3px">Raised</div>
-      </div>
-      <div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#059669">${closed}</div>
-        <div style="font-size:11px;color:#065f46;font-weight:600;margin-top:3px">Closed</div>
-      </div>
-      <div style="flex:1;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#dc2626">${open}</div>
-        <div style="font-size:11px;color:#991b1b;font-weight:600;margin-top:3px">Open</div>
-      </div>
-    </div>
-    <div style="font-size:11px;color:var(--muted);text-align:center">
-      Closure Rate: <b style="color:#059669">${p(closed/Math.max(raised,1)*100)}%</b>
-    </div>`;
-
-  // Teams
-  const res = DATA.resources.weekly.slice(-6);
-  document.getElementById('ov-teams').innerHTML = res.map(r =>
-    `<div class="pbr"><div class="pbl">${r.week}</div>
-     <div class="pbt"><div class="pbf" style="width:${r.total/60*100}%;background:var(--purple)"></div></div>
-     <div class="pbv">${r.total}</div></div>`
-  ).join('');
-}
-
-function gaugeHTML(title, pctVal, sow) {
-  const v = Math.min(pctVal/100,1), a = v*180 - 90;
-  const col = pctVal>=75?'#059669':pctVal>=50?'#d97706':pctVal>=25?'#ea580c':'#dc2626';
-  const rad = a*Math.PI/180, nx = 80+65*Math.cos(rad), ny = 85-65*Math.sin(rad);
+function gaugeHTML(title, pctVal, sow, completed = null) {
+  const pct = clamp(Number(pctVal) || 0, 0, 100);
+  const angle = 180 - pct * 1.8;
+  const col = pct >= 75 ? '#059669' : pct >= 50 ? '#d97706' : pct >= 25 ? '#ea580c' : '#dc2626';
+  const rad = angle * Math.PI / 180;
+  const nx = 80 + 62 * Math.cos(rad);
+  const ny = 85 - 62 * Math.sin(rad);
   return `<div class="gauge-wrap">
     <div class="gauge-title">${title}</div>
     <svg viewBox="0 0 160 95" style="width:150px;height:85px">
       <path d="M15,85 A65,65 0 0,1 145,85" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
-      <path d="M15,85 A65,65 0 0,1 145,85" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${pctVal/100*204},204" opacity=".9"/>
-      <line x1="80" y1="85" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#334155" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
-      <circle cx="80" cy="85" r="5" fill="#334155" opacity=".8"/>
+      <path d="M15,85 A65,65 0 0,1 145,85" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${pct / 100 * 204},204"/>
+      <line x1="80" y1="85" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="80" cy="85" r="5" fill="#334155"/>
       <text x="15" y="96" fill="#94a3b8" font-size="9" font-family="monospace">0%</text>
       <text x="128" y="96" fill="#94a3b8" font-size="9" font-family="monospace">100%</text>
     </svg>
-    <div class="gauge-pct" style="color:${col}">${p(pctVal)}%</div>
-    <div class="gauge-meta">SOW: ${sow} sites</div>
+    <div class="gauge-pct" style="color:${col}">${p(pct)}%</div>
+    <div class="gauge-meta">${completed === null ? `SOW: ${sow} sites` : `Done: ${completed}/${sow}`}</div>
   </div>`;
 }
 
-// ── MILESTONES ─────────────────────────────────────────────────
-function renderMilestones() {
-  const bts = CONFIG.build_types;
-  const ms  = COMPUTED.milestones;
-  const t   = getSiteTotals();
-
-  // Gauges
-  document.getElementById('ms-gauges').innerHTML = bts.slice(0, 3).map(bt =>
-    `<div class="card">${gaugeHTML(bt.label, avgPct(ms, bt.key), t[bt.key])}</div>`
-  ).join('');
-
-  // Table header
-  document.getElementById('ms-thead').innerHTML = `<tr>
-    <th style="width:150px">Milestone</th>
-    ${bts.map(bt => `<th>${bt.label} Progress</th><th style="width:70px">Done/SOW</th><th style="width:50px">%</th>`).join('')}
-  </tr>`;
-
-  // Table body
-  document.getElementById('ms-tbody').innerHTML = ms.map(m => {
-    const cols = bts.map(bt => {
-      const sow = m[bt.key+'_sow'], comp = m[bt.key+'_comp'], pct = sp2(comp, sow);
-      if (!sow) return '<td></td><td class="num">N/A</td><td><span class="pb pm">N/A</span></td>';
-      return `<td><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${bc(pct)}"></div></div></td>
-              <td class="num">${comp}/${sow}</td>
-              <td><span class="pb ${pc(pct)}">${p(pct)}%</span></td>`;
-    }).join('');
-    return `<tr><td class="ms-name">${m.name}</td>${cols}</tr>`;
-  }).join('');
-}
-
-// ── GAP ────────────────────────────────────────────────────────
-const PC = PIE_COLORS;
-function renderGap() {
-  const bts = CONFIG.build_types;
-  const t   = getSiteTotals();
-  bts.slice(0, 3).forEach((bt, i) => {
-    document.getElementById('gap-title-' + i).innerHTML =
-      `<span class="ct-icon">📊</span>${bt.label} (${t[bt.key]})`;
-    renderGapSec('gap-pie-' + i, 'gap-tbl-' + i, COMPUTED.gap[bt.key] || []);
-  });
-}
-
-function renderGapSec(pieId, tblId, data) {
-  if (!data.length) {
-    document.getElementById(pieId).innerHTML = '<div style="font-size:12px;color:var(--muted);padding:10px">No data</div>';
-    document.getElementById(tblId).innerHTML = '';
-    return;
-  }
-  const total = data.reduce((s, r) => s + r.sites, 0);
-  const cid   = pieId + '-c';
-  document.getElementById(pieId).innerHTML = `
-    <canvas id="${cid}" width="100" height="100" style="flex-shrink:0"></canvas>
-    <div class="pie-legend">${data.map((r, i) => `
-      <div class="pie-item">
-        <div class="pie-dot" style="background:${PC[i%PC.length]}"></div>
-        <div class="pie-name" title="${r.status}">${r.status}</div>
-        <div class="pie-pct">${p(r.sites/total*100)}%</div>
-      </div>`).join('')}
+function renderOverview() {
+  const buildTypes = getVisibleBuildTypes();
+  const totals = getSiteTotals();
+  const resWeekly = DATA.resources?.weekly || [];
+  const lastRes = resWeekly[resWeekly.length - 1] || {};
+  const statusCards = buildTypes.slice(0, 3).map((bt, index) => {
+    const row = COMPUTED.milestones.find(ms => ms[bt.key + '_sow'] > 0 && ms.key === 'ms_BTS_On_Air') || COMPUTED.milestones.find(ms => ms[bt.key + '_sow'] > 0);
+    const total = totals[bt.key] || 0;
+    const completed = row ? row[bt.key + '_comp'] : 0;
+    const pct = total ? completed / total * 100 : 0;
+    const cls = ['b', 't', 'o'][index] || 'b';
+    return `<div class="sc ${cls}">
+      <div class="sv ${cls}">${p(pct)}%</div>
+      <div class="sl">${bt.label}</div>
+      <div class="ss">${completed}/${total} completed</div>
     </div>`;
-  if (charts[cid]) charts[cid].destroy();
-  charts[cid] = new Chart(document.getElementById(cid), {
-    type: 'doughnut',
-    data: {labels: data.map(r=>r.status), datasets:[{data: data.map(r=>r.sites), backgroundColor: data.map((_,i)=>PC[i%PC.length]), borderWidth:0, hoverOffset:4}]},
-    options: {responsive:false, plugins:{legend:{display:false}}, cutout:'68%'},
-  });
-  document.getElementById(tblId).innerHTML =
-    data.map(r=>`<tr><td class="st-name">${r.status}</td><td class="st-cnt">${r.sites}</td></tr>`).join('') +
-    `<tr class="st-total"><td>Total</td><td class="st-cnt">${total}</td></tr>`;
+  }).join('');
+  document.getElementById('ov-stats').innerHTML =
+    `<div class="sc g"><div class="sv g">${totals.total}</div><div class="sl">Total Sites</div><div class="ss">${buildTypes.map(bt => `${bt.label}: ${totals[bt.key] || 0}`).join(' · ')}</div></div>` +
+    statusCards +
+    `<div class="sc r"><div class="sv r">${DATA.issues.open || 0}</div><div class="sl">Open Issues</div><div class="ss">Raised: ${DATA.issues.raised || 0} · Closed: ${DATA.issues.closed || 0}</div></div>
+     <div class="sc p"><div class="sv p">${lastRes.install || 0}</div><div class="sl">Installation Teams</div><div class="ss">Current weekly deployment</div></div>`;
+
+  document.getElementById('ov-gauges').innerHTML = buildTypes.slice(0, 3).map(bt => {
+    const total = totals[bt.key] || 0;
+    const row = COMPUTED.milestones.find(ms => ms.key === 'ms_BTS_On_Air') || COMPUTED.milestones[0];
+    const completed = row ? row[bt.key + '_comp'] : 0;
+    return `<div class="card">${gaugeHTML(bt.label, sp2(completed, total), total, completed)}</div>`;
+  }).join('');
+
+  document.getElementById('ov-ms-title').textContent = 'Milestone Progress — Gap Analysis';
+  document.getElementById('ov-ms').innerHTML = `
+    <div style="display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:12px;height:6px;background:#1d4ed8;border-radius:2px"></div>Plan</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:12px;height:6px;background:#059669;border-radius:2px"></div>Actual</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:12px;height:6px;background:#dc2626;border-radius:2px"></div>Gap</div>
+    </div>
+    ${COMPUTED.overviewGap.map(item => `
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div style="font-size:12px;font-weight:700;color:var(--text)">${item.label}</div>
+          <div style="font-size:11px;font-family:var(--mono);color:${item.delta >= 0 ? '#059669' : '#dc2626'}">${item.delta >= 0 ? '+' : ''}${item.delta} vs plan</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="width:58px;font-size:10px;color:var(--muted);text-align:right">Plan</div>
+          <div class="pbt"><div class="pbf" style="width:${item.pctPlan}%;background:#1d4ed8"></div></div>
+          <div class="pbv">${item.plan}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="width:58px;font-size:10px;color:var(--muted);text-align:right">Actual</div>
+          <div class="pbt"><div class="pbf" style="width:${item.pctActual}%;background:#059669"></div></div>
+          <div class="pbv">${item.actual}</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted)">
+          <span>Total: ${item.total}</span>
+          <span>Gap: <b style="color:${item.gap ? '#dc2626' : '#059669'}">${item.gap}</b></span>
+        </div>
+      </div>
+    `).join('') || '<div class="risk-top-empty">No rolling plan data available.</div>'}`;
+
+  document.getElementById('ov-issues').innerHTML = `
+    <div style="display:flex;gap:8px;text-align:center;margin-bottom:12px">
+      <div style="flex:1;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#ea580c">${DATA.issues.raised || 0}</div><div style="font-size:11px;color:#9a3412;font-weight:600;margin-top:3px">Raised</div></div>
+      <div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#059669">${DATA.issues.closed || 0}</div><div style="font-size:11px;color:#065f46;font-weight:600;margin-top:3px">Closed</div></div>
+      <div style="flex:1;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#dc2626">${DATA.issues.open || 0}</div><div style="font-size:11px;color:#991b1b;font-weight:600;margin-top:3px">Open</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:center">Closure Rate: <b style="color:#059669">${p((DATA.issues.closed || 0) / Math.max(DATA.issues.raised || 0, 1) * 100)}%</b></div>`;
+
+  const installMax = Math.max(...resWeekly.map(row => Number(row.install || 0)), 1);
+  document.getElementById('ov-teams').innerHTML = `
+    <div style="font-size:11px;color:var(--sub);margin-bottom:8px;display:flex;align-items:center;gap:6px">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--purple)"></div>
+      <span>Installation Teams</span>
+    </div>
+    ${resWeekly.slice(-6).map(row => `
+      <div class="pbr">
+        <div class="pbl">${row.week || '—'}</div>
+        <div class="pbt"><div class="pbf" style="width:${p((Number(row.install || 0) / installMax) * 100)}%;background:var(--purple)"></div></div>
+        <div class="pbv">${row.install || 0}</div>
+      </div>
+    `).join('')}`;
 }
 
-// ── ISSUES ─────────────────────────────────────────────────────
+function renderMilestones() {
+  const provinceRows = COMPUTED.provinceProgress;
+  const provinceCount = provinceRows.length;
+  const avgProgress = provinceRows.length ? provinceRows.reduce((sum, row) => sum + row.avgProgress, 0) / provinceRows.length : 0;
+  const activeCount = provinceRows.filter(row => row.avgProgress > 0).length;
+  const topProvince = provinceRows[0];
+  document.getElementById('ms-gauges').innerHTML = `
+    <div class="card">${gaugeHTML('Active Provinces', sp2(activeCount, Math.max(provinceCount, 1)), provinceCount, activeCount)}</div>
+    <div class="card">${gaugeHTML('Average Province Progress', avgProgress, 100)}</div>
+    <div class="card">${gaugeHTML(topProvince ? topProvince.province : 'Top Province', topProvince ? topProvince.avgProgress : 0, topProvince ? topProvince.total : 0)}</div>
+  `;
+  document.getElementById('province-progress').innerHTML = provinceRows.map((row, index) => `
+    <details class="province-card" ${index === 0 ? 'open' : ''}>
+      <summary>
+        <div>
+          <div class="province-name">${row.province}</div>
+          <div class="province-meta">
+            <span>${row.total} sites</span>
+            <span>Average Progress: <b>${p(row.avgProgress)}%</b></span>
+            <span>Completed Sites: <b>${row.siteRows.filter(site => site.progress >= 100).length}</b></span>
+          </div>
+        </div>
+        <div class="province-open">Click to expand</div>
+      </summary>
+      <div class="province-body">
+        <div class="province-bars">
+          ${row.milestones.map(ms => `
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;font-size:11px;color:var(--sub)">
+                <span style="font-weight:700;color:var(--text)">${ms.label}</span>
+                <span class="mini-pill ${ms.pct >= 75 ? 'ok' : 'warn'}">${ms.done}/${ms.total} · ${ms.pct}%</span>
+              </div>
+              <div class="bar-wrap"><div class="bar-fill" style="width:${ms.pct}%;background:${bc(ms.pct)}"></div></div>
+            </div>
+          `).join('')}
+        </div>
+        <table class="province-site-table">
+          <thead><tr><th>Site ID</th><th>Site Name</th><th>Build Type</th><th>Status</th><th>Latest Work Package</th><th style="text-align:right">Progress</th></tr></thead>
+          <tbody>
+            ${row.siteRows.map(site => `
+              <tr>
+                <td>${site.site_id || '—'}</td>
+                <td>${site.site_name || '—'}</td>
+                <td>${site.build_type || '—'}</td>
+                <td>${site.status || '—'}</td>
+                <td>${site.latest}</td>
+                <td style="text-align:right;font-family:var(--mono);font-weight:700">${site.progress}%</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </details>
+  `).join('') || '<div class="risk-top-empty">No province-level progress available.</div>';
+}
+
+function renderGap() {
+  const container = document.getElementById('gap-cards');
+  container.innerHTML = COMPUTED.fullGap.map((item, index) => `
+    <div class="card">
+      <div class="card-title"><span class="ct-icon">📊</span>${item.label}</div>
+      <div class="pie-wrap">
+        <canvas id="gap-pie-${index}" width="110" height="110" style="flex-shrink:0"></canvas>
+        <div class="pie-legend">
+          <div class="pie-item"><div class="pie-dot" style="background:${PIE_COLORS[0]}"></div><div class="pie-name">Actual Completed</div><div class="pie-pct">${item.actual}</div></div>
+          <div class="pie-item"><div class="pie-dot" style="background:${PIE_COLORS[1]}"></div><div class="pie-name">Gap</div><div class="pie-pct">${item.gap}</div></div>
+          <div class="pie-item"><div class="pie-dot" style="background:${PIE_COLORS[2]}"></div><div class="pie-name">Not Yet Due</div><div class="pie-pct">${item.notYetDue}</div></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <table class="st">
+        <tr><td class="st-name">Applicable Sites</td><td class="st-cnt">${item.total}</td></tr>
+        <tr><td class="st-name">Plan by Today</td><td class="st-cnt">${item.plan}</td></tr>
+        <tr><td class="st-name">Actual by Today</td><td class="st-cnt">${item.actual}</td></tr>
+        <tr><td class="st-name">Gap</td><td class="st-cnt" style="color:${item.gap ? '#dc2626' : '#059669'}">${item.gap}</td></tr>
+      </table>
+    </div>
+  `).join('') || '<div class="risk-top-empty">No work package gap data available.</div>';
+
+  COMPUTED.fullGap.forEach((item, index) => {
+    const id = 'gap-pie-' + index;
+    if (charts[id]) charts[id].destroy();
+    charts[id] = new Chart(document.getElementById(id), {
+      type: 'doughnut',
+      data: {
+        labels: ['Actual Completed', 'Gap', 'Not Yet Due'],
+        datasets: [{
+          data: [item.actual, item.gap, item.notYetDue],
+          backgroundColor: [PIE_COLORS[0], PIE_COLORS[1], PIE_COLORS[2]],
+          borderWidth: 0,
+          hoverOffset: 4,
+        }],
+      },
+      options: {responsive: false, plugins: {legend: {display: false}}, cutout: '66%'},
+    });
+  });
+}
+
 function renderIssues() {
+  const risks = DATA.risks || [];
+  document.getElementById('risk-top').innerHTML = risks.slice(0, 3).map(risk => {
+    const priority = String(risk.priority || 'Low').toLowerCase();
+    const cls = priority === 'high' || priority === 'critical' ? 'high' : priority === 'medium' ? 'medium' : 'low';
+    return `<div class="risk-top-card ${cls}">
+      <div class="risk-top-head">
+        <div class="risk-top-title">⚠ ${risk.risk_name || 'Unnamed Risk'}</div>
+        <div class="risk-top-badge ${cls}">${String(risk.priority || 'Low').toUpperCase()}</div>
+      </div>
+      <div class="risk-top-desc">${risk.description || 'No description provided.'}</div>
+      <div class="risk-top-meta">
+        <div><b>Owner</b>${risk.owner || '—'}</div>
+        <div><b>Resolve Date</b>${formatShortDate(risk.resolve_date)}</div>
+        <div><b>Current Status</b>${risk.current_status || '—'}</div>
+        <div><b>Next Steps</b>${risk.next_steps || '—'}</div>
+      </div>
+      <div class="risk-top-footer"><b style="color:var(--muted);text-transform:uppercase;font-size:10px">Project</b><br>${risk.project || currentProjectId || 'Current project'}</div>
+    </div>`;
+  }).join('') || '<div class="risk-top-empty" style="grid-column:1/-1">No structured risks exported yet. Add a RISKS sheet to the workbook to populate this section.</div>';
+
   const {raised, closed, open, weekly} = DATA.issues;
   document.getElementById('issue-stats').innerHTML = `
-    <div class="sc o"><div class="sv o">${raised}</div><div class="sl">Total Raised</div></div>
-    <div class="sc g"><div class="sv g">${closed}</div><div class="sl">Total Closed</div><div class="ss">Rate: ${p(closed/Math.max(raised,1)*100)}%</div></div>
-    <div class="sc r"><div class="sv r">${open}</div><div class="sl">Currently Open</div></div>
-    <div class="sc b"><div class="sv b">${weekly.length}</div><div class="sl">Weeks Tracked</div><div class="ss">${weekly[0]?.week||'—'} → ${weekly[weekly.length-1]?.week||'—'}</div></div>`;
+    <div class="sc o"><div class="sv o">${raised || 0}</div><div class="sl">Total Raised</div></div>
+    <div class="sc g"><div class="sv g">${closed || 0}</div><div class="sl">Total Closed</div><div class="ss">Rate: ${p((closed || 0) / Math.max(raised || 0, 1) * 100)}%</div></div>
+    <div class="sc r"><div class="sv r">${open || 0}</div><div class="sl">Currently Open</div></div>
+    <div class="sc b"><div class="sv b">${weekly.length}</div><div class="sl">Weeks Tracked</div><div class="ss">${weekly[0]?.week || '—'} → ${weekly[weekly.length - 1]?.week || '—'}</div></div>`;
   renderBurndown('burndown-chart', weekly);
 }
 
 function renderBurndown(id, weekly) {
   if (charts[id]) charts[id].destroy();
-  charts[id] = new Chart(document.getElementById(id), {data:{
-    labels: weekly.map(w => w.week),
-    datasets: [
-      {type:'bar',  label:'Raised', data:weekly.map(w=>w.raised), backgroundColor:'rgba(234,88,12,.7)',  borderRadius:3, order:2},
-      {type:'bar',  label:'Closed', data:weekly.map(w=>w.closed), backgroundColor:'rgba(5,150,105,.7)',  borderRadius:3, order:2},
-      {type:'line', label:'Open',   data:weekly.map(w=>w.open),   borderColor:'#dc2626', backgroundColor:'rgba(220,38,38,.06)', borderWidth:2.5, fill:true, tension:.3, pointRadius:3, pointBackgroundColor:'#dc2626', order:1},
-    ]}, options: chartOpts()});
+  charts[id] = new Chart(document.getElementById(id), {
+    data: {
+      labels: weekly.map(row => row.week),
+      datasets: [
+        {type:'bar', label:'Raised', data:weekly.map(row => row.raised), backgroundColor:'rgba(234,88,12,.72)', borderRadius:3, order:2},
+        {type:'bar', label:'Closed', data:weekly.map(row => row.closed), backgroundColor:'rgba(5,150,105,.72)', borderRadius:3, order:2},
+        {type:'line', label:'Open', data:weekly.map(row => row.open), borderColor:'#dc2626', backgroundColor:'rgba(220,38,38,.06)', borderWidth:2.5, fill:true, tension:.3, pointRadius:3, pointBackgroundColor:'#dc2626', order:1},
+      ],
+    },
+    options: chartOpts(),
+  });
 }
 
-// ── TRENDS ─────────────────────────────────────────────────────
 function renderTrends() {
-  renderBurndown('trend-issue-chart', DATA.issues.weekly);
-
-  // Resources
-  const rw = DATA.resources.weekly;
-  const resColors = {install:'rgba(29,78,216,.8)',mw:'rgba(8,145,178,.8)',power:'rgba(234,88,12,.8)',optim:'rgba(5,150,105,.8)',total:'rgba(124,58,237,.9)'};
-  const resLabels = {install:'Installation',mw:'Microwave',power:'Power',optim:'Optimization',total:'Total'};
-  document.getElementById('res-legend').innerHTML = Object.entries(resLabels).map(([k,l]) =>
-    `<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub)"><div style="width:12px;height:3px;background:${resColors[k]};border-radius:2px"></div>${l}</div>`
+  const teamFields = getTeamFields();
+  const resources = DATA.resources?.weekly || [];
+  const resColors = {install:'rgba(29,78,216,.8)', mw:'rgba(8,145,178,.8)', power:'rgba(234,88,12,.8)', optim:'rgba(5,150,105,.8)', total:'rgba(124,58,237,.9)'};
+  document.getElementById('res-legend').innerHTML = teamFields.map(field =>
+    `<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub)"><div style="width:12px;height:3px;background:${resColors[field.key] || 'rgba(148,163,184,.8)'};border-radius:2px"></div>${field.label}</div>`
   ).join('');
-  if (charts['res']) charts['res'].destroy();
-  charts['res'] = new Chart(document.getElementById('trend-resource-chart'), {data:{
-    labels: rw.map(r=>r.week),
-    datasets: [
-      {type:'bar', label:'Installation', data:rw.map(r=>r.install), backgroundColor:'rgba(29,78,216,.65)', borderRadius:3, stack:'s'},
-      {type:'bar', label:'Microwave',    data:rw.map(r=>r.mw),      backgroundColor:'rgba(8,145,178,.65)', borderRadius:3, stack:'s'},
-      {type:'bar', label:'Power',        data:rw.map(r=>r.power),   backgroundColor:'rgba(234,88,12,.65)', borderRadius:3, stack:'s'},
-      {type:'bar', label:'Optimization', data:rw.map(r=>r.optim),   backgroundColor:'rgba(5,150,105,.65)', borderRadius:3, stack:'s'},
-      {type:'line',label:'Total',        data:rw.map(r=>r.total),   borderColor:'#7c3aed', backgroundColor:'transparent', borderWidth:2.5, pointRadius:3, pointBackgroundColor:'#7c3aed', tension:.3, order:0},
-    ]}, options: chartOpts()});
+  if (charts.res) charts.res.destroy();
+  charts.res = new Chart(document.getElementById('trend-resource-chart'), {
+    data: {
+      labels: resources.map(row => row.week),
+      datasets: teamFields.map(field => ({
+        type: field.key === 'total' ? 'line' : 'bar',
+        label: field.label,
+        data: resources.map(row => row[field.key] || 0),
+        backgroundColor: field.key === 'total' ? 'transparent' : (resColors[field.key] || 'rgba(148,163,184,.8)'),
+        borderColor: field.key === 'total' ? (resColors[field.key] || 'rgba(148,163,184,.8)') : undefined,
+        borderRadius: field.key === 'total' ? undefined : 3,
+        borderWidth: field.key === 'total' ? 2.5 : 0,
+        pointRadius: field.key === 'total' ? 3 : 0,
+        tension: field.key === 'total' ? .3 : 0,
+        stack: field.key === 'total' ? undefined : 'teams',
+      })),
+    },
+    options: chartOpts(),
+  });
 
-  // Weekly sites on-air (computed from ms_BTS_On_Air)
-  const ws  = COMPUTED.weeklySites;
-  const bts = CONFIG.build_types;
-  if (charts['wsites']) charts['wsites'].destroy();
-  charts['wsites'] = new Chart(document.getElementById('trend-sites-chart'), {data:{
-    labels: ws.map(r=>r.week),
-    datasets: [
-      ...bts.map((bt, i) => ({type:'bar', label:bt.label, data:ws.map(r=>r[bt.key]||0), backgroundColor:BT_COLORS[i%BT_COLORS.length], borderRadius:3, stack:'s'})),
-      {type:'line', label:'Target', data:ws.map(r=>r.target||CONFIG.weekly_target||35), borderColor:'#dc2626', backgroundColor:'transparent', borderWidth:2, borderDash:[5,4], pointRadius:0, tension:0, order:0},
-    ]}, options: chartOpts()});
+  const daily = COMPUTED.dailyProgress;
+  if (charts.wsites) charts.wsites.destroy();
+  charts.wsites = new Chart(document.getElementById('trend-sites-chart'), {
+    data: {
+      labels: daily.map(row => row.day.slice(5)),
+      datasets: [{
+        type: 'bar',
+        label: 'On Air Sites',
+        data: daily.map(row => row.count),
+        backgroundColor: 'rgba(29,78,216,.72)',
+        borderRadius: 3,
+      }],
+    },
+    options: chartOpts(),
+  });
 
-  // Cumulative
-  const cums = {}; bts.forEach(bt => cums[bt.key] = 0);
-  const cumData = ws.map(r => { bts.forEach(bt => cums[bt.key] += r[bt.key]||0); return {week:r.week, ...JSON.parse(JSON.stringify(cums))}; });
-  if (charts['cum']) charts['cum'].destroy();
-  charts['cum'] = new Chart(document.getElementById('trend-cumulative-chart'), {type:'line', data:{
-    labels: cumData.map(r=>r.week),
-    datasets: bts.map((bt, i) => ({
-      label: bt.label + ' (SOW:' + getSiteTotals()[bt.key] + ')',
-      data:  cumData.map(r=>r[bt.key]),
-      borderColor: BT_COLORS[i].replace('.75','1'), backgroundColor: BT_COLORS[i].replace('.75','.07'),
-      fill: true, tension:.3, borderWidth:2, pointRadius:2,
-    })),
-  }, options: chartOpts()});
+  const buildTypes = getVisibleBuildTypes();
+  const weeklySites = COMPUTED.weeklySites;
+  const cumulativeState = {};
+  buildTypes.forEach(bt => { cumulativeState[bt.key] = 0; });
+  const cumulativeRows = weeklySites.map(row => {
+    buildTypes.forEach(bt => { cumulativeState[bt.key] += row[bt.key] || 0; });
+    return {week: row.week, ...clone(cumulativeState)};
+  });
+  if (charts.cum) charts.cum.destroy();
+  charts.cum = new Chart(document.getElementById('trend-cumulative-chart'), {
+    type: 'line',
+    data: {
+      labels: cumulativeRows.map(row => row.week),
+      datasets: buildTypes.map((bt, index) => ({
+        label: `${bt.label} (SOW: ${getSiteTotals()[bt.key] || 0})`,
+        data: cumulativeRows.map(row => row[bt.key]),
+        borderColor: BT_COLORS[index % BT_COLORS.length].replace('.75', '1'),
+        backgroundColor: BT_COLORS[index % BT_COLORS.length].replace('.75', '.08'),
+        fill: true,
+        tension: .3,
+        borderWidth: 2,
+        pointRadius: 2,
+      })),
+    },
+    options: chartOpts(),
+  });
 }
 
 function chartOpts() {
-  return {responsive:true, plugins:{legend:{labels:{color:'#475569',font:{size:11},boxWidth:12}}},
-    scales:{x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'#f1f5f9'}},y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'#f1f5f9'}}}};
+  return {
+    responsive: true,
+    plugins: {legend: {labels: {color:'#475569', font:{size:11}, boxWidth:12}}},
+    scales: {
+      x: {ticks: {color:'#94a3b8', font:{size:10}}, grid: {color:'#f1f5f9'}},
+      y: {ticks: {color:'#94a3b8', font:{size:10}}, grid: {color:'#f1f5f9'}},
+    },
+  };
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1049,48 +1567,47 @@ function mapReset() { mapScale=1; mapTX=0; mapTY=0; applyMapTransform(); }
 // PROJECT BANNER
 // ══════════════════════════════════════════════════════════════
 function renderProjBanner() {
+  const buildTypes = getVisibleBuildTypes();
+  const totals = getSiteTotals();
+  const equipment = getEquipmentList();
+  const teamFields = getTeamFields();
+  const lastRes = DATA.resources.weekly[DATA.resources.weekly.length - 1] || {};
+
   document.getElementById('disp-name').innerHTML   = PROJ.name.replace('\n','<br/>');
   document.getElementById('disp-client').textContent = PROJ.client;
   document.getElementById('disp-dates').innerHTML  =
     `<span style="color:var(--muted)">Start:</span> ${PROJ.start} &nbsp;|&nbsp; <span style="color:var(--muted)">End:</span> ${PROJ.end}<br/>
      <span style="color:var(--muted)">PM:</span> <span style="color:var(--sub)">${PROJ.pm}</span>`;
 
-  // Site scope
-  const t = getSiteTotals();
-  const bts = CONFIG.build_types;
   const btColors = ['var(--blue)','var(--green)','var(--teal)','var(--purple)'];
   document.getElementById('disp-sites').innerHTML =
-    bts.map((bt, i) =>
-      `<div class="proj-site-row"><div class="proj-site-dot" style="background:${btColors[i]}"></div><div class="proj-site-name">${bt.label}</div><div class="proj-site-val">${t[bt.key]}</div></div>`
+    buildTypes.map((bt, i) =>
+      `<div class="proj-site-row"><div class="proj-site-dot" style="background:${btColors[i % btColors.length]}"></div><div class="proj-site-name">${bt.label}</div><div class="proj-site-val">${totals[bt.key] || 0}</div></div>`
     ).join('') +
     `<div class="proj-site-row" style="margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.15)">
        <div class="proj-site-dot" style="background:var(--yellow)"></div>
        <div class="proj-site-name" style="font-weight:700;color:var(--text)">Total</div>
-       <div class="proj-site-val" style="color:var(--yellow)">${t.total}</div>
+       <div class="proj-site-val" style="color:var(--yellow)">${totals.total}</div>
      </div>`;
 
-  // Equipment
-  document.getElementById('disp-equip').innerHTML = (PROJ.equipment||[]).map(e =>
+  document.getElementById('disp-equip').innerHTML = equipment.map(e =>
     `<div class="proj-equip-row"><span class="proj-equip-type">${e.type}</span><span class="proj-equip-model">${e.model}</span></div>`
   ).join('') || '<div class="proj-equip-row"><span class="proj-equip-model" style="color:rgba(255,255,255,.4)">—</span></div>';
 
-  // Resources
   const resColors = ['var(--purple)','var(--orange)','var(--pink)','var(--teal)','var(--blue)'];
-  const lastRes   = DATA.resources.weekly[DATA.resources.weekly.length-1] || {};
   const teamRows  = lastRes.week
-    ? [['Install', lastRes.install],['MW', lastRes.mw],['Power', lastRes.power],['Optim', lastRes.optim]]
-        .filter(([,v]) => v)
-        .map(([k,v],i) => `<div class="proj-site-row"><div class="proj-site-dot" style="background:${resColors[i]}"></div><div class="proj-site-name">${k} Teams</div><div class="proj-site-val">${v}</div></div>`)
+    ? teamFields
+        .filter(field => Number(lastRes[field.key] || 0) || field.key === 'install')
+        .map((field, i) => `<div class="proj-site-row"><div class="proj-site-dot" style="background:${resColors[i % resColors.length]}"></div><div class="proj-site-name">${field.label}</div><div class="proj-site-val">${lastRes[field.key] || 0}</div></div>`)
         .join('') +
       `<div class="proj-site-row" style="margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.15)">
          <div class="proj-site-dot" style="background:var(--yellow)"></div>
          <div class="proj-site-name" style="font-weight:700;color:var(--text)">Total (${lastRes.week})</div>
-         <div class="proj-site-val" style="color:var(--yellow)">${lastRes.total}</div>
+         <div class="proj-site-val" style="color:var(--yellow)">${lastRes.total || lastRes.install || 0}</div>
        </div>`
     : '<div class="proj-equip-row"><span class="proj-equip-model" style="color:rgba(255,255,255,.4)">No resource data</span></div>';
   document.getElementById('disp-resources').innerHTML = teamRows;
 
-  // KPIs
   document.getElementById('disp-kpi').innerHTML = `
     <div class="proj-kpi-row"><span class="proj-kpi-lbl">Contract Value</span><span class="proj-kpi-val" style="color:var(--green)">${PROJ.value||'—'}</span></div>
     <div class="proj-kpi-row"><span class="proj-kpi-lbl">Target On-Air</span><span class="proj-kpi-val"  style="color:var(--blue)">${PROJ.target||'—'}</span></div>
@@ -1104,6 +1621,7 @@ function renderProjBanner() {
 // EDIT PROJECT INFO (manual override — does NOT re-export JSON)
 // ══════════════════════════════════════════════════════════════
 function openEditProj() {
+  if (!requireAdmin()) return;
   document.getElementById('pe-name').value   = PROJ.name.replace('\n',' ');
   document.getElementById('pe-client').value = PROJ.client;
   document.getElementById('pe-start').value  = PROJ.start;
@@ -1118,6 +1636,7 @@ function openEditProj() {
 }
 function closeProjEdit() { document.getElementById('proj-overlay').classList.remove('on'); }
 function saveProjEdit() {
+  if (!requireAdmin()) return;
   const ovr = {};
   ['name','client','start','end','pm','value','vendor','target','weekly','region'].forEach(k => {
     const id = k === 'name' ? 'pe-name' : k === 'start' ? 'pe-start' : k === 'end' ? 'pe-end' : 'pe-' + k;
@@ -1128,6 +1647,99 @@ function saveProjEdit() {
   renderProjBanner();
   closeProjEdit();
   toast('Project info updated ✓', 'ok');
+}
+
+function openSettings() {
+  if (!requireAdmin()) return;
+  renderSettingsModal();
+  document.getElementById('settings-overlay').classList.add('on');
+}
+function closeSettings() { document.getElementById('settings-overlay').classList.remove('on'); }
+
+function renderSettingsModal() {
+  const buildTypes = getVisibleBuildTypes();
+  const milestoneDefs = getMilestoneDefs('all');
+  const teamFields = DISPLAY_SETTINGS.team_fields.length ? DISPLAY_SETTINGS.team_fields : CONFIG.team_fields || DEFAULT_TEAM_FIELDS;
+
+  document.getElementById('settings-build-types').innerHTML = (CONFIG.build_types || DEFAULT_BUILD_TYPES).map((bt, index) => {
+    const match = DISPLAY_SETTINGS.build_types.find(row => row.key === bt.key) || buildTypes.find(row => row.key === bt.key) || {label: bt.label, visible: true, order: index + 1};
+    return `<div class="settings-row">
+      <input data-build-key="${bt.key}" value="${bt.key}" disabled/>
+      <input data-build-label="${bt.key}" value="${match.label || bt.label}"/>
+      <input data-build-order="${bt.key}" type="number" min="1" value="${match.order || index + 1}"/>
+      <select data-build-visible="${bt.key}"><option value="true" ${match.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${match.visible === false ? 'selected' : ''}>Hide</option></select>
+    </div>`;
+  }).join('');
+
+  document.getElementById('settings-milestones').innerHTML = (CONFIG.milestones || []).map((ms, index) => {
+    const meta = DISPLAY_SETTINGS.milestones?.[ms.key] || DEFAULT_MILESTONE_META[ms.key] || {};
+    return `<div class="settings-row">
+      <input data-ms-key="${ms.key}" value="${ms.key}" disabled/>
+      <input data-ms-label="${ms.key}" value="${meta.label || ms.label || ms.key}"/>
+      <input data-ms-order="${ms.key}" type="number" min="1" value="${meta.order || index + 1}"/>
+      <select data-ms-visible="${ms.key}"><option value="true" ${meta.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${meta.visible === false ? 'selected' : ''}>Hide</option></select>
+    </div>`;
+  }).join('');
+
+  const equipmentRows = getEquipmentList().map((item, index) => `
+    <div class="settings-row">
+      <input data-eq-type="${index}" value="${item.type || ''}" placeholder="Type"/>
+      <input data-eq-model="${index}" value="${item.model || ''}" placeholder="Model"/>
+      <input value="${index + 1}" disabled/>
+      <select disabled><option selected>Show</option></select>
+    </div>
+  `).join('');
+  const teamRows = teamFields.map((field, index) => `
+    <div class="settings-row">
+      <input data-team-key="${index}" value="${field.key}" disabled/>
+      <input data-team-label="${index}" value="${field.label}"/>
+      <input data-team-order="${index}" type="number" min="1" value="${index + 1}"/>
+      <select data-team-visible="${index}"><option value="true" ${field.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${field.visible === false ? 'selected' : ''}>Hide</option></select>
+    </div>
+  `).join('');
+  document.getElementById('settings-teams').innerHTML = `
+    <div class="settings-title" style="margin-bottom:10px">Equipment</div>
+    ${equipmentRows || '<div class="settings-help">No equipment rows found in config.</div>'}
+    <div class="divider" style="margin:14px 0"></div>
+    <div class="settings-title" style="margin-bottom:10px">Team Labels</div>
+    ${teamRows}
+  `;
+}
+
+function saveSettings() {
+  if (!requireAdmin()) return;
+  DISPLAY_SETTINGS.build_types = (CONFIG.build_types || []).map((bt, index) => ({
+    key: bt.key,
+    label: document.querySelector(`[data-build-label="${bt.key}"]`)?.value || bt.label,
+    order: Number(document.querySelector(`[data-build-order="${bt.key}"]`)?.value || index + 1),
+    visible: document.querySelector(`[data-build-visible="${bt.key}"]`)?.value !== 'false',
+  }));
+  DISPLAY_SETTINGS.milestones = {};
+  (CONFIG.milestones || []).forEach((ms, index) => {
+    DISPLAY_SETTINGS.milestones[ms.key] = {
+      label: document.querySelector(`[data-ms-label="${ms.key}"]`)?.value || ms.label,
+      order: Number(document.querySelector(`[data-ms-order="${ms.key}"]`)?.value || index + 1),
+      visible: document.querySelector(`[data-ms-visible="${ms.key}"]`)?.value !== 'false',
+    };
+  });
+  const teamFields = DISPLAY_SETTINGS.team_fields.length ? DISPLAY_SETTINGS.team_fields : CONFIG.team_fields || DEFAULT_TEAM_FIELDS;
+  const equipmentList = getEquipmentList();
+  DISPLAY_SETTINGS.team_fields = teamFields.map((field, index) => ({
+    key: field.key,
+    label: document.querySelector(`[data-team-label="${index}"]`)?.value || field.label,
+    visible: document.querySelector(`[data-team-visible="${index}"]`)?.value !== 'false',
+  }));
+  DISPLAY_SETTINGS.equipment = equipmentList.map((item, index) => ({
+    type: document.querySelector(`[data-eq-type="${index}"]`)?.value || item.type,
+    model: document.querySelector(`[data-eq-model="${index}"]`)?.value || item.model,
+  })).filter(item => item.type || item.model);
+  saveDisplaySettingsState();
+  PROJ.equipment = getEquipmentList();
+  renderProjBanner();
+  COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
+  render();
+  closeSettings();
+  toast('Settings saved ✓', 'ok');
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1159,11 +1771,12 @@ function generateReport() {
   const isDaily   = reportType === 'daily';
   const title     = isDaily ? 'Daily Progress Report' : 'Weekly Progress Report';
   const dateLabel = isDaily ? rptDate : (rptWeek + ' (' + rptDate + ')');
-  const bts       = CONFIG.build_types;
+  const bts       = getVisibleBuildTypes();
   const t         = getSiteTotals();
   const ms        = COMPUTED.milestones;
   const ws        = COMPUTED.weeklySites;
   const lastW     = ws[ws.length-1] || {};
+  const gapRows   = COMPUTED.fullGap.slice(0, 6);
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title} – ${dateLabel}</title>
 <style>
@@ -1220,7 +1833,7 @@ td{padding:5px 8px;border-bottom:1px solid #f1f5f9;}tr:hover td{background:#f8fa
 <tbody>${ms.map(m=>{const bdc=v=>v>=75?'bd-g':v>=50?'bd-y':v>=25?'bd-o':'bd-r';return '<tr><td style="font-weight:600">'+m.name+'<\/td>'+bts.map(bt=>{const sow=m[bt.key+'_sow'],comp=m[bt.key+'_comp'],pct=sp2(comp,sow);return '<td>'+(sow||'-')+'<\/td><td>'+(sow?comp:'-')+'<\/td><td>'+(sow?'<span class="bd '+bdc(pct)+'">'+pct+'%<\/span>':'-')+'<\/td>';}).join('')+'<\/tr>';}).join('')}<\/tbody><\/table><\/div>
 
 <div class="sec"><div class="sec-t">📍 Gap Analysis<\/div>
-<div class="g3">${bts.slice(0,3).map(bt=>{const g=COMPUTED.gap[bt.key]||[];const tot=g.reduce((s,r)=>s+r.sites,0);return '<div class="gc"><div class="gc-t">'+bt.label+' Gap ('+tot+')<\/div><table><thead><tr><th>Status<\/th><th style="text-align:right">#<\/th><\/tr><\/thead><tbody>'+g.map(r=>'<tr><td>'+r.status+'<\/td><td style="text-align:right;font-weight:700;font-family:monospace">'+r.sites+'<\/td><\/tr>').join('')+'<\/tbody><\/table><\/div>';}).join('')}<\/div><\/div>
+<div class="g3">${gapRows.map(g=>'<div class="gc"><div class="gc-t">'+g.label+'<\/div><table><thead><tr><th>Metric<\/th><th style="text-align:right">#<\/th><\/tr><\/thead><tbody><tr><td>Applicable Sites<\/td><td style="text-align:right;font-weight:700;font-family:monospace">'+g.total+'<\/td><\/tr><tr><td>Plan by Today<\/td><td style="text-align:right;font-weight:700;font-family:monospace">'+g.plan+'<\/td><\/tr><tr><td>Actual by Today<\/td><td style="text-align:right;font-weight:700;font-family:monospace">'+g.actual+'<\/td><\/tr><tr><td>Gap<\/td><td style="text-align:right;font-weight:700;font-family:monospace;color:'+(g.gap?'#dc2626':'#059669')+'">'+g.gap+'<\/td><\/tr><\/tbody><\/table><\/div>').join('')}<\/div><\/div>
 
 <div class="sec"><div class="sec-t">📈 Weekly Site On-Air<\/div>
 <table><thead><tr><th>Week<\/th>${bts.map(bt=>`<th>${bt.label}<\/th>`).join('')}<th style="font-weight:800">Total<\/th><th>Target<\/th><\/tr><\/thead>
@@ -1252,7 +1865,7 @@ function switchTab(name, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('on'));
   document.getElementById('page-'+name).classList.add('on');
-  el.classList.add('on');
+  if (el) el.classList.add('on');
 }
 
 function sp2(comp, sow) { return sow > 0 ? Math.round(comp/sow*100) : 0; }
@@ -1402,6 +2015,7 @@ function switchProject(pid) {
 // INIT
 // ══════════════════════════════════════════════════════════════
 async function initApp() {
+  initRoleState();
   initVNMap();   // draw empty map shapes first
 
   // Check URL ?p=projectId override

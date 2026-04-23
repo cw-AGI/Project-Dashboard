@@ -1,41 +1,56 @@
 {
   "project_name": "VNPT 4G Expansion Phase 2",
-  "project": "vnpt",
+  "project_id": "vnpt",
   "client": "VNPT Vietnam",
-  "vendor": "Huawei",
+  "contractor": "Huawei",
+  "country": "Vietnam",
+  "currency": "USD",
+  "target_sites": 260,
   "start_date": "2025-09-01",
   "end_date": "2026-12-31",
-  "pm": "Nguyen Van An",
-  "contract_value": "USD 45M",
-  "target_onair": "260 sites",
-  "weekly_target": 35,
-  "region": "Nationwide",
-  "build_types": [
-    {
-      "key": "swap",
-      "label": "SWAP Sites"
-    },
-    {
-      "key": "new",
-      "label": "New Sites"
-    },
-    {
-      "key": "expansion",
-      "label": "Expansion"
-    }
-  ],
+  "pat_target_pct": 95,
+  "pm_name": "Project Manager",
+  "pm_email": "pm@example.com",
   "milestones": [
     {
       "key": "ms_TSS",
-      "label": "TSS"
+      "label": "TSS",
+      "category": "planning"
     },
     {
       "key": "ms_TSSR",
-      "label": "TSSR"
+      "label": "TSSR",
+      "category": "planning"
     },
     {
       "key": "ms_RFI",
-      "label": "RFI"
+      "label": "RFI",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_BTS_MOS",
+      "label": "MOS",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_BTS_On_Air",
+      "label": "On Air",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_PAT",
+      "label": "PAT",
+      "category": "acceptance"
+    },
+    {
+      "key": "ms_PAC",
+      "label": "PAC",
+      "category": "acceptance"
+    },
+    {
+      "key": "ms_SSV",
+      "label": "SSV",
+      "category": "acceptance"
     },
     {
       "key": "ms_MW_On_Air",
@@ -43,78 +58,139 @@
       "scope": [
         "swap",
         "new"
-      ]
+      ],
+      "category": "support"
     },
     {
       "key": "ms_Power_On_Air",
-      "label": "Power On Air"
+      "label": "Power On Air",
+      "category": "support"
     },
     {
       "key": "ms_TX_Readiness",
-      "label": "TX Readiness"
-    },
-    {
-      "key": "ms_BTS_MOS",
-      "label": "BTS MOS"
+      "label": "TX Readiness",
+      "category": "support"
     },
     {
       "key": "ms_BTS_HI",
-      "label": "BTS HI"
+      "label": "BTS HI",
+      "category": "support"
     },
     {
       "key": "ms_BTS_Integration",
-      "label": "BTS Integration"
-    },
-    {
-      "key": "ms_BTS_On_Air",
-      "label": "BTS On Air"
+      "label": "Integration",
+      "category": "support"
     },
     {
       "key": "ms_Dismantle",
       "label": "Dismantle",
       "scope": [
         "swap"
-      ]
-    },
-    {
-      "key": "ms_SSV",
-      "label": "SSV"
-    },
-    {
-      "key": "ms_PAT",
-      "label": "PAT"
-    },
-    {
-      "key": "ms_PAC",
-      "label": "PAC"
+      ],
+      "category": "support"
     },
     {
       "key": "ms_OSS_KPI",
-      "label": "OSS KPI"
+      "label": "OSS KPI",
+      "category": "acceptance"
     },
     {
       "key": "ms_FAC",
-      "label": "FAC"
+      "label": "FAC",
+      "category": "acceptance"
+    }
+  ],
+  "build_types": [
+    {
+      "key": "new",
+      "label": "New Sites"
+    },
+    {
+      "key": "swap",
+      "label": "SWAP Sites"
+    },
+    {
+      "key": "expansion",
+      "label": "Expansion Sites"
     }
   ],
   "status_colors": {
-    "RFI完成": "#FFC107",
-    "安装完成": "#42A5F5",
-    "开通完成": "#66BB6A",
-    "PAT完成": "#AB47BC"
+    "RFI Complete": "#FFC107",
+    "Installation Complete": "#42A5F5",
+    "On Air Complete": "#66BB6A",
+    "PAT Complete": "#AB47BC"
   },
-  "equipment": [
+  "overview_milestones": [
+    "ms_TSSR",
+    "ms_RFI",
+    "ms_BTS_MOS",
+    "ms_BTS_On_Air"
+  ],
+  "hidden_milestones": [
+    "ms_MW_On_Air",
+    "ms_Power_On_Air",
+    "ms_TX_Readiness",
+    "ms_BTS_HI",
+    "ms_BTS_Integration",
+    "ms_Dismantle",
+    "ms_OSS_KPI",
+    "ms_FAC"
+  ],
+  "fields": [
     {
-      "type": "BBU",
-      "model": "Huawei BBU5900"
+      "key": "site_id",
+      "label": "Site ID",
+      "type": "text",
+      "visible": true
     },
     {
-      "type": "RRU",
-      "model": "Huawei AAUR"
+      "key": "site_name",
+      "label": "Site Name",
+      "type": "text",
+      "visible": true
     },
     {
-      "type": "ANT",
-      "model": "Huawei MMMB"
+      "key": "province",
+      "label": "Province",
+      "type": "text",
+      "visible": true
+    },
+    {
+      "key": "status",
+      "label": "Status",
+      "type": "text",
+      "visible": true
+    },
+    {
+      "key": "build_type",
+      "label": "Build Type",
+      "type": "text",
+      "visible": true
+    },
+    {
+      "key": "site_type",
+      "label": "Site Type",
+      "type": "text",
+      "visible": true
+    },
+    {
+      "key": "lat",
+      "label": "Latitude",
+      "type": "number",
+      "visible": false
+    },
+    {
+      "key": "lng",
+      "label": "Longitude",
+      "type": "number",
+      "visible": false
+    },
+    {
+      "key": "remarks",
+      "label": "Remarks",
+      "type": "text",
+      "visible": true
     }
-  ]
+  ],
+  "project": "vnpt"
 }
