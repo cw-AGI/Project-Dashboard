@@ -579,15 +579,20 @@ let DISPLAY_SETTINGS = loadDisplaySettings();
 // STORAGE / ROLE / SETTINGS
 // ══════════════════════════════════════════════════════════════
 function loadProjOverride() {
+  const storedRole = localStorage.getItem(ROLE_STORAGE_KEY) || 'visitor';
+  if (storedRole !== 'admin') return {};
   try { return JSON.parse(localStorage.getItem('wnd_proj_ovr') || '{}'); } catch { return {}; }
 }
 
 function saveProjOverride() {
+  if (!requireAdmin()) return;
   const ovr = loadProjOverride();
   localStorage.setItem('wnd_proj_ovr', JSON.stringify(ovr));
 }
 
 function loadDisplaySettings() {
+  const storedRole = localStorage.getItem(ROLE_STORAGE_KEY) || 'visitor';
+  if (storedRole !== 'admin') return {build_types:[], milestones:{}, team_fields:[], equipment:[]};
   try {
     const raw = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}');
     return {
@@ -602,6 +607,7 @@ function loadDisplaySettings() {
 }
 
 function saveDisplaySettingsState() {
+  if (!requireAdmin()) return;
   localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(DISPLAY_SETTINGS));
 }
 
