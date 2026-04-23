@@ -280,7 +280,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
       <button class="role-btn" id="role-admin-btn" onclick="switchUserRole('admin')">Admin</button>
     </div>
     <span class="last-upd" id="last-upd">Loading…</span>
-    <button class="topbar-btn" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
+    <button class="topbar-btn admin-only hidden" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
     <button class="topbar-btn" onclick="refreshData()" title="Re-fetch data.json from server">🔄 Refresh</button>
     <button class="topbar-btn admin-only hidden" onclick="openSettings()">⚙ Settings</button>
     <button class="topbar-btn admin-only hidden" onclick="openEditProj()">✏ Edit Project Info</button>
@@ -1747,6 +1747,7 @@ function saveSettings() {
 // ══════════════════════════════════════════════════════════════
 let reportType = 'daily';
 function openReportModal() {
+  if (!requireAdmin()) return;
   document.getElementById('rpt-date').value   = new Date().toISOString().slice(0,10);
   document.getElementById('rpt-author').value = PROJ.pm || '';
   document.getElementById('rpt-weekno').value = 'W' + isoToWeekLabel(new Date().toISOString().slice(0,10)).slice(1);
@@ -1764,6 +1765,7 @@ function setReportType(t) {
 }
 
 function generateReport() {
+  if (!requireAdmin()) return;
   closeReportModal();
   const rptDate   = document.getElementById('rpt-date').value || new Date().toISOString().slice(0,10);
   const rptAuthor = document.getElementById('rpt-author').value || PROJ.pm || 'PM';
