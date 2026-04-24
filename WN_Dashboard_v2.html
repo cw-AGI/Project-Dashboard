@@ -387,7 +387,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <div class="grid-4" id="issue-stats"></div>
   <div class="card">
     <div class="card-title"><span class="ct-icon">📉</span>Burndown Issue &amp; Risk — Weekly Trend</div>
-    <canvas id="burndown-chart" height="92"></canvas>
+    <canvas id="burndown-chart" height="78"></canvas>
   </div>
 </div>
 
@@ -396,17 +396,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <div class="grid-2">
     <div class="card">
       <div class="card-title"><span class="ct-icon">📈</span>Daily Progress</div>
-      <canvas id="trend-sites-chart" height="118"></canvas>
+      <canvas id="trend-sites-chart" height="96"></canvas>
     </div>
     <div class="card">
       <div class="card-title"><span class="ct-icon">🎯</span>Cumulative Progress</div>
-      <canvas id="trend-cumulative-chart" height="118"></canvas>
+      <canvas id="trend-cumulative-chart" height="96"></canvas>
     </div>
   </div>
   <div class="card mb" style="margin-top:16px">
     <div class="card-title"><span class="ct-icon">👷</span>Resource &amp; Team Deployment Trend</div>
     <div style="display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap" id="res-legend"></div>
-    <canvas id="trend-resource-chart" height="86"></canvas>
+    <canvas id="trend-resource-chart" height="72"></canvas>
   </div>
 </div>
 
@@ -1353,7 +1353,7 @@ function renderTrends() {
         stack: field.key === 'total' ? undefined : 'teams',
       })),
     },
-    options: chartOpts(1.25),
+    options: chartOpts(1.1),
   });
 
   const daily = COMPUTED.dailyProgress;
@@ -1369,7 +1369,7 @@ function renderTrends() {
         borderRadius: 4,
       }],
     },
-    options: chartOpts(1.35),
+    options: chartOpts(1.08),
   });
 
   const buildTypes = getVisibleBuildTypes();
@@ -1396,7 +1396,7 @@ function renderTrends() {
         pointRadius: 1.5,
       })),
     },
-    options: chartOpts(1.18),
+    options: chartOpts(1.06),
   });
 }
 
@@ -1414,7 +1414,7 @@ function chartOpts(yPaddingFactor = 1.2) {
         grid: {color:'rgba(226,232,240,.7)', borderDash:[4,4]},
       },
     },
-    datasets: {bar: {barPercentage:.42, categoryPercentage:.5, borderRadius:6, maxBarThickness:12}},
+    datasets: {bar: {barPercentage:.38, categoryPercentage:.44, borderRadius:5, maxBarThickness:10}},
   };
 }
 
