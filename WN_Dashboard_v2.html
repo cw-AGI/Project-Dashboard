@@ -24,7 +24,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--border);}
 .logo-sq{width:34px;height:34px;background:linear-gradient(135deg,#1d4ed8,#0891b2);border-radius:9px;display:grid;place-items:center;font-size:16px;flex-shrink:0;box-shadow:0 2px 8px rgba(29,78,216,.25);}
 .logo-text{font-size:15px;font-weight:800;letter-spacing:-.4px;white-space:nowrap;color:var(--text);}
-.logo-sub{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.logo-sub{font-size:10px;color:#475569;font-family:var(--mono);font-weight:600;letter-spacing:.4px;}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 .topbar-btn{padding:6px 14px;border-radius:7px;border:1px solid var(--border2);background:#fff;color:var(--sub);font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--sans);font-weight:500;}
 .topbar-btn:hover{border-color:var(--blue2);color:var(--blue2);background:#eff6ff;}
@@ -33,7 +33,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .role-btn.on{background:#eff6ff;color:var(--blue2);}
 .import-btn{padding:7px 16px;border-radius:8px;background:linear-gradient(135deg,#1d4ed8,#0891b2);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:opacity .15s;box-shadow:0 2px 6px rgba(29,78,216,.3);}
 .import-btn:hover{opacity:.9;}
-.last-upd{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.last-upd{font-family:var(--mono);font-size:11px;color:#475569;font-weight:600;}
 
 /* ── PROJECT SWITCHER (Step 4) ── */
 #proj-switcher-wrap{position:relative;}
@@ -63,9 +63,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .proj-banner::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
 .proj-banner-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr;gap:0;align-items:stretch;position:relative;z-index:1;}
 .proj-main{padding-right:28px;border-right:1px solid rgba(255,255,255,.15);}
-.proj-name{font-size:17px;font-weight:800;letter-spacing:-.4px;line-height:1.25;margin-bottom:4px;color:#fff;}
-.proj-client{font-size:11px;color:#93c5fd;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
-.proj-dates{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.65);}
+.proj-name{font-size:18px;font-weight:800;letter-spacing:-.4px;line-height:1.25;margin-bottom:4px;color:#f8fbff;}
+.proj-client{font-size:11px;color:#bfdbfe;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:8px;}
+.proj-dates{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.82);}
 .proj-section{padding:0 22px;border-right:1px solid rgba(255,255,255,.12);}
 .proj-section:last-child{border-right:none;}
 .proj-sec-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:9px;}
@@ -85,7 +85,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 
 /* ── NAV TABS ── */
 .nav-tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:0;box-shadow:var(--shadow);}
-.nav-tab{padding:11px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap;}
+.nav-tab{padding:11px 18px;font-size:13px;font-weight:700;color:#475569;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;white-space:nowrap;}
 .nav-tab:hover{color:var(--sub);background:#f8fafc;}
 .nav-tab.on{color:var(--blue2);border-bottom-color:var(--blue2);background:#eff6ff;}
 
@@ -235,9 +235,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .province-open{font-size:11px;color:var(--muted);font-family:var(--mono);}
 .province-body{padding:0 20px 18px;border-top:1px solid var(--border);background:#fcfdff;}
 .province-bars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:16px;}
-.province-site-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:11px;}
-.province-site-table th{background:#f8fafc;padding:8px 10px;text-align:left;font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);}
-.province-site-table td{padding:8px 10px;border-bottom:1px solid #edf2f7;}
 .mini-pill{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;display:inline-block;}
 .mini-pill.ok{background:#dcfce7;color:#166534;}
 .mini-pill.warn{background:#fef3c7;color:#92400e;}
@@ -390,7 +387,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <div class="grid-4" id="issue-stats"></div>
   <div class="card">
     <div class="card-title"><span class="ct-icon">📉</span>Burndown Issue &amp; Risk — Weekly Trend</div>
-    <canvas id="burndown-chart" height="80"></canvas>
+    <canvas id="burndown-chart" height="92"></canvas>
   </div>
 </div>
 
@@ -399,17 +396,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <div class="grid-2">
     <div class="card">
       <div class="card-title"><span class="ct-icon">📈</span>Daily Progress</div>
-      <canvas id="trend-sites-chart" height="120"></canvas>
+      <canvas id="trend-sites-chart" height="150"></canvas>
     </div>
     <div class="card">
       <div class="card-title"><span class="ct-icon">🎯</span>Cumulative Progress</div>
-      <canvas id="trend-cumulative-chart" height="120"></canvas>
+      <canvas id="trend-cumulative-chart" height="150"></canvas>
     </div>
   </div>
   <div class="card mb" style="margin-top:16px">
     <div class="card-title"><span class="ct-icon">👷</span>Resource &amp; Team Deployment Trend</div>
     <div style="display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap" id="res-legend"></div>
-    <canvas id="trend-resource-chart" height="70"></canvas>
+    <canvas id="trend-resource-chart" height="110"></canvas>
   </div>
 </div>
 
@@ -529,7 +526,7 @@ const DEFAULT_MILESTONE_META = {
   ms_TSS:{label:'TSS', visible:true},
   ms_TSSR:{label:'TSSR', visible:true},
   ms_RFI:{label:'RFI', visible:true},
-  ms_BTS_MOS:{label:'MOS', visible:true},
+  ms_BTS_MOS:{label:'Installation', visible:true},
   ms_BTS_On_Air:{label:'On Air', visible:true},
   ms_PAT:{label:'PAT', visible:true},
   ms_PAC:{label:'PAC', visible:true},
@@ -543,7 +540,7 @@ const DEFAULT_MILESTONE_META = {
   ms_OSS_KPI:{label:'OSS KPI', visible:false},
   ms_FAC:{label:'FAC', visible:false},
 };
-const OVERVIEW_MILESTONE_KEYS = ['ms_TSSR','ms_RFI','ms_BTS_MOS','ms_BTS_On_Air'];
+const OVERVIEW_MILESTONE_KEYS = ['ms_RFI','ms_BTS_MOS','ms_BTS_On_Air'];
 const PLAN_ALIASES = {
   ms_TSS:['ms_tss','tss_plan','tss','ms_tss_plan'],
   ms_TSSR:['ms_tssr','tssr_plan','tssr','ms_tssr_plan'],
@@ -727,6 +724,17 @@ function canonicalProvinceName(value) {
   if (!raw) return '';
   const aliasMap = getProvinceAliasMap();
   return aliasMap[normalizeProvinceKey(raw)] || raw;
+}
+function asciiProvinceName(value) {
+  return String(value || '')
+    .replace(/Đ/g, 'D')
+    .replace(/đ/g, 'd')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+function getProvinceMilestoneDefs() {
+  const defs = getMilestoneDefs('all').filter(ms => !['ms_TSSR', 'ms_PAC'].includes(ms.key));
+  return defs.map(ms => ms.key === 'ms_BTS_MOS' ? {...ms, label: 'Installation'} : ms);
 }
 function getVisibleBuildTypes() {
   const configured = Array.isArray(CONFIG.build_types) && CONFIG.build_types.length ? CONFIG.build_types : DEFAULT_BUILD_TYPES;
@@ -996,7 +1004,7 @@ function computeProvinceStats(sites, cfg, refDate) {
 }
 
 function computeProvinceProgress(sites, cfg, refDate) {
-  const defs = getMilestoneDefs('all');
+  const defs = getProvinceMilestoneDefs();
   const globalGapMap = Object.fromEntries(computePlanGap(sites, cfg, DATA?.rolling_plan?.weekly || [], refDate, 'all').map(item => [item.key, item]));
   const byProv = {};
   sites.forEach(site => {
@@ -1190,24 +1198,28 @@ function renderOverview() {
 
 function renderMilestones() {
   const provinceRows = COMPUTED.provinceProgress;
-  const provinceCount = provinceRows.length;
-  const avgProgress = provinceRows.length ? provinceRows.reduce((sum, row) => sum + row.avgProgress, 0) / provinceRows.length : 0;
-  const activeCount = provinceRows.filter(row => row.avgProgress > 0).length;
-  const topProvince = provinceRows[0];
+  const progressFor = (key) => {
+    const applicable = applicableSitesForMilestone(DATA.sites || [], key);
+    const done = applicable.filter(site => isReached(site[key], getReferenceDate())).length;
+    return {total: applicable.length, done, pct: sp2(done, applicable.length)};
+  };
+  const rfi = progressFor('ms_RFI');
+  const install = progressFor('ms_BTS_MOS');
+  const onAir = progressFor('ms_BTS_On_Air');
   document.getElementById('ms-gauges').innerHTML = `
-    <div class="card">${gaugeHTML('Active Provinces', sp2(activeCount, Math.max(provinceCount, 1)), provinceCount, activeCount)}</div>
-    <div class="card">${gaugeHTML('Average Province Progress', avgProgress, 100)}</div>
-    <div class="card">${gaugeHTML(topProvince ? topProvince.province : 'Top Province', topProvince ? topProvince.avgProgress : 0, topProvince ? topProvince.total : 0)}</div>
+    <div class="card">${gaugeHTML('RFI Progress', rfi.pct, rfi.total, rfi.done)}</div>
+    <div class="card">${gaugeHTML('Installation Progress', install.pct, install.total, install.done)}</div>
+    <div class="card">${gaugeHTML('On-Air Progress', onAir.pct, onAir.total, onAir.done)}</div>
   `;
   document.getElementById('province-progress').innerHTML = provinceRows.map((row) => `
     <div class="province-card">
       <div class="province-head">
         <div>
-          <div class="province-name">${row.province}</div>
+          <div class="province-name">${asciiProvinceName(row.province)}</div>
           <div class="province-meta">
             <span>${row.total} sites</span>
             <span>Average Progress: <b>${p(row.avgProgress)}%</b></span>
-            <span>Completed Sites: <b>${row.siteRows.filter(site => site.progress >= 100).length}</b></span>
+            <span>Plan Status View</span>
           </div>
         </div>
         <div class="province-open">Expanded</div>
@@ -1391,11 +1403,13 @@ function renderTrends() {
 function chartOpts() {
   return {
     responsive: true,
-    plugins: {legend: {labels: {color:'#475569', font:{size:11}, boxWidth:12}}},
+    maintainAspectRatio: false,
+    plugins: {legend: {labels: {color:'#334155', font:{size:11, weight:'600'}, boxWidth:10, usePointStyle:true, pointStyle:'circle', padding:16}}},
     scales: {
-      x: {ticks: {color:'#94a3b8', font:{size:10}}, grid: {color:'#f1f5f9'}},
-      y: {ticks: {color:'#94a3b8', font:{size:10}}, grid: {color:'#f1f5f9'}},
+      x: {offset:true, ticks: {color:'#64748b', font:{size:10, weight:'600'}, maxRotation:0}, grid: {display:false}},
+      y: {beginAtZero:true, ticks: {color:'#64748b', font:{size:10}}, grid: {color:'rgba(226,232,240,.7)', borderDash:[4,4]}},
     },
+    datasets: {bar: {barPercentage:.56, categoryPercentage:.62, borderRadius:6, maxBarThickness:18}},
   };
 }
 
