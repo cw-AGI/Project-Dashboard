@@ -22,5 +22,13 @@
     "color": "#1D4ED8",
     "active": true,
     "updated": "2026-04-23"
+  },
+  {
+    "id": "vnpt5g_central",
+    "name": "VNPT 5G — Central Coast (New + Expansion)",
+    "path": "projects/vnpt5g_central/",
+    "color": "#0f766e",
+    "active": true,
+    "updated": "2026-04-27"
   }
 ]
