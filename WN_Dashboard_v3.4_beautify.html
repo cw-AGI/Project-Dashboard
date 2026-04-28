@@ -24,23 +24,23 @@
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
 
 /* ── TOPBAR ── */
-.topbar{background:linear-gradient(180deg,#ffffff,#f7f9fc);border-bottom:1px solid #d9e0eb;padding:0 28px;height:64px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 5px 16px rgba(15,23,42,.07);}
+.topbar{background:linear-gradient(180deg,#ffffff,#f7f9fc);border-bottom:1px solid #d9e0eb;padding:0 22px;height:62px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 5px 16px rgba(15,23,42,.07);}
 .logo-sq{width:68px;height:42px;background:linear-gradient(180deg,#fff9f9,#ffffff);border:1px solid rgba(220,38,38,.16);border-radius:12px;display:grid;place-items:center;flex-shrink:0;box-shadow:0 6px 16px rgba(15,23,42,.09);}
 .logo-block{display:flex;flex-direction:column;gap:3px;min-width:0;}
-.logo-text{font-size:15px;font-weight:800;letter-spacing:-.35px;white-space:nowrap;color:#183a68;line-height:1.02;}
+.logo-text{font-size:14px;font-weight:800;letter-spacing:-.25px;white-space:nowrap;color:#183a68;line-height:1.02;}
 .logo-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .logo-sub{font-size:10px;color:#627591;font-family:var(--mono);font-weight:700;letter-spacing:.8px;}
 .version-pill{display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:22px;padding:0 10px;border-radius:999px;border:1px solid #ccd6e6;background:linear-gradient(180deg,#ffffff,#f7fafd);color:#1b3a6b;font-family:var(--mono);font-size:10px;font-weight:800;box-shadow:0 2px 8px rgba(15,23,42,.08);}
 .logo-sub-sep{color:#a8b6c9;font-weight:700}
 .topbar-right{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:6px;}
-.topbar-btn{padding:8px 13px;border-radius:10px;border:1px solid #c9d3e3;background:#fff;color:#31435f;font-size:11.5px;cursor:pointer;transition:all .15s;font-family:var(--sans);font-weight:700;box-shadow:0 2px 6px rgba(15,23,42,.04);}
+.topbar-btn{padding:6px 10px;border-radius:8px;border:1px solid #c9d3e3;background:#fff;color:#31435f;font-size:10.5px;cursor:pointer;transition:all .15s;font-family:var(--sans);font-weight:600;box-shadow:0 2px 6px rgba(15,23,42,.04);}
 .topbar-btn:hover{border-color:var(--primary-mid);color:var(--primary-mid);background:var(--primary-light);}
 .role-switch{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid #cad5e6;border-radius:13px;background:linear-gradient(180deg,#fbfcfe,#f3f6fa);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 8px rgba(15,23,42,.04);}
 .role-btn{padding:7px 14px;border:none;border-radius:10px;background:transparent;color:#6c7a91;font-size:11.5px;font-weight:800;cursor:pointer;transition:all .15s;font-family:var(--sans);letter-spacing:.1px;}
 .role-btn.on{background:linear-gradient(180deg,#ffffff,#f7fbff);color:#2557A7;box-shadow:0 3px 10px rgba(15,23,42,.10);}
 .import-btn{padding:7px 16px;border-radius:6px;background:linear-gradient(135deg,#1B3A6B,#2557A7);border:none;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:opacity .15s;box-shadow:0 2px 6px rgba(27,58,107,.3);}
 .import-btn:hover{opacity:.88;}
-.last-upd{font-family:var(--mono);font-size:10px;color:#6b7b92;font-weight:700;letter-spacing:.2px;opacity:.9;}
+.last-upd{font-family:var(--mono);font-size:10px;color:#6b7b92;font-weight:600;letter-spacing:.2px;opacity:.9;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 /* ── PROJECT SWITCHER (Step 4) ── */
 #proj-switcher-wrap{position:relative;}
@@ -417,7 +417,7 @@ body{
   color:#1d4ed8;
   background:linear-gradient(180deg,#ffffff,#eef4ff);
 }
-.topbar-right{gap:8px;}
+.topbar-right{gap:6px;}
 .topbar-btn{
   border-radius:11px;
   border:1px solid #cad5e4;
@@ -819,7 +819,7 @@ body{
     </svg>
   </div>
   <div class="logo-block">
-    <div class="logo-text">Wireless Project Dashboard</div>
+    <div class="logo-text">ZTE Wireless Project Dashboard</div>
     <div class="logo-meta">
       <div class="logo-sub"><span>PROJECT MANAGEMENT SYSTEM</span><span class="logo-sub-sep"> · </span><span class="demo-only">OFFLINE PREVIEW</span></div>
       <div class="version-pill">v3.4</div>
@@ -833,10 +833,9 @@ body{
       <button class="role-btn" id="role-admin-btn" onclick="switchUserRole('admin')">Admin</button>
     </div>
     <span class="last-upd" id="last-upd">Loading…</span>
-    <button class="topbar-btn admin-only hidden" onclick="openImportWorkbook()">📥 Import XLS</button>
-    <button class="topbar-btn admin-only hidden" onclick="exportCurrentWorkbook()">📤 Export XLS</button>
-    <button class="topbar-btn admin-only hidden" onclick="showPushGuide()">🚀 Push GitHub</button>
-    <button class="topbar-btn admin-only hidden" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
+    <button class="topbar-btn admin-only hidden" onclick="openImportWorkbook()">Import XLS</button>
+    <button class="topbar-btn admin-only hidden" onclick="exportCurrentWorkbook()">Export XLS</button>
+    <button class="topbar-btn admin-only hidden" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">Generate Report</button>
   </div>
 </div>
 <input id="xlsx-import-input" type="file" accept=".xlsx,.xlsm,.xls" class="hidden" onchange="handleWorkbookImport(event)"/>
@@ -1435,11 +1434,6 @@ function exportCurrentWorkbook() {
   }
 }
 
-function showPushGuide() {
-  if (!requireAdmin()) return;
-  toast('Browser cannot run git push. Use terminal: git add . && git commit -m \"update\" && git push origin main', 'err');
-}
-
 // ══════════════════════════════════════════════════════════════
 // NORMALISATION / HELPERS
 // ══════════════════════════════════════════════════════════════
@@ -1815,7 +1809,7 @@ async function loadProject(pid) {
       COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
       renderProjBanner();
       render();
-      document.getElementById('last-upd').textContent = 'Last updated: ' + new Date().toLocaleString() + ' (imported)';
+      document.getElementById('last-upd').textContent = 'Imported workbook';
       updateProjSwitcherActive(pid);
       updateRoleUI();
       toast('Loaded imported workbook: ' + (CONFIG.project_name || pid), 'ok');
@@ -3414,7 +3408,7 @@ function activateDemoMode() {
   renderProjBanner();
   try {
     render();
-    document.getElementById('last-upd').textContent = 'Offline preview (18 sites) — use http:// + projects/ for full export';
+    document.getElementById('last-upd').textContent = 'Offline preview';
     updateRoleUI();
   } catch (err) {
     console.error(err);
