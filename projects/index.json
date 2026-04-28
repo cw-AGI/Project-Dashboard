@@ -30,5 +30,13 @@
     "color": "#0f766e",
     "active": true,
     "updated": "2026-04-27"
+  },
+  {
+    "id": "VNPT 5G PO2",
+    "name": "VNPT 5G PO2",
+    "path": "projects/VNPT 5G PO2/",
+    "color": "#0f766e",
+    "active": true,
+    "updated": "2026-04-28"
   }
 ]

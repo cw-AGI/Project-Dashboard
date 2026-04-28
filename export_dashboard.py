@@ -226,10 +226,19 @@ def read_config(ws):
     return config
 
 
-def read_data(ws, project_id):
-    """Return list of site dicts filtered to project_id."""
+def _normalise_project_keys(project_keys):
+    if isinstance(project_keys, (list, tuple, set)):
+        keys = project_keys
+    else:
+        keys = [project_keys]
+    return {str(k).strip().lower() for k in keys if str(k).strip()}
+
+
+def read_data(ws, project_keys):
+    """Return list of site dicts filtered to one or more project keys."""
     all_rows = sheet_to_dicts(ws)
-    sites = [r for r in all_rows if str(r.get("project", "")).strip() == project_id]
+    keys = _normalise_project_keys(project_keys)
+    sites = [r for r in all_rows if str(r.get("project", "")).strip().lower() in keys]
     # Normalise build_type and site_type to lowercase for consistency
     for s in sites:
         if s.get("build_type"):
@@ -263,28 +272,36 @@ def read_issues(ws):
     }
 
 
-def _filter_project_rows(rows, project_id):
+def _filter_project_rows(rows, project_keys):
+    keys = _normalise_project_keys(project_keys)
     project_rows = []
     for row in rows:
         row_project = str(row.get("project", "")).strip().lower()
-        if not row_project or row_project == str(project_id).strip().lower():
+        if not row_project or row_project in keys:
             project_rows.append(row)
     return project_rows
 
 
-def read_resources(ws, project_id):
+def read_resources(ws, project_keys):
     """Return resources weekly list, optionally filtered by project."""
     if ws is None:
         return {"weekly": []}
     rows = sheet_to_dicts(ws)
-    return {"weekly": _filter_project_rows(rows, project_id)}
+    return {"weekly": _filter_project_rows(rows, project_keys)}
 
 
-def read_rolling_plan(wb, project_id):
-    """Read project rolling plan from a dedicated sheet like VNPT_ROLLING_PLAN."""
-    sheet_name = f"{str(project_id).strip().upper()}_ROLLING_PLAN"
-    if sheet_name not in wb.sheetnames:
-        return {"sheet": sheet_name, "weekly": []}
+def read_rolling_plan(wb, project_keys):
+    """Read project rolling plan from a dedicated sheet like <PROJECT>_ROLLING_PLAN."""
+    keys = _normalise_project_keys(project_keys)
+    candidate_names = [f"{k.upper()}_ROLLING_PLAN" for k in keys]
+    sheet_name = next((n for n in candidate_names if n in wb.sheetnames), None)
+    if not sheet_name:
+        rolling_sheets = [n for n in wb.sheetnames if str(n).upper().endswith("_ROLLING_PLAN")]
+        # If there is only one rolling plan sheet, use it as a safe fallback.
+        if len(rolling_sheets) == 1:
+            sheet_name = rolling_sheets[0]
+        else:
+            return {"sheet": candidate_names[0] if candidate_names else "_ROLLING_PLAN", "weekly": []}
 
     rows = sheet_to_dicts(wb[sheet_name])
     normalised = []
@@ -296,13 +313,20 @@ def read_rolling_plan(wb, project_id):
     return {"sheet": sheet_name, "weekly": normalised}
 
 
-def read_risks(ws, project_id):
+def read_risks(ws, project_keys):
     """Read structured risks list and keep rows matching the target project when provided."""
     if ws is None:
         return []
 
     rows = sheet_to_dicts(ws)
-    filtered = _filter_project_rows(rows, project_id)
+    filtered = _filter_project_rows(rows, project_keys)
+    if not filtered and rows:
+        tagged = [str(r.get("project", "")).strip() for r in rows if str(r.get("project", "")).strip()]
+        unique_tags = {t.lower() for t in tagged}
+        # Friendly fallback for single-project workbooks when display name changed
+        # but RISKS.project still has the previous technical key.
+        if len(unique_tags) == 1:
+            filtered = rows
 
     def priority_rank(value):
         v = str(value or "").strip().lower()
@@ -413,7 +437,11 @@ def main():
 
     # ── Export each active project ───────────────────────────
     for proj in active:
-        pid = str(proj["id"]).strip()
+        raw_id = str(proj.get("id", "")).strip()
+        raw_name = str(proj.get("name", "")).strip()
+        # Canonical project key: keep ID in sync with project name for easier non-technical edits.
+        pid = raw_name or raw_id
+        project_keys = {k for k in (raw_id, raw_name) if k}
         print(f"  ── {pid} ──────────────────────────────")
 
         proj_dir = os.path.join(output_dir, pid)
@@ -426,14 +454,14 @@ def main():
             config["region"] = proj.get("region")
 
         # Sites
-        sites = read_data(ws_data, pid)
+        sites = read_data(ws_data, project_keys)
         print(f"     Sites    : {len(sites)}")
 
         # Issues, Resources, Rolling Plan, Risks
         issues    = read_issues(ws_issues)
-        resources = read_resources(ws_resources, pid)
-        rolling_plan = read_rolling_plan(wb, pid)
-        risks = read_risks(ws_risks, pid)
+        resources = read_resources(ws_resources, project_keys)
+        rolling_plan = read_rolling_plan(wb, project_keys)
+        risks = read_risks(ws_risks, project_keys)
         print(f"     Issues   : raised={issues['raised']}  closed={issues['closed']}  open={issues['open']}")
         print(f"     Resources: {len(resources['weekly'])} weeks")
         print(f"     Rolling  : {len(rolling_plan['weekly'])} weeks ({rolling_plan['sheet']})")
