@@ -78,26 +78,36 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .proj-banner::after{content:'';position:absolute;right:-40px;top:0;bottom:0;width:340px;background:url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='80' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.04'/%3E%3Ccircle cx='100' cy='100' r='55' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.04'/%3E%3Ccircle cx='100' cy='100' r='30' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.04'/%3E%3C/svg%3E") center/cover no-repeat;pointer-events:none;opacity:.6;}
 .proj-banner-grid{display:grid;grid-template-columns:minmax(250px,1.02fr) 1fr 1fr 1fr 1.05fr;gap:0;align-items:start;position:relative;z-index:1;}
 .proj-main{padding-right:26px;border-right:1px solid rgba(255,255,255,.18);min-width:250px;}
-.proj-name{font-size:21px;font-weight:700;letter-spacing:-.5px;line-height:1.04;margin-bottom:6px;color:#ea580c;text-wrap:balance;text-shadow:0 1px 2px rgba(0,0,0,.28);font-family:Georgia,'Times New Roman',serif;}
-.proj-client{font-size:11px;color:#ffedd5;font-weight:800;letter-spacing:1.25px;text-transform:uppercase;margin-bottom:8px;opacity:.98;}
+.proj-name{
+  font-size:20px;
+  font-weight:500;
+  letter-spacing:.15px;
+  line-height:1.12;
+  margin-bottom:6px;
+  color:#f8fafc;
+  text-wrap:balance;
+  text-shadow:0 1px 1px rgba(15,23,42,.24);
+  font-family:'Inter',var(--sans);
+}
+.proj-client{font-size:11px;color:#ffedd5;font-weight:500;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:8px;opacity:.98;}
 .proj-dates{font-family:var(--mono);font-size:11px;color:#fed7aa;line-height:1.55;}
 .proj-section{padding:0 20px;border-right:1px solid rgba(255,255,255,.14);}
 .proj-section:last-child{border-right:none;}
 .proj-data-section{position:static;padding-bottom:0;min-height:0;}
 .proj-section-body{display:block;min-height:0;}
 .proj-section-list{display:flex;flex-direction:column;gap:5px;flex:1;}
-.proj-sec-title{font-size:9.5px;font-weight:800;color:#c2410c;letter-spacing:1.15px;text-transform:uppercase;margin-bottom:10px;text-shadow:0 1px 0 rgba(255,255,255,.12);}
-.proj-section:nth-child(2) .proj-sec-title{color:#c2410c;}
-.proj-section:nth-child(3) .proj-sec-title{color:#b45309;}
-.proj-section:nth-child(4) .proj-sec-title{color:#9a3412;}
+.proj-sec-title{font-size:9.5px;font-weight:500;color:#dbeafe;letter-spacing:1.15px;text-transform:uppercase;margin-bottom:10px;text-shadow:0 1px 0 rgba(15,23,42,.24);}
+.proj-section:nth-child(2) .proj-sec-title{color:#dbeafe;}
+.proj-section:nth-child(3) .proj-sec-title{color:#dbeafe;}
+.proj-section:nth-child(4) .proj-sec-title{color:#dbeafe;}
 .proj-total-row{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.15);display:grid!important;grid-template-columns:7px minmax(0,1fr) auto;align-items:center;column-gap:8px;flex-wrap:nowrap;position:static!important;}
-.proj-total-row .proj-site-name,.proj-total-row .proj-equip-type{font-weight:700;color:rgba(255,255,255,.96);white-space:nowrap;min-width:0;font-size:11.5px;}
+.proj-total-row .proj-site-name,.proj-total-row .proj-equip-type{font-weight:400;color:rgba(255,255,255,.96);white-space:nowrap;min-width:0;font-size:11.5px;}
 .proj-total-row .proj-site-val,.proj-total-row .proj-equip-model{white-space:nowrap;font-size:12px;text-align:right;color:rgba(255,255,255,.92);font-weight:600;}
-.proj-section:nth-child(5) .proj-sec-title{color:#9a3412;}
+.proj-section:nth-child(5) .proj-sec-title{color:#dbeafe;}
 .proj-site-grid{display:flex;flex-direction:column;gap:5px;}
 .proj-site-row{display:flex;align-items:center;gap:8px;padding:1px 0;}
 .proj-site-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:#ffffff;box-shadow:0 0 0 1px rgba(15,23,42,.22);}
-.proj-site-name{font-size:12px;color:rgba(255,255,255,.96);flex:1;font-weight:600;line-height:1.2;}
+.proj-site-name{font-size:12px;color:rgba(255,255,255,.96);flex:1;font-weight:400;line-height:1.2;}
 .proj-site-val{font-family:var(--mono);font-size:12px;font-weight:600;color:rgba(255,255,255,.92);line-height:1;}
 .proj-equip-grid{display:flex;flex-direction:column;gap:5px;}
 .proj-equip-row{display:flex;align-items:center;gap:8px;padding:1px 0;}
@@ -3267,28 +3277,28 @@ function switchProject(pid) {
       {week:'W17',week_end_date:'2026-04-26',tss_plan:18,rfi_plan:18,install_plan:18,onair_plan:16,pat_plan:13,pac_plan:0,ssv_plan:0},
     ]},
     risks:[
-      {risk_name:'Cấp phép tần số / GPXD địa phương',priority:'Medium',
-       description:'Một số trạ expansion chậm thủ tục tại Quảng Nam; ảnh hưởng chuỗi MOS.',
-       owner:'Trần Hoài Nam',resolve_date:'2026-05-10',
-       current_status:'Rà soát 12 trạ; 6 trạ đã có phê duyệt bổ sung.',
-       next_steps:'Phối hợp Sở TT&TT; ưu tiên đường dây nóng tuần 18.',project:'vnpt5g_central'},
-      {risk_name:'Logistics lô RRH n78',priority:'High',
-       description:'Lô RRH n78 lệch lịch cảng, tác động lắp đặt tháng 3.',
-       owner:'Lê Thu Hà',resolve_date:'2026-04-28',
-       current_status:'Điều chuyển từ kho khu vực; 70% đã có mặt tại kho miền Trung.',
-       next_steps:'Xác nhận air-freight cho phần còn lại; cập nhật MOS plan.',project:'vnpt5g_central'},
-      {risk_name:'Nguồn điện trạ expansion',priority:'Low',
-       description:'Một số trạ cần nâng công suất tủ điện trước On Air.',
-       owner:'Phạm Quốc Anh',resolve_date:'2026-05-05',
-       current_status:'Survey điện 89%; 11 trạ chờ gia công tủ.',
-       next_steps:'Đẩy mua sắm PDU đợt 2; lịch lắp tuần 16–17.',project:'vnpt5g_central'},
+      {risk_name:'Frequency licensing and local permits',priority:'Medium',
+       description:'A subset of expansion sites in Quang Nam is delayed by local permit processing, impacting MOS sequencing.',
+       owner:'Tran Hoai Nam',resolve_date:'2026-05-10',
+       current_status:'12 sites under review; supplemental approvals received for 6 sites.',
+       next_steps:'Coordinate with provincial telecom authority and fast-track Week 18 permit queue.',project:'vnpt5g_central'},
+      {risk_name:'n78 RRH logistics delay',priority:'High',
+       description:'n78 RRH shipment is behind port schedule and affects the March installation sequence.',
+       owner:'Le Thu Ha',resolve_date:'2026-04-28',
+       current_status:'Partial stock reallocated from regional warehouse; about 70% has arrived at Central hub.',
+       next_steps:'Confirm air-freight for remaining units and rebaseline MOS plan.',project:'vnpt5g_central'},
+      {risk_name:'Expansion site power readiness',priority:'Low',
+       description:'Several expansion sites require cabinet power-capacity upgrade before On Air.',
+       owner:'Pham Quoc Anh',resolve_date:'2026-05-05',
+       current_status:'Power survey 89% complete; 11 sites awaiting cabinet fabrication contract.',
+       next_steps:'Accelerate second PDU batch procurement and lock installation slots for Weeks 16–17.',project:'vnpt5g_central'},
     ],
   };
   window._DEMO_CONFIG = {
     project:'vnpt5g_central',project_name:'VNPT 5G — Central Coast (offline preview)',client:'VNPT',
-    start_date:'2026-01-01',end_date:'2026-04-30',pm:'Nguyễn Văn Minh (PMO)',
-    contract_value:'Khung hợp đồng triển khai 5G (preview)',po_no:'PO-VNPT-5G-CM-2026-0142',vendor:'Nokia / Ericsson (liên danh)',
-    target_onair:'601',weekly_target:'42',region:'Miền Trung — 5 tỉnh',main_product:'5G NR (new + expansion)',required_complete_date:'2026-04-30',
+    start_date:'2026-01-01',end_date:'2026-04-30',pm:'Nguyen Van Minh (PMO)',
+    contract_value:'5G rollout framework package (preview)',po_no:'PO-VNPT-5G-CM-2026-0142',vendor:'Nokia / Ericsson (joint delivery)',
+    target_onair:'601',weekly_target:'42',region:'Central Coast — 5 provinces',main_product:'5G NR (new + expansion)',required_complete_date:'2026-04-30',
     milestones:[
       {key:'ms_TSS',label:'TSS',category:'planning'},
       {key:'ms_TSSR',label:'TSSR',category:'planning'},
