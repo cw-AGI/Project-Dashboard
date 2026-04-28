@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Wireless Network Project Dashboard v3.4</title>
+<title>ZTE Project Dashboard v1.0</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/highcharts@11.4.8/highcharts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/highcharts@11.4.8/highcharts-3d.js"></script>
@@ -327,16 +327,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 #ov-issues .risk-accordion + .risk-accordion{margin-top:10px;}
 #ov-issues .risk-accordion summary{
   outline:none;
-  border:none;
-  background:linear-gradient(180deg,#bfdbfe 0%,#93c5fd 55%,#60a5fa 100%);
+  border:1px solid #bfdbfe;
+  background:linear-gradient(180deg,#f8fbff 0%,#eef5ff 100%);
   border-radius:10px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow:0 1px 3px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.85);
 }
 #ov-issues .risk-accordion summary:focus,
 #ov-issues .risk-accordion summary:focus-visible{outline:none;}
 #ov-issues .risk-accordion[open] summary{
   border-radius:10px 10px 0 0;
-  border-bottom:1px solid #1d4ed8;
+  border-bottom:1px solid #93c5fd;
+  background:linear-gradient(180deg,#eef5ff 0%,#e2ecfb 100%);
 }
 #ov-issues .risk-accordion-body{
   background:linear-gradient(180deg,#f0f9ff 0%,#eff6ff 100%);
@@ -819,10 +820,9 @@ body{
     </svg>
   </div>
   <div class="logo-block">
-    <div class="logo-text">ZTE Wireless Project Dashboard</div>
+    <div class="logo-text">ZTE Project Dashboard</div>
     <div class="logo-meta">
-      <div class="logo-sub"><span>PROJECT MANAGEMENT SYSTEM</span><span class="logo-sub-sep"> · </span><span class="demo-only">OFFLINE PREVIEW</span></div>
-      <div class="version-pill">v3.4</div>
+      <div class="version-pill">v1.0</div>
     </div>
   </div>
   <!-- PROJECT SWITCHER — populated in Step 4 -->
@@ -1445,6 +1445,11 @@ function bc(pp) { return pp >= 75 ? '#059669' : pp >= 50 ? '#d97706' : pp >= 25 
 function pc(pp) { return pp >= 75 ? 'pg' : pp >= 50 ? 'py' : pp >= 25 ? 'po' : pp > 0 ? 'pr' : 'pm'; }
 function toDate(value) {
   if (!value) return null;
+  if (typeof value === 'number') {
+    // Handle Excel serial dates from imported workbooks/config values.
+    const excelDate = new Date(Math.round((value - 25569) * 86400 * 1000));
+    return Number.isNaN(excelDate.getTime()) ? null : excelDate;
+  }
   const d = new Date(value);
   return Number.isNaN(d.getTime()) ? null : d;
 }
@@ -2380,7 +2385,7 @@ function renderOverview() {
               name: nm,
               y: pieValues[i],
               color: pieColors[i],
-              dataLabels: { color: gray ? '#0f172a' : '#ffffff' },
+              dataLabels: { color: '#0f172a' },
             };
           });
           const formatHcTooltip = (pt) => {
@@ -2442,10 +2447,11 @@ function renderOverview() {
                   allowOverlap: false,
                   formatter: hcLabelFormatter,
                   style: {
+                    color: '#0f172a',
                     fontWeight: '800',
                     fontSize: '11px',
                     fontFamily: 'JetBrains Mono, monospace',
-                    textOutline: '1px contrast',
+                    textOutline: 'none',
                   },
                 },
                 states: {
@@ -2943,8 +2949,10 @@ function renderProjBanner() {
 
   document.getElementById('disp-name').innerHTML   = PROJ.name.replace('\n','<br/>');
   document.getElementById('disp-client').textContent = PROJ.client;
+  const startLabel = formatShortDate(PROJ.start);
+  const endLabel = formatShortDate(PROJ.end);
   document.getElementById('disp-dates').innerHTML  =
-    `<span style="color:#ffffff">Start:</span> ${PROJ.start} &nbsp;|&nbsp; <span style="color:#ffffff">End:</span> ${PROJ.end}<br/>
+    `<span style="color:#ffffff">Start:</span> ${startLabel} &nbsp;|&nbsp; <span style="color:#ffffff">End:</span> ${endLabel}<br/>
      <span style="color:#ffffff">Today:</span> <span style="color:#ffffff">${todayLabel}</span>`;
 
   document.getElementById('disp-sites').innerHTML =
