@@ -6,5 +6,13 @@
     "color": "#0f766e",
     "active": true,
     "updated": "2026-04-28"
+  },
+  {
+    "id": "VNPT 4G Phase 10",
+    "name": "VNPT 4G Phase 10",
+    "path": "projects/VNPT 4G Phase 10/",
+    "color": "#1d4ed8",
+    "active": true,
+    "updated": "2026-04-28"
   }
 ]

@@ -833,9 +833,13 @@ body{
       <button class="role-btn" id="role-admin-btn" onclick="switchUserRole('admin')">Admin</button>
     </div>
     <span class="last-upd" id="last-upd">Loading…</span>
+    <button class="topbar-btn admin-only hidden" onclick="openImportWorkbook()">📥 Import XLS</button>
+    <button class="topbar-btn admin-only hidden" onclick="exportCurrentWorkbook()">📤 Export XLS</button>
+    <button class="topbar-btn admin-only hidden" onclick="showPushGuide()">🚀 Push GitHub</button>
     <button class="topbar-btn admin-only hidden" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
   </div>
 </div>
+<input id="xlsx-import-input" type="file" accept=".xlsx,.xlsm,.xls" class="hidden" onchange="handleWorkbookImport(event)"/>
 
 <!-- ══ PROJECT INFO BANNER ══ -->
 <div class="proj-banner">
@@ -1020,6 +1024,7 @@ body{
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
 'use strict';
 
@@ -1101,6 +1106,7 @@ let currentProjectId = null;
 let selectedProvinceKey = null;
 let USER_ROLE = 'visitor';
 let DISPLAY_SETTINGS = loadDisplaySettings();
+let IMPORTED_PROJECTS = {};
 
 // ══════════════════════════════════════════════════════════════
 // STORAGE / ROLE / SETTINGS
@@ -1195,6 +1201,243 @@ function submitAdminPrompt() {
   closeAdminPrompt();
   updateRoleUI();
   toast('Switched to admin mode', 'ok');
+}
+
+function toIsoDate(value) {
+  if (value === null || value === undefined || value === '') return null;
+  if (typeof value === 'number') {
+    // Excel serial date -> JS date (1900 system)
+    const utc = new Date(Math.round((value - 25569) * 86400 * 1000));
+    return utc.toISOString().slice(0, 10);
+  }
+  const d = new Date(value);
+  if (!Number.isNaN(d.getTime())) return d.toISOString().slice(0, 10);
+  return String(value);
+}
+
+function normaliseProjectKeys(input) {
+  const arr = Array.isArray(input) ? input : [input];
+  return new Set(arr.map(v => String(v || '').trim().toLowerCase()).filter(Boolean));
+}
+
+function readConfigRowsFromWorkbook(wb) {
+  const ws = wb.Sheets.CONFIG;
+  if (!ws) return {};
+  const rows = XLSX.utils.sheet_to_json(ws, {header: 1, defval: null, raw: true});
+  const cfg = {};
+  let mode = 'kv';
+  rows.forEach(row => {
+    const a = row[0];
+    const b = row[1];
+    const c = row[2];
+    if (a === 'FIELDS_START') { mode = 'fields_hdr'; return; }
+    if (a === 'EQUIP_START') { mode = 'equip'; return; }
+    if (mode === 'kv') {
+      if (a && b !== null && b !== undefined) cfg[String(a).trim()] = b;
+    } else if (mode === 'fields_hdr') {
+      mode = 'fields';
+    } else if (mode === 'equip') {
+      if (!cfg.equipment) cfg.equipment = [];
+      if (b) cfg.equipment.push({type: String(b).trim(), model: c ? String(c).trim() : ''});
+    }
+  });
+  return cfg;
+}
+
+function buildFixedMilestones() {
+  const category = {
+    ms_TSS: 'planning', ms_TSSR: 'planning', ms_RFI: 'delivery', ms_BTS_MOS: 'delivery',
+    ms_BTS_On_Air: 'delivery', ms_PAT: 'acceptance', ms_PAC: 'acceptance', ms_SSV: 'acceptance',
+    ms_MW_On_Air: 'support', ms_Power_On_Air: 'support', ms_TX_Readiness: 'support',
+    ms_BTS_HI: 'support', ms_BTS_Integration: 'support', ms_Dismantle: 'support',
+    ms_OSS_KPI: 'acceptance', ms_FAC: 'acceptance',
+  };
+  return Object.keys(DEFAULT_MILESTONE_META).map(key => ({key, label: DEFAULT_MILESTONE_META[key].label || key, category: category[key] || 'support'}));
+}
+
+function parseWorkbookBundle(workbook) {
+  const sheetNames = workbook.SheetNames || [];
+  if (!sheetNames.includes('PROJECT_LIST') || !sheetNames.includes('DATA') || !sheetNames.includes('CONFIG')) {
+    throw new Error('Workbook must include PROJECT_LIST, DATA, and CONFIG sheets.');
+  }
+  const projRows = XLSX.utils.sheet_to_json(workbook.Sheets.PROJECT_LIST, {defval: '', raw: true});
+  const dataRows = XLSX.utils.sheet_to_json(workbook.Sheets.DATA, {defval: null, raw: true});
+  const issueRows = workbook.Sheets.ISSUES ? XLSX.utils.sheet_to_json(workbook.Sheets.ISSUES, {defval: null, raw: true}) : [];
+  const resRows = workbook.Sheets.RESOURCES ? XLSX.utils.sheet_to_json(workbook.Sheets.RESOURCES, {defval: null, raw: true}) : [];
+  const riskRows = workbook.Sheets.RISKS ? XLSX.utils.sheet_to_json(workbook.Sheets.RISKS, {defval: null, raw: true}) : [];
+  const cfgBase = readConfigRowsFromWorkbook(workbook);
+
+  const active = projRows.filter(p => {
+    const raw = String(p.active ?? 'true').trim().toUpperCase();
+    return !['FALSE', '0', 'NO', 'N'].includes(raw);
+  });
+  const milestones = buildFixedMilestones();
+  const statusColors = {"RFI Complete":"#FFC107","Installation Complete":"#42A5F5","On Air Complete":"#66BB6A","PAT Complete":"#AB47BC"};
+  const indexEntries = [];
+  const projectMap = {};
+
+  active.forEach(p => {
+    const pid = String(p.id || '').trim();
+    if (!pid) return;
+    const pname = String(p.name || pid).trim() || pid;
+    const keys = normaliseProjectKeys([pid, pname]);
+    const sites = dataRows
+      .filter(r => keys.has(String(r.project || '').trim().toLowerCase()))
+      .map(r => {
+        const row = {...r};
+        if (row.build_type) row.build_type = String(row.build_type).trim().toLowerCase();
+        row.project = pid;
+        return row;
+      });
+
+    const resources = resRows.filter(r => {
+      const rp = String(r.project || '').trim().toLowerCase();
+      return !rp || keys.has(rp);
+    }).map(r => ({...r, project: pid}));
+
+    let risks = riskRows.filter(r => {
+      const rp = String(r.project || '').trim().toLowerCase();
+      return !rp || keys.has(rp);
+    }).map(r => ({...r, project: pid}));
+    if (!risks.length && riskRows.length) {
+      const tags = new Set(riskRows.map(r => String(r.project || '').trim().toLowerCase()).filter(Boolean));
+      if (tags.size <= 1) risks = riskRows.map(r => ({...r, project: pid}));
+    }
+
+    const candidateSheet = `${pid.toUpperCase()}_ROLLING_PLAN`;
+    let rollingName = candidateSheet;
+    let rollingRows = [];
+    if (sheetNames.includes(candidateSheet)) {
+      rollingRows = XLSX.utils.sheet_to_json(workbook.Sheets[candidateSheet], {defval: null, raw: true});
+    } else {
+      const rpSheets = sheetNames.filter(n => String(n).toUpperCase().endsWith('_ROLLING_PLAN'));
+      if (rpSheets.length === 1) {
+        rollingName = rpSheets[0];
+        rollingRows = XLSX.utils.sheet_to_json(workbook.Sheets[rollingName], {defval: null, raw: true});
+      }
+    }
+
+    const issuesRaised = issueRows.reduce((s, r) => s + Number(r.raised || 0), 0);
+    const issuesClosed = issueRows.reduce((s, r) => s + Number(r.closed || 0), 0);
+    const issuesOpen = issueRows.length ? Number(issueRows[issueRows.length - 1].open || 0) : 0;
+
+    const config = {
+      ...cfgBase,
+      project: pid,
+      project_name: cfgBase.project_name || pname,
+      milestones,
+      build_types: [...DEFAULT_BUILD_TYPES],
+      status_colors: statusColors,
+      overview_milestones: ['ms_TSSR', 'ms_RFI', 'ms_BTS_MOS', 'ms_BTS_On_Air'],
+      hidden_milestones: ['ms_MW_On_Air','ms_Power_On_Air','ms_TX_Readiness','ms_BTS_HI','ms_BTS_Integration','ms_Dismantle','ms_OSS_KPI','ms_FAC'],
+    };
+
+    projectMap[pid] = {
+      config,
+      data: {
+        generated: new Date().toISOString().slice(0, 19),
+        project: pid,
+        sites,
+        issues: {raised: issuesRaised, closed: issuesClosed, open: issuesOpen, weekly: issueRows},
+        resources: {weekly: resources},
+        rolling_plan: {sheet: rollingName, weekly: rollingRows},
+        risks,
+      },
+    };
+    indexEntries.push({
+      id: pid,
+      name: pname,
+      path: `projects/${pid}/`,
+      color: String(p.color || '#1d4ed8'),
+      active: true,
+      updated: new Date().toISOString().slice(0, 10),
+    });
+  });
+
+  if (!indexEntries.length) throw new Error('No active project rows found in PROJECT_LIST.');
+  return {indexEntries, projectMap};
+}
+
+function openImportWorkbook() {
+  if (!requireAdmin()) return;
+  if (typeof XLSX === 'undefined') {
+    toast('XLS library not loaded', 'err');
+    return;
+  }
+  const el = document.getElementById('xlsx-import-input');
+  if (!el) return;
+  el.value = '';
+  el.click();
+}
+
+async function handleWorkbookImport(event) {
+  if (!requireAdmin()) return;
+  const file = event?.target?.files?.[0];
+  if (!file) return;
+  try {
+    showLoading(true, 'Importing workbook…');
+    const ab = await file.arrayBuffer();
+    const wb = XLSX.read(ab, {type: 'array', cellDates: false});
+    const bundle = parseWorkbookBundle(wb);
+    IMPORTED_PROJECTS = bundle.projectMap;
+    window._ALL_PROJECTS = bundle.indexEntries;
+    renderProjSwitcher(bundle.indexEntries);
+    await loadProject(bundle.indexEntries[0].id);
+    toast(`Imported: ${bundle.indexEntries.length} project(s)`, 'ok');
+  } catch (err) {
+    toast(`Import failed: ${err.message || err}`, 'err');
+  } finally {
+    showLoading(false);
+  }
+}
+
+function exportCurrentWorkbook() {
+  if (!requireAdmin()) return;
+  if (typeof XLSX === 'undefined') {
+    toast('XLS library not loaded', 'err');
+    return;
+  }
+  if (!currentProjectId || !CONFIG || !DATA) {
+    toast('No project loaded', 'err');
+    return;
+  }
+  try {
+    const wb = XLSX.utils.book_new();
+    const indexRow = (window._ALL_PROJECTS || []).find(p => p.id === currentProjectId) || {id: currentProjectId, name: PROJ.name || currentProjectId, color: '#1d4ed8'};
+    const projectList = [{id: currentProjectId, name: indexRow.name || currentProjectId, active: true, color: indexRow.color || '#1d4ed8', region: CONFIG.region || ''}];
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(projectList), 'PROJECT_LIST');
+
+    const cfgRows = [];
+    ['project_name','client','start_date','end_date','required_complete_date','region','pm','weekly_target','po_no','contract_value','vendor','target_onair'].forEach(k => {
+      if (CONFIG[k] !== undefined && CONFIG[k] !== null && CONFIG[k] !== '') cfgRows.push({key:k, value: CONFIG[k]});
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(cfgRows), 'CONFIG');
+
+    const milestoneKeys = Object.keys(DEFAULT_MILESTONE_META);
+    const dataHeaders = ['site_id','site_name','province','status','project','site_type','build_type','lat','lng', ...milestoneKeys];
+    const dataRows = (DATA.sites || []).map(site => {
+      const row = {};
+      dataHeaders.forEach(h => { row[h] = site[h] ?? null; });
+      row.project = currentProjectId;
+      return row;
+    });
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(dataRows, {header: dataHeaders}), 'DATA');
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA.issues?.weekly || []), 'ISSUES');
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((DATA.resources?.weekly || []).map(r => ({...r, project: currentProjectId}))), 'RESOURCES');
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet((DATA.risks || []).map(r => ({...r, project: currentProjectId}))), 'RISKS');
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(DATA.rolling_plan?.weekly || []), `${currentProjectId.toUpperCase()}_ROLLING_PLAN`);
+
+    const safeName = String(currentProjectId).replace(/[\\/:*?"<>|]/g, '_');
+    XLSX.writeFile(wb, `${safeName}.xlsx`);
+    toast(`Exported ${safeName}.xlsx`, 'ok');
+  } catch (err) {
+    toast(`Export failed: ${err.message || err}`, 'err');
+  }
+}
+
+function showPushGuide() {
+  if (!requireAdmin()) return;
+  toast('Browser cannot run git push. Use terminal: git add . && git commit -m \"update\" && git push origin main', 'err');
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1563,6 +1806,21 @@ async function loadProject(pid) {
   showLoading(true, 'Loading ' + pid + '…');
   currentProjectId = pid;
   try {
+    if (IMPORTED_PROJECTS && IMPORTED_PROJECTS[pid]) {
+      const pack = IMPORTED_PROJECTS[pid];
+      DATA = pack.data;
+      CONFIG = normaliseConfig(pack.config);
+      PROJ = buildProjFromConfig(CONFIG);
+      selectedProvinceKey = null;
+      COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
+      renderProjBanner();
+      render();
+      document.getElementById('last-upd').textContent = 'Last updated: ' + new Date().toLocaleString() + ' (imported)';
+      updateProjSwitcherActive(pid);
+      updateRoleUI();
+      toast('Loaded imported workbook: ' + (CONFIG.project_name || pid), 'ok');
+      return;
+    }
     const ts = '?t=' + Date.now();
     const [dRes, cRes] = await Promise.all([
       fetch('projects/' + pid + '/data.json' + ts),
