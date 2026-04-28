@@ -343,28 +343,11 @@ def read_risks(ws, project_keys):
 
 
 # ─────────────────────────────────────────────────────────────
-# INDEX.JSON UPSERT
+# INDEX.JSON WRITE
 # ─────────────────────────────────────────────────────────────
-def upsert_index(index_path, entry):
-    """Load existing index.json, update/insert entry, write back."""
-    existing = []
-    if os.path.exists(index_path):
-        try:
-            with open(index_path, "r", encoding="utf-8") as f:
-                existing = json.load(f)
-        except Exception:
-            pass
-
-    updated = False
-    for i, p in enumerate(existing):
-        if p.get("id") == entry["id"]:
-            existing[i] = entry
-            updated = True
-            break
-    if not updated:
-        existing.append(entry)
-
-    write_json(index_path, existing)
+def write_index(index_path, entries):
+    """Write index.json from workbook PROJECT_LIST as the single source of truth."""
+    write_json(index_path, entries)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -436,11 +419,11 @@ def main():
     print()
 
     # ── Export each active project ───────────────────────────
+    index_entries = []
     for proj in active:
         raw_id = str(proj.get("id", "")).strip()
         raw_name = str(proj.get("name", "")).strip()
-        # Canonical project key: keep ID in sync with project name for easier non-technical edits.
-        pid = raw_name or raw_id
+        pid = raw_id
         project_keys = {k for k in (raw_id, raw_name) if k}
         print(f"  ── {pid} ──────────────────────────────")
 
@@ -449,7 +432,8 @@ def main():
         # Config
         config = read_config(ws_config)
         config["project"] = pid   # ensure project field is set
-        config["project_name"] = proj.get("name", config.get("project_name", pid))
+        if not config.get("project_name"):
+            config["project_name"] = proj.get("name", pid)
         if proj.get("region"):
             config["region"] = proj.get("region")
 
@@ -480,17 +464,31 @@ def main():
         write_json(os.path.join(proj_dir, "data.json"),   data_export)
         write_json(os.path.join(proj_dir, "config.json"), config)
 
-        # index.json (upsert)
-        index_entry = {
-            "id":      pid,
-            "name":    proj.get("name", pid),
-            "path":    f"projects/{pid}/",
+        index_entries.append({
+            "id":      raw_id,
+            "name":    raw_name or raw_id,
+            "path":    f"projects/{raw_id}/",
             "color":   proj.get("color", "#1d4ed8"),
             "active":  True,
             "updated": datetime.now().strftime("%Y-%m-%d"),
-        }
-        upsert_index(os.path.join(output_dir, "index.json"), index_entry)
+        })
         print()
+
+    # Rebuild index from PROJECT_LIST so removed/renamed projects are fully synced.
+    inactive_entries = []
+    for proj in [p for p in projects if not p.get("active", True)]:
+        raw_id = str(proj.get("id", "")).strip()
+        if not raw_id:
+            continue
+        inactive_entries.append({
+            "id":      raw_id,
+            "name":    str(proj.get("name", raw_id)).strip() or raw_id,
+            "path":    f"projects/{raw_id}/",
+            "color":   proj.get("color", "#1d4ed8"),
+            "active":  False,
+            "updated": datetime.now().strftime("%Y-%m-%d"),
+        })
+    write_index(os.path.join(output_dir, "index.json"), index_entries + inactive_entries)
 
     print("=" * 50)
     print("  ✅  Export complete!")

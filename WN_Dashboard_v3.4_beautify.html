@@ -32,7 +32,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .logo-sub{font-size:10px;color:#627591;font-family:var(--mono);font-weight:700;letter-spacing:.8px;}
 .version-pill{display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:22px;padding:0 10px;border-radius:999px;border:1px solid #ccd6e6;background:linear-gradient(180deg,#ffffff,#f7fafd);color:#1b3a6b;font-family:var(--mono);font-size:10px;font-weight:800;box-shadow:0 2px 8px rgba(15,23,42,.08);}
 .logo-sub-sep{color:#a8b6c9;font-weight:700}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:6px;}
 .topbar-btn{padding:8px 13px;border-radius:10px;border:1px solid #c9d3e3;background:#fff;color:#31435f;font-size:11.5px;cursor:pointer;transition:all .15s;font-family:var(--sans);font-weight:700;box-shadow:0 2px 6px rgba(15,23,42,.04);}
 .topbar-btn:hover{border-color:var(--primary-mid);color:var(--primary-mid);background:var(--primary-light);}
 .role-switch{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid #cad5e6;border-radius:13px;background:linear-gradient(180deg,#fbfcfe,#f3f6fa);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 8px rgba(15,23,42,.04);}
@@ -417,7 +417,7 @@ body{
   color:#1d4ed8;
   background:linear-gradient(180deg,#ffffff,#eef4ff);
 }
-.topbar-right{gap:10px;}
+.topbar-right{gap:8px;}
 .topbar-btn{
   border-radius:11px;
   border:1px solid #cad5e4;
@@ -834,8 +834,6 @@ body{
     </div>
     <span class="last-upd" id="last-upd">Loading…</span>
     <button class="topbar-btn admin-only hidden" style="color:#059669;border-color:#059669;font-weight:700" onclick="openReportModal()">📋 Generate Report</button>
-    <button class="topbar-btn admin-only hidden" onclick="openSettings()">⚙ Settings</button>
-    <button class="topbar-btn admin-only hidden" onclick="openEditProj()">✏ Edit Project Info</button>
   </div>
 </div>
 
@@ -980,31 +978,6 @@ body{
 
 </div><!-- /content -->
 
-<!-- ══ EDIT PROJECT INFO MODAL ══ -->
-<div class="overlay" id="proj-overlay" onclick="if(event.target===this)closeProjEdit()">
-  <div class="modal" style="width:500px">
-    <div class="modal-title">✏ Edit Project Information</div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;font-size:12px">
-        <label style="color:var(--sub)">Project Name</label><input id="pe-name"   style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Client</label>       <input id="pe-client" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Start Date</label>   <input id="pe-start"  style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">End Date</label>     <input id="pe-end"    style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Project Manager</label><input id="pe-pm"  style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Contract Value</label><input id="pe-value" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Vendor</label>       <input id="pe-vendor" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Target On-Air</label><input id="pe-target" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Weekly Target</label><input id="pe-weekly" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-        <label style="color:var(--sub)">Region</label>       <input id="pe-region" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none"/>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeProjEdit()">Cancel</button>
-      <button class="import-btn" onclick="saveProjEdit()">Save</button>
-    </div>
-  </div>
-</div>
-
 <div class="overlay" id="admin-overlay" onclick="if(event.target===this)closeAdminPrompt()">
   <div class="modal" style="width:360px">
     <div class="modal-title">Admin Access</div>
@@ -1015,34 +988,6 @@ body{
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeAdminPrompt()">Cancel</button>
       <button class="import-btn" onclick="submitAdminPrompt()">Unlock</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SETTINGS MODAL ══ -->
-<div class="overlay" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
-  <div class="modal" style="width:860px">
-    <div class="modal-title">⚙ Dashboard Settings</div>
-    <div class="settings-grid">
-      <div class="settings-section">
-        <div class="settings-title">Build Types</div>
-        <div class="settings-list" id="settings-build-types"></div>
-        <div class="settings-help">Edit labels, visibility, and order for site scope cards and charts. New build type keys can be added if the source data uses the same key.</div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-title">Milestones</div>
-        <div class="settings-list" id="settings-milestones"></div>
-        <div class="settings-help">Control which work packages are shown by default and rename labels without changing exported JSON keys.</div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-title">Equipment &amp; Team Labels</div>
-        <div class="settings-list" id="settings-teams"></div>
-        <div class="settings-help">Team keys must match resource columns in JSON, such as <code>install</code>, <code>mw</code>, <code>power</code>, <code>optim</code>, or <code>total</code>.</div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeSettings()">Cancel</button>
-      <button class="import-btn" onclick="saveSettings()">Save</button>
     </div>
   </div>
 </div>
@@ -1161,7 +1106,8 @@ let DISPLAY_SETTINGS = loadDisplaySettings();
 // STORAGE / ROLE / SETTINGS
 // ══════════════════════════════════════════════════════════════
 function loadProjOverride() {
-  try { return JSON.parse(localStorage.getItem('wnd_proj_ovr') || '{}'); } catch { return {}; }
+  // XLS/JSON is the single source of truth; ignore local banner overrides.
+  return {};
 }
 
 function saveProjOverride() {
@@ -2788,131 +2734,6 @@ function renderProjBanner() {
     <div class="proj-kpi-row"><span class="proj-kpi-lbl">Main Product</span><span class="proj-kpi-val">${PROJ.mainProduct||'—'}</span></div>
     <div class="proj-kpi-row"><span class="proj-kpi-lbl">Kickoff Date</span><span class="proj-kpi-val">${PROJ.start||'—'}</span></div>
     <div class="proj-kpi-row"><span class="proj-kpi-lbl">Required Completion</span><span class="proj-kpi-val">${PROJ.requiredDate||PROJ.end||'—'}</span></div>`;
-}
-
-// ══════════════════════════════════════════════════════════════
-// EDIT PROJECT INFO (manual override — does NOT re-export JSON)
-// ══════════════════════════════════════════════════════════════
-function openEditProj() {
-  if (!requireAdmin()) return;
-  document.getElementById('pe-name').value   = PROJ.name.replace('\n',' ');
-  document.getElementById('pe-client').value = PROJ.client;
-  document.getElementById('pe-start').value  = PROJ.start;
-  document.getElementById('pe-end').value    = PROJ.end;
-  document.getElementById('pe-pm').value     = PROJ.pm;
-  document.getElementById('pe-value').value  = PROJ.value;
-  document.getElementById('pe-vendor').value = PROJ.vendor;
-  document.getElementById('pe-target').value = PROJ.target;
-  document.getElementById('pe-weekly').value = PROJ.weekly;
-  document.getElementById('pe-region').value = PROJ.region;
-  document.getElementById('proj-overlay').classList.add('on');
-}
-function closeProjEdit() { document.getElementById('proj-overlay').classList.remove('on'); }
-function saveProjEdit() {
-  if (!requireAdmin()) return;
-  const ovr = {};
-  ['name','client','start','end','pm','value','vendor','target','weekly','region'].forEach(k => {
-    const id = k === 'name' ? 'pe-name' : k === 'start' ? 'pe-start' : k === 'end' ? 'pe-end' : 'pe-' + k;
-    ovr[k] = document.getElementById(id).value;
-  });
-  localStorage.setItem('wnd_proj_ovr', JSON.stringify(ovr));
-  PROJ = Object.assign(PROJ, ovr);
-  renderProjBanner();
-  closeProjEdit();
-  toast('Project info updated ✓', 'ok');
-}
-
-function openSettings() {
-  if (!requireAdmin()) return;
-  renderSettingsModal();
-  document.getElementById('settings-overlay').classList.add('on');
-}
-function closeSettings() { document.getElementById('settings-overlay').classList.remove('on'); }
-
-function renderSettingsModal() {
-  const buildTypes = getVisibleBuildTypes();
-  const milestoneDefs = getMilestoneDefs('all');
-  const teamFields = DISPLAY_SETTINGS.team_fields.length ? DISPLAY_SETTINGS.team_fields : CONFIG.team_fields || DEFAULT_TEAM_FIELDS;
-
-  document.getElementById('settings-build-types').innerHTML = (CONFIG.build_types || DEFAULT_BUILD_TYPES).map((bt, index) => {
-    const match = DISPLAY_SETTINGS.build_types.find(row => row.key === bt.key) || buildTypes.find(row => row.key === bt.key) || {label: bt.label, visible: true, order: index + 1};
-    return `<div class="settings-row">
-      <input data-build-key="${bt.key}" value="${bt.key}" disabled/>
-      <input data-build-label="${bt.key}" value="${match.label || bt.label}"/>
-      <input data-build-order="${bt.key}" type="number" min="1" value="${match.order || index + 1}"/>
-      <select data-build-visible="${bt.key}"><option value="true" ${match.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${match.visible === false ? 'selected' : ''}>Hide</option></select>
-    </div>`;
-  }).join('');
-
-  document.getElementById('settings-milestones').innerHTML = (CONFIG.milestones || []).map((ms, index) => {
-    const meta = DISPLAY_SETTINGS.milestones?.[ms.key] || DEFAULT_MILESTONE_META[ms.key] || {};
-    return `<div class="settings-row">
-      <input data-ms-key="${ms.key}" value="${ms.key}" disabled/>
-      <input data-ms-label="${ms.key}" value="${meta.label || ms.label || ms.key}"/>
-      <input data-ms-order="${ms.key}" type="number" min="1" value="${meta.order || index + 1}"/>
-      <select data-ms-visible="${ms.key}"><option value="true" ${meta.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${meta.visible === false ? 'selected' : ''}>Hide</option></select>
-    </div>`;
-  }).join('');
-
-  const equipmentRows = getEquipmentList().map((item, index) => `
-    <div class="settings-row">
-      <input data-eq-type="${index}" value="${item.type || ''}" placeholder="Type"/>
-      <input data-eq-model="${index}" value="${item.model || ''}" placeholder="Model"/>
-      <input value="${index + 1}" disabled/>
-      <select disabled><option selected>Show</option></select>
-    </div>
-  `).join('');
-  const teamRows = teamFields.map((field, index) => `
-    <div class="settings-row">
-      <input data-team-key="${index}" value="${field.key}" disabled/>
-      <input data-team-label="${index}" value="${field.label}"/>
-      <input data-team-order="${index}" type="number" min="1" value="${index + 1}"/>
-      <select data-team-visible="${index}"><option value="true" ${field.visible !== false ? 'selected' : ''}>Show</option><option value="false" ${field.visible === false ? 'selected' : ''}>Hide</option></select>
-    </div>
-  `).join('');
-  document.getElementById('settings-teams').innerHTML = `
-    <div class="settings-title" style="margin-bottom:10px">Equipment</div>
-    ${equipmentRows || '<div class="settings-help">No equipment rows found in config.</div>'}
-    <div class="divider" style="margin:14px 0"></div>
-    <div class="settings-title" style="margin-bottom:10px">Team Labels</div>
-    ${teamRows}
-  `;
-}
-
-function saveSettings() {
-  if (!requireAdmin()) return;
-  DISPLAY_SETTINGS.build_types = (CONFIG.build_types || []).map((bt, index) => ({
-    key: bt.key,
-    label: document.querySelector(`[data-build-label="${bt.key}"]`)?.value || bt.label,
-    order: Number(document.querySelector(`[data-build-order="${bt.key}"]`)?.value || index + 1),
-    visible: document.querySelector(`[data-build-visible="${bt.key}"]`)?.value !== 'false',
-  }));
-  DISPLAY_SETTINGS.milestones = {};
-  (CONFIG.milestones || []).forEach((ms, index) => {
-    DISPLAY_SETTINGS.milestones[ms.key] = {
-      label: document.querySelector(`[data-ms-label="${ms.key}"]`)?.value || ms.label,
-      order: Number(document.querySelector(`[data-ms-order="${ms.key}"]`)?.value || index + 1),
-      visible: document.querySelector(`[data-ms-visible="${ms.key}"]`)?.value !== 'false',
-    };
-  });
-  const teamFields = DISPLAY_SETTINGS.team_fields.length ? DISPLAY_SETTINGS.team_fields : CONFIG.team_fields || DEFAULT_TEAM_FIELDS;
-  const equipmentList = getEquipmentList();
-  DISPLAY_SETTINGS.team_fields = teamFields.map((field, index) => ({
-    key: field.key,
-    label: document.querySelector(`[data-team-label="${index}"]`)?.value || field.label,
-    visible: document.querySelector(`[data-team-visible="${index}"]`)?.value !== 'false',
-  }));
-  DISPLAY_SETTINGS.equipment = equipmentList.map((item, index) => ({
-    type: document.querySelector(`[data-eq-type="${index}"]`)?.value || item.type,
-    model: document.querySelector(`[data-eq-model="${index}"]`)?.value || item.model,
-  })).filter(item => item.type || item.model);
-  saveDisplaySettingsState();
-  PROJ.equipment = getEquipmentList();
-  renderProjBanner();
-  COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
-  render();
-  closeSettings();
-  toast('Settings saved ✓', 'ok');
 }
 
 // ══════════════════════════════════════════════════════════════
