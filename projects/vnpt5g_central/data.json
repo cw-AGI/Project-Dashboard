@@ -10778,33 +10778,33 @@
   },
   "risks": [
     {
-      "risk_name": "Logistics thiết bị RRH theo lô Q1",
+      "risk_name": "Q1 RRH Equipment Logistics",
       "priority": "High",
-      "description": "Lô RRH n78 bị lệch lịch cảng ảnh hưởng chuỗi lắp đặt tháng 3.",
-      "owner": "Lê Thu Hà",
+      "description": "The n78 RRH shipment missed port schedule windows, impacting the March installation sequence.",
+      "owner": "Le Thu Ha",
       "resolve_date": "2026-04-28",
-      "current_status": "Điều chuyển một phần từ kho Singapore; 70% nhu cầu đã có mặt tại kho miền Trung.",
-      "next_steps": "Xác nhận air-freight cho 40 RRH cuối chuỗi; cập nhật MOS plan tuần 17.",
+      "current_status": "Partial units were reallocated from the Singapore warehouse; around 70% of demand is now in the Central warehouse.",
+      "next_steps": "Confirm air-freight for the final 40 RRHs and update the Week 17 MOS plan.",
       "project": "vnpt5g_central"
     },
     {
-      "risk_name": "Nguồn điện và chỗ phòng máy (expansion)",
+      "risk_name": "Power and Shelter Readiness (Expansion)",
       "priority": "Medium",
-      "description": "Một số trạ expansion cần nâng công suất nguồn trước On Air.",
-      "owner": "Phạm Quốc Anh",
+      "description": "Several expansion sites require power-capacity upgrades before On Air.",
+      "owner": "Pham Quoc Anh",
       "resolve_date": "2026-05-05",
-      "current_status": "Survey điện hoàn tất 89%; 11 trạ đang chờ hợp đồng gia công tủ điện.",
-      "next_steps": "Đẩy mua sắm tủ PDU đợt 2; lịch lắp tuần 16–17.",
+      "current_status": "Power survey is 89% complete; 11 sites are waiting for the electrical cabinet fabrication contract.",
+      "next_steps": "Accelerate second-batch PDU procurement and lock installation slots for Weeks 16-17.",
       "project": "vnpt5g_central"
     },
     {
-      "risk_name": "Cấp phép tần số / thủ tục địa phương",
+      "risk_name": "Spectrum Licensing and Local Permits",
       "priority": "Medium",
-      "description": "Một số trạ mở rộng chậm giấy phép xây dựng cột phụ tại Quảng Nam.",
-      "owner": "Trần Hoài Nam",
+      "description": "Some expansion sites in Quang Nam are delayed by local permits for auxiliary pole construction.",
+      "owner": "Tran Hoai Nam",
       "resolve_date": "2026-05-10",
-      "current_status": "Đang rà soát danh sách 12 trạ; 6 trạ đã có phê duyệt bổ sung.",
-      "next_steps": "Phối hợp Sở TT&TT địa phương; ưu tiên đường dây nóng tuần 18.",
+      "current_status": "The 12-site list is under review; 6 sites have received supplemental approvals.",
+      "next_steps": "Coordinate with the provincial telecom authority and prioritize fast-track escalation in Week 18.",
       "project": "vnpt5g_central"
     }
   ]

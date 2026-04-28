@@ -112,7 +112,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .proj-equip-grid{display:flex;flex-direction:column;gap:5px;}
 .proj-equip-row{display:flex;align-items:center;gap:8px;padding:1px 0;}
 .proj-equip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:#ffffff;box-shadow:0 0 0 1px rgba(15,23,42,.22);}
-.proj-equip-type{font-size:12px;color:rgba(255,255,255,.96);flex:1;font-weight:600;line-height:1.2;}
+.proj-equip-type{font-size:12px;color:rgba(255,255,255,.96);flex:1;font-weight:400;line-height:1.2;}
 .proj-equip-model{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.92);font-weight:600;line-height:1;}
 .proj-kpi-grid{display:flex;flex-direction:column;gap:7px;}
 .proj-kpi-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:1px 0;}
@@ -2150,16 +2150,6 @@ function renderOverview() {
                 <span class="prov-all-sub">${roundN(row.milestoneDoneSlots)}/${roundN(row.milestoneSlotTotal)}</span>
               </div>
             `).join('')}
-            <div class="prov-total-box">
-              <div class="prov-total-cell">
-                <span class="prov-total-lbl">Total Completion</span>
-                <span class="prov-total-val" style="color:#059669">${totalDonePctInt}%</span>
-              </div>
-              <div class="prov-total-cell">
-                <span class="prov-total-lbl">Total Incomplete</span>
-                <span class="prov-total-val" style="color:#6b7280">${incompletePctInt}%</span>
-              </div>
-            </div>
           </div>
           <div class="prov-all-chart-stage">
             <div class="prov-all-chart-tilt">
