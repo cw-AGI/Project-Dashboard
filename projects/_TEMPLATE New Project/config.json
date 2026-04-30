@@ -1,0 +1,65 @@
+{
+  "project_name": "NEW PROJECT NAME",
+  "client": "CLIENT NAME",
+  "start_date": 46290,
+  "end_date": 46400,
+  "required_complete_date": 46400,
+  "region": "North",
+  "pm": "PM NAME",
+  "weekly_target": 20,
+  "po_no": "PO-XX-2026",
+  "milestones": [
+    {
+      "key": "ms_TSS",
+      "label": "TSS",
+      "category": "planning"
+    },
+    {
+      "key": "ms_RFI",
+      "label": "RFI",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_BTS_MOS",
+      "label": "MOS",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_BTS_On_Air",
+      "label": "On Air",
+      "category": "delivery"
+    },
+    {
+      "key": "ms_PAT",
+      "label": "PAT",
+      "category": "acceptance"
+    }
+  ],
+  "build_types": [
+    {
+      "key": "new",
+      "label": "New Sites"
+    },
+    {
+      "key": "swap",
+      "label": "SWAP Sites"
+    },
+    {
+      "key": "expansion",
+      "label": "Expansion Sites"
+    }
+  ],
+  "status_colors": {
+    "RFI Complete": "#FFC107",
+    "Installation Complete": "#42A5F5",
+    "On Air Complete": "#66BB6A",
+    "PAT Complete": "#AB47BC"
+  },
+  "overview_milestones": [
+    "ms_RFI",
+    "ms_BTS_MOS",
+    "ms_BTS_On_Air"
+  ],
+  "hidden_milestones": [],
+  "project": "NEW PROJECT NAME"
+}

@@ -1,25 +1,18 @@
 {
-  "project_name": "VNPT 5G — Central Coast (New + Expansion)",
+  "key": "value",
+  "project_name": "VNPT 4G P9-3",
   "client": "VNPT",
-  "start_date": "2026-01-01",
-  "end_date": "2026-04-30",
-  "required_complete_date": "2026-04-30",
-  "region": "Miền Trung",
-  "pm": "Nguyễn Văn Minh (PMO)",
-  "weekly_target": 42,
-  "po_no": "PO-VNPT-5G-CM-2026-0142",
-  "contract_value": "Khung hợp đồng triển khai 5G (simulated)",
-  "vendor": "Nokia / Ericsson (đội triển khai liên danh)",
-  "target_onair": 601,
+  "start_date": 46082,
+  "end_date": 46265,
+  "region": "Central",
+  "pm": "Duy Dung",
+  "weekly_target": 24,
+  "target_onair": "260 sites",
+  "project": "VNPT 4G P9-3",
   "milestones": [
     {
       "key": "ms_TSS",
       "label": "TSS",
-      "category": "planning"
-    },
-    {
-      "key": "ms_TSSR",
-      "label": "TSSR",
       "category": "planning"
     },
     {
@@ -29,7 +22,7 @@
     },
     {
       "key": "ms_BTS_MOS",
-      "label": "MOS",
+      "label": "Installation",
       "category": "delivery"
     },
     {
@@ -55,10 +48,6 @@
     {
       "key": "ms_MW_On_Air",
       "label": "MW On Air",
-      "scope": [
-        "swap",
-        "new"
-      ],
       "category": "support"
     },
     {
@@ -84,9 +73,6 @@
     {
       "key": "ms_Dismantle",
       "label": "Dismantle",
-      "scope": [
-        "swap"
-      ],
       "category": "support"
     },
     {
@@ -106,12 +92,12 @@
       "label": "New Sites"
     },
     {
-      "key": "swap",
-      "label": "SWAP Sites"
-    },
-    {
       "key": "expansion",
       "label": "Expansion Sites"
+    },
+    {
+      "key": "swap",
+      "label": "SWAP Sites"
     }
   ],
   "status_colors": {
@@ -121,7 +107,6 @@
     "PAT Complete": "#AB47BC"
   },
   "overview_milestones": [
-    "ms_TSSR",
     "ms_RFI",
     "ms_BTS_MOS",
     "ms_BTS_On_Air"
@@ -136,5 +121,41 @@
     "ms_OSS_KPI",
     "ms_FAC"
   ],
-  "project": "vnpt5g_central"
+  "team_fields": [
+    {
+      "key": "install",
+      "label": "Installation Teams",
+      "visible": true
+    },
+    {
+      "key": "ssv",
+      "label": "SSV Teams",
+      "visible": true
+    },
+    {
+      "key": "onair",
+      "label": "On Air Teams",
+      "visible": true
+    },
+    {
+      "key": "mw",
+      "label": "Microwave Teams",
+      "visible": false
+    },
+    {
+      "key": "power",
+      "label": "Power Teams",
+      "visible": false
+    },
+    {
+      "key": "optim",
+      "label": "Optimization Teams",
+      "visible": false
+    },
+    {
+      "key": "total",
+      "label": "Total Teams",
+      "visible": false
+    }
+  ]
 }

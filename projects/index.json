@@ -1,18 +1,18 @@
 [
   {
-    "id": "VNPT 5G PO2",
-    "name": "VNPT 5G PO2",
-    "path": "projects/VNPT 5G PO2/",
-    "color": "#0f766e",
-    "active": true,
-    "updated": "2026-04-28"
-  },
-  {
-    "id": "VNPT 4G Phase 10",
-    "name": "VNPT 4G Phase 10",
-    "path": "projects/VNPT 4G Phase 10/",
+    "id": "VNPT 4G P9-3",
+    "name": "VNPT 4G P9-3",
+    "path": "projects/VNPT 4G P9-3/",
     "color": "#1d4ed8",
     "active": true,
-    "updated": "2026-04-28"
+    "updated": "2026-04-30"
+  },
+  {
+    "id": "VNPT 4G P9-2",
+    "name": "VNPT 4G P9-2",
+    "path": "projects/VNPT 4G P9-2/",
+    "color": "#1d4ed8",
+    "active": true,
+    "updated": "2026-04-30"
   }
 ]

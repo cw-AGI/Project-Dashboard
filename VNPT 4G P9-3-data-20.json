@@ -1,0 +1,783 @@
+{
+  "generated": "2026-04-30T16:36:43",
+  "project": "VNPT 4G P9-3",
+  "sites": [
+    {
+      "site_name": 1,
+      "province": "HUE",
+      "site_type": "4G",
+      "build_type": "new",
+      "Total sites": 60,
+      "RFI": 30,
+      "TSS": 30,
+      "MOS": 30,
+      "Installation": 30,
+      "On Air": 30,
+      "PAT": 15,
+      "ms_RFI": 30,
+      "ms_TSS": 30,
+      "ms_BTS_MOS": 30,
+      "ms_BTS_On_Air": 30,
+      "ms_PAT": 15,
+      "total_sites": 60,
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "site_name": 2,
+      "province": "Quang Binh",
+      "site_type": "4G",
+      "build_type": "new",
+      "Total sites": 40,
+      "RFI": 20,
+      "TSS": 20,
+      "MOS": 20,
+      "Installation": 20,
+      "On Air": 20,
+      "PAT": 15,
+      "ms_RFI": 20,
+      "ms_TSS": 20,
+      "ms_BTS_MOS": 20,
+      "ms_BTS_On_Air": 20,
+      "ms_PAT": 15,
+      "total_sites": 40,
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "site_name": 3,
+      "province": "Quang Nam",
+      "site_type": "4G",
+      "build_type": "new",
+      "Total sites": 20,
+      "RFI": 10,
+      "TSS": 10,
+      "MOS": 10,
+      "Installation": 10,
+      "On Air": 10,
+      "PAT": 6,
+      "ms_RFI": 10,
+      "ms_TSS": 10,
+      "ms_BTS_MOS": 10,
+      "ms_BTS_On_Air": 10,
+      "ms_PAT": 6,
+      "total_sites": 20,
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "site_name": 4,
+      "province": "Quang Tri",
+      "site_type": "4G",
+      "build_type": "new",
+      "Total sites": 30,
+      "RFI": 20,
+      "TSS": 20,
+      "MOS": 20,
+      "Installation": 20,
+      "On Air": 20,
+      "PAT": 10,
+      "ms_RFI": 20,
+      "ms_TSS": 20,
+      "ms_BTS_MOS": 20,
+      "ms_BTS_On_Air": 20,
+      "ms_PAT": 10,
+      "total_sites": 30,
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "site_name": 5,
+      "province": "Da Nang",
+      "site_type": "4G",
+      "build_type": "new",
+      "Total sites": 50,
+      "RFI": 20,
+      "TSS": 20,
+      "MOS": 20,
+      "Installation": 20,
+      "On Air": 20,
+      "PAT": 10,
+      "ms_RFI": 20,
+      "ms_TSS": 20,
+      "ms_BTS_MOS": 20,
+      "ms_BTS_On_Air": 20,
+      "ms_PAT": 10,
+      "total_sites": 50,
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "site_name": 6,
+      "province": "Da Nang",
+      "site_type": "4G",
+      "build_type": "expansion",
+      "Total sites": 60,
+      "RFI": 60,
+      "TSS": 60,
+      "MOS": 60,
+      "Installation": 60,
+      "On Air": 60,
+      "PAT": 30,
+      "ms_RFI": 60,
+      "ms_TSS": 60,
+      "ms_BTS_MOS": 60,
+      "ms_BTS_On_Air": 60,
+      "ms_PAT": 30,
+      "total_sites": 60,
+      "project": "VNPT 4G P9-3"
+    }
+  ],
+  "issues": {
+    "raised": 92,
+    "closed": 54,
+    "open": 0,
+    "weekly": [
+      {
+        "week": "W01",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W02",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W03",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W04",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W05",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W06",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W07",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W08",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W09",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W10",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W11",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W12",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W13",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W14",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W15",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W16",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W17",
+        "raised": 5,
+        "closed": 3,
+        "open": 2
+      },
+      {
+        "week": "W18",
+        "raised": 7,
+        "closed": 3,
+        "open": 4
+      },
+      {
+        "week": "W19",
+        "raised": null,
+        "closed": null,
+        "open": null
+      },
+      {
+        "week": "W20",
+        "raised": null,
+        "closed": null,
+        "open": null
+      },
+      {
+        "week": "W21",
+        "raised": null,
+        "closed": null,
+        "open": null
+      },
+      {
+        "week": "W22",
+        "raised": null,
+        "closed": null,
+        "open": null
+      },
+      {
+        "week": "W23",
+        "raised": null,
+        "closed": null,
+        "open": null
+      },
+      {
+        "week": "W24",
+        "raised": null,
+        "closed": null,
+        "open": null
+      }
+    ]
+  },
+  "resources": {
+    "weekly": [
+      {
+        "week": "W01",
+        "install": 0,
+        "ssv": 0,
+        "onair": 0,
+        "optim": 0,
+        "total": 0,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W02",
+        "install": 5,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 14,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W03",
+        "install": 5,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 14,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W04",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W05",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W06",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 10,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W07",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W08",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W09",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W10",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W11",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W12",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W13",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W14",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W15",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W16",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W17",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W18",
+        "install": 7,
+        "ssv": 3,
+        "onair": 3,
+        "optim": 3,
+        "total": 16,
+        "total_plan": 12,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W19",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": 14,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W20",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": 14,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W21",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": 14,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W22",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": 14,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W23",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": 14,
+        "project": "VNPT 4G P9-3"
+      },
+      {
+        "week": "W24",
+        "install": null,
+        "ssv": null,
+        "onair": null,
+        "optim": null,
+        "total": 0,
+        "total_plan": null,
+        "project": "VNPT 4G P9-3"
+      }
+    ]
+  },
+  "rolling_plan": {
+    "sheet": "VNPT 4G P9-3_ROLLING_PLAN",
+    "weekly": [
+      {
+        "week": "W01",
+        "tss_plan": 30,
+        "rfi_plan": null,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W02",
+        "tss_plan": 80,
+        "rfi_plan": null,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W03",
+        "tss_plan": 130,
+        "rfi_plan": null,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W04",
+        "tss_plan": 180,
+        "rfi_plan": null,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W05",
+        "tss_plan": 230,
+        "rfi_plan": null,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W06",
+        "tss_plan": 260,
+        "rfi_plan": 180,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W07",
+        "tss_plan": 260,
+        "rfi_plan": 230,
+        "install_plan": null,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W08",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 30,
+        "onair_plan": null,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W09",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 60,
+        "onair_plan": 30,
+        "ssv_plan": null,
+        "pat_plan": null
+      },
+      {
+        "week": "W10",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 90,
+        "onair_plan": 60,
+        "ssv_plan": 30,
+        "pat_plan": null
+      },
+      {
+        "week": "W11",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 120,
+        "onair_plan": 90,
+        "ssv_plan": 60,
+        "pat_plan": 30
+      },
+      {
+        "week": "W12",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 150,
+        "onair_plan": 120,
+        "ssv_plan": 90,
+        "pat_plan": 60
+      },
+      {
+        "week": "W13",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 180,
+        "onair_plan": 150,
+        "ssv_plan": 120,
+        "pat_plan": 90
+      },
+      {
+        "week": "W14",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 230,
+        "onair_plan": 180,
+        "ssv_plan": 150,
+        "pat_plan": 120
+      },
+      {
+        "week": "W15",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 230,
+        "ssv_plan": 180,
+        "pat_plan": 150
+      },
+      {
+        "week": "W16",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 230,
+        "pat_plan": 180
+      },
+      {
+        "week": "W17",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 230
+      },
+      {
+        "week": "W18",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W19",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W20",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W21",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W22",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W23",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      },
+      {
+        "week": "W24",
+        "tss_plan": 260,
+        "rfi_plan": 260,
+        "install_plan": 260,
+        "onair_plan": 260,
+        "ssv_plan": 260,
+        "pat_plan": 260
+      }
+    ]
+  },
+  "risks": [
+    {
+      "risk_name": "Site RFI",
+      "priority": "HIGH",
+      "description": "100 sites RFI progress get stuck",
+      "owner": "VNPT NET3",
+      "resolve_date": 46173,
+      "current_status": "Delay",
+      "next_steps": "push VNPT to finish all sites RFI",
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "risk_name": "Site Transmission",
+      "priority": "Medium",
+      "description": "some site transmission lacking ",
+      "owner": "VNPT NOC3",
+      "resolve_date": "5/31/2026",
+      "current_status": "Delay",
+      "next_steps": "push to finish tranmission line ",
+      "project": "VNPT 4G P9-3"
+    },
+    {
+      "risk_name": "Manpower",
+      "priority": "Low",
+      "description": "After 100 site RFI finished, project need speed up by increaing more manpower ",
+      "owner": "ZTE Project",
+      "resolve_date": 46301,
+      "current_status": "Normal",
+      "next_steps": "Prepare for the resource to speed up site on air",
+      "project": "VNPT 4G P9-3"
+    }
+  ],
+  "progress_log": [
+    {
+      "date": "2026-04-30",
+      "onAirByBuild": {
+        "new": 100,
+        "expansion": 60
+      }
+    }
+  ]
+}

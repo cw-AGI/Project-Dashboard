@@ -1,0 +1,38 @@
+{
+  "generated": "2026-04-30T14:40:00",
+  "project": "NEW PROJECT NAME",
+  "sites": [
+    {
+      "site_id": "NEW-0001",
+      "site_name": "Sample Site 1",
+      "province": "Ha Noi",
+      "status": "RFI Complete",
+      "project": "NEW PROJECT NAME",
+      "site_type": "5G NR n78 Macro",
+      "build_type": "new",
+      "lat": null,
+      "lng": null,
+      "ms_TSS": "done",
+      "ms_RFI": "done",
+      "ms_BTS_MOS": "pending",
+      "ms_BTS_On_Air": "pending",
+      "ms_PAT": "pending"
+    },
+    {
+      "site_id": "NEW-0002",
+      "site_name": "Sample Site 2",
+      "province": "Da Nang",
+      "status": "Installation Complete",
+      "project": "NEW PROJECT NAME",
+      "site_type": "5G NR n78 Rooftop",
+      "build_type": "expansion",
+      "lat": null,
+      "lng": null,
+      "ms_TSS": "done",
+      "ms_RFI": "done",
+      "ms_BTS_MOS": "done",
+      "ms_BTS_On_Air": "pending",
+      "ms_PAT": "pending"
+    }
+  ]
+}
