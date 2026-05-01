@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-Sync embedded IDX/BUNDLE in WN_Dashboard_v3.6.html from projects/*.json.
+Sync embedded IDX/BUNDLE in dashboard HTML files from projects/*.json.
+
+Targets:
+- All `WN_Dashboard_v*.html` in the repo root
+- `WN_Dashboard.html` when present (canonical / release snapshot)
 
 Why:
 - file:// mode in the dashboard uses embedded snapshot.
@@ -17,10 +21,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 def _discover_dashboard_files() -> list[Path]:
-    return sorted(
+    paths = sorted(
         p for p in ROOT.glob("WN_Dashboard_v*.html")
         if p.is_file()
     )
+    canonical = ROOT / "WN_Dashboard.html"
+    if canonical.is_file():
+        paths.append(canonical)
+    return paths
 PROJECTS = ROOT / "projects"
 INDEX = PROJECTS / "index.json"
 
@@ -28,7 +36,7 @@ INDEX = PROJECTS / "index.json"
 def main() -> None:
     existing_html = _discover_dashboard_files()
     if not existing_html:
-        raise SystemExit("Missing dashboard files matching: WN_Dashboard_v*.html")
+        raise SystemExit("Missing dashboard files matching: WN_Dashboard_v*.html (and optionally WN_Dashboard.html)")
     if not INDEX.exists():
         raise SystemExit(f"Missing projects index: {INDEX}")
 

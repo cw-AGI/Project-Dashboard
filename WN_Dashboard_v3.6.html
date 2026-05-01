@@ -2233,11 +2233,13 @@ function asciiProvinceName(value) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 function getProvinceMilestoneDefs() {
-  const wanted = ['ms_RFI', 'ms_BTS_MOS', 'ms_BTS_On_Air'];
+  const wanted = ['ms_TSS', 'ms_RFI', 'ms_BTS_MOS', 'ms_BTS_On_Air', 'ms_PAT'];
   const labels = {
+    ms_TSS: 'TSS',
     ms_RFI: 'RFI',
-    ms_BTS_MOS: 'MOS',
+    ms_BTS_MOS: 'Installation',
     ms_BTS_On_Air: 'On Air',
+    ms_PAT: 'PAT',
   };
   return wanted.map(key => ({key, label: labels[key] || key}));
 }
