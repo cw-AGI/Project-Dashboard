@@ -1416,6 +1416,9 @@ select.pd-cell:focus,input[type="date"].pd-cell:focus{border-color:rgba(59,158,2
 .iss-prio-count.raise{color:#fb923c;}
 .iss-prio-count.closed{color:#34D399;}
 .iss-prio-count.open{color:#F87171;}
+.iss-prio-count.team-wow-up{color:#34D399;}
+.iss-prio-count.team-wow-down{color:#fb923c;}
+.iss-prio-count.team-wow-flat{color:var(--ccs-chart-text-color);opacity:.85;}
 .iss-prio-meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-left:auto;}
 .iss-prio-title{
   margin:12px 0 8px;font-size:var(--ccs-chart-text-size);font-weight:700;letter-spacing:.14em;
@@ -4217,7 +4220,7 @@ function getCCSHighlightSelectors(fieldId) {
     execTitle: ['.exec-title','.issues-brief-title'],
     content: ['.exec-summary','.exec-list-text','.province-spotlight-note','.risk-top-desc','.risk-queue-desc','.ui-empty-copy','.issues-brief-copy','.issues-action-copy'],
     micro: ['.exec-kicker','.issues-brief-eyebrow','.logo-sub','.proj-switcher-meta','.proj-switcher-item-date','.iss-trend-label'],
-    chart: ['.chart-stage','.gauge-wrap','.ppie-shell','.ov-ms','.ov-teams','.province-summary-grid','.province-summary-card','.province-spotlight','.iss-priority-row','.iss-prio-title','.iss-prio-item','.team-breakdown','.prov-pie-summary','.issues-kicker','.risk-accordion-meta-row > span','.risk-accordion-meta','.risk-queue-tag','.risk-top-badge','.risk-top-empty','.risk-next-steps','.risk-acc-badge'],
+    chart: ['.chart-stage','.gauge-wrap','.ppie-shell','.ov-ms','.ov-teams','.province-summary-grid','.province-summary-card','.province-spotlight','.iss-priority-row','.iss-prio-title','.iss-prio-item','.team-wow-row','.team-breakdown','.prov-pie-summary','.issues-kicker','.risk-accordion-meta-row > span','.risk-accordion-meta','.risk-queue-tag','.risk-top-badge','.risk-top-empty','.risk-next-steps','.risk-acc-badge'],
     map: ['.map-container','.map-tooltip','.map-legend','.map-province-stats','.map-ctrl-btn'],
     table: ['.province-table','.mt','.st','.pd-table','.pd-note','.pd-cell','.pd-sheet-row'],
     modal: ['.modal','.settings-section','.settings-label','.settings-help','.pd-tab','.pd-toolbar .pd-note','.pd-mini-btn','.btn-cancel','.modal-help','.report-note','.ccs-field label'],
@@ -6636,6 +6639,31 @@ charts.issTrend = new Chart(issTrendDom, {
   const capPct          = lastResPlan > 0 ? Math.round((lastResTotal / lastResPlan) * 100) : null;
   const capCls          = capPct === null ? 'warn' : capPct >= 95 ? 'good' : capPct >= 75 ? 'warn' : 'bad';
   const capLabel        = capPct === null ? 'No plan set' : `${capPct}% vs plan`;
+  const wowCur = teamTrend.length ? teamTrend[teamTrend.length - 1] : lastRes;
+  const wowPrev = teamTrend.length >= 2 ? teamTrend[teamTrend.length - 2] : null;
+  const fmtTeamWowDelta = (d) => {
+    if (!Number.isFinite(d)) return '—';
+    if (d > 0) return '+' + fmtWhole(d);
+    if (d < 0) return '\u2212' + fmtWhole(Math.abs(d));
+    return '0';
+  };
+  const teamWowDefs = [
+    {key: 'install', badge: 'I', label: 'Installation', itemClass: 'raise'},
+    {key: 'onair', badge: 'A', label: 'On Air', itemClass: 'closed'},
+    {key: 'ssv', badge: 'S', label: 'SSV', itemClass: 'low'},
+  ];
+  const teamWowBlocks = teamWowDefs.map(({key, badge, label, itemClass}) => {
+    const cur = Number(wowCur[key] || 0);
+    const prev = Number(wowPrev?.[key] || 0);
+    const d = wowPrev ? cur - prev : null;
+    const countCls = d === null ? '' : d > 0 ? 'team-wow-up' : d < 0 ? 'team-wow-down' : 'team-wow-flat';
+    const countTxt = d === null ? '—' : fmtTeamWowDelta(d);
+    return `<div class="iss-prio-item ${itemClass}">
+        <span class="iss-prio-badge">${badge}</span>
+        <span class="iss-prio-label">${label}</span>
+        <div class="iss-prio-meta"><span class="iss-prio-count ${countCls}">${countTxt}</span></div>
+      </div>`;
+  }).join('');
   document.getElementById('ov-teams').innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px;">
       <span style="font-size:var(--ccs-chart-text-size);font-weight:700;color:var(--ccs-chart-text-color);letter-spacing:.3px;font-family:var(--ccs-chart-font);">Current Week · Team Deployment</span>
@@ -6659,7 +6687,9 @@ charts.issTrend = new Chart(issTrendDom, {
     <div class="iss-trend-wrap" style="margin-top:10px;margin-bottom:0">
       <div class="iss-trend-label">Weekly Team Deployment — Last 8 Weeks</div>
       <div class="chart-stage chart-stage--compact"><canvas id="ov-team-trend-chart"></canvas></div>
-    </div>`;
+    </div>
+    <div class="iss-prio-title" style="margin-top:12px">Teams ± vs last week</div>
+    <div class="iss-priority-row team-wow-row">${teamWowBlocks}</div>`;
 
   if (charts.ovTeam) { try { charts.ovTeam.destroy(); } catch (_) {} delete charts.ovTeam; }
   const ovTeamTrendDom = document.getElementById('ov-team-trend-chart');
