@@ -2240,6 +2240,7 @@ body.ccs-pick-mode .proj-banner:hover{
   border-radius:7px;padding:6px 9px;display:block;}
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.10/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -2269,6 +2270,9 @@ body.ccs-pick-mode .proj-banner:hover{
       <button class="role-btn" id="role-admin-btn" onclick="switchUserRole('admin')">Admin</button>
     </div>
     <span class="last-upd hidden" id="last-upd">Loading…</span>
+    <button type="button" class="topbar-icon-btn" id="cloud-auth-btn" data-tip="Supabase cloud (sign in to save online)" onclick="openSupabaseCloudModal()" style="color:#38bdf8;border-color:rgba(56,189,248,.35)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 109 20v2"/><path d="M8 16h.01M12 16h.01M16 16h.01"/></svg>
+    </button>
     <!-- Import/Export XLS -->
     <button class="topbar-icon-btn admin-only hidden" data-tip="Import / Export XLS" onclick="openFileFlowModal()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
@@ -2894,6 +2898,22 @@ body.ccs-pick-mode .proj-banner:hover{
   </div>
 </div>
 
+<div class="overlay" id="supabase-cloud-overlay" onclick="if(event.target===this)closeSupabaseCloudModal()">
+  <div class="modal" style="width:400px">
+    <div class="modal-title">Supabase cloud</div>
+    <div class="modal-stack">
+      <div class="modal-help" id="supabase-cloud-status">Sign in with a Supabase Auth user that has write access. Fill Project URL + anon key in <code>SUPABASE_REMOTE</code> in this HTML file first.</div>
+      <input id="supabase-email-input" class="ui-input" type="email" autocomplete="username" placeholder="Email" />
+      <input id="supabase-password-input" class="ui-input" type="password" autocomplete="current-password" placeholder="Password" onkeydown="if(event.key==='Enter'){event.preventDefault();submitSupabaseCloudSignIn();}"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeSupabaseCloudModal()">Close</button>
+      <button class="btn-cancel" id="supabase-signout-btn" onclick="signOutSupabaseCloud()" style="display:none">Sign out</button>
+      <button class="import-btn" id="supabase-signin-btn" onclick="submitSupabaseCloudSignIn()">Sign in</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="download-json-overlay" onclick="if(event.target===this)closeDownloadJsonModal()">
   <div class="modal" style="width:420px">
     <div class="modal-title">Download Imported JSON</div>
@@ -2983,6 +3003,11 @@ const ROLE_STORAGE_KEY = 'wnd_user_role';
 const SETTINGS_STORAGE_KEY = 'wnd_display_settings';
 const ADMIN_PASSWORD_HASH = 'YWRtaW45OTk='; // btoa('admin999')
 const ROOT_PASSWORD_HASH = 'cm9vdDk5OQ=='; // btoa('root999')
+/** Set both to enable online load/save via Supabase (see supabase/migrations/0001_dashboard_projects.sql). */
+const SUPABASE_REMOTE = {
+  url: '',
+  anonKey: '',
+};
 const DEFAULT_BUILD_TYPES = [
   {key:'new', label:'New Sites'},
   {key:'expansion', label:'Expansion Sites'},
@@ -3912,6 +3937,21 @@ async function saveImportedProjectToFiles(skipConfirm = false, options = {}) {
     replaceProjectId: REPLACE_PROJECT_ID_ON_SAVE || null,
   };
 
+  try {
+    if (await trySaveProjectViaSupabase(savePayload)) {
+      REPLACE_PROJECT_ID_ON_SAVE = null;
+      window._DATA_SOURCE = 'supabase';
+      toast('Saved to Supabase cloud', 'ok');
+      return true;
+    }
+  } catch (cloudErr) {
+    console.warn(cloudErr);
+    if (options?.noFallback) {
+      toast('Cloud save failed: ' + (cloudErr.message || cloudErr), 'err');
+      return false;
+    }
+  }
+
   // Preferred path: local backend endpoint (no manual copy/download).
   try {
     const resp = await fetch('/api/save-project', {
@@ -4488,6 +4528,12 @@ async function saveBrandingFromModal() {
       indexEntries: window._ALL_PROJECTS || [],
       replaceProjectId: null,
     };
+    if (await trySaveProjectViaSupabase(savePayload)) {
+      window._DATA_SOURCE = 'supabase';
+      toast('Branding saved to cloud', 'ok');
+      closeProjectManagerModal();
+      return;
+    }
     const resp = await fetch('/api/save-project', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -4509,6 +4555,48 @@ async function createProjectFromUI(projectId, projectName = '', color = '#1d4ed8
   const pname = String(projectName || pid).trim() || pid;
   const colorHex = String(color || '#1d4ed8').trim() || '#1d4ed8';
   try {
+    if (isSupabaseRemoteConfigured() && await isSupabaseCloudSignedIn()) {
+      const sb = getSupabaseClient();
+      const cfg = {
+        project_name: pname,
+        project: pid,
+        client: 'VNPT',
+        start_date: '',
+        end_date: '',
+        required_complete_date: '',
+        region: '',
+        pm: '',
+        weekly_target: 20,
+        po_no: '',
+      };
+      const dat = {
+        generated: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        project: pid,
+        sites: [],
+        issues: {raised: 0, closed: 0, open: 0, weekly: []},
+        resources: {weekly: []},
+        rolling_plan: {weekly: []},
+        risks: [],
+      };
+      const {error} = await sb.from('dashboard_projects').upsert({
+        project_id: pid,
+        display_name: pname,
+        color: colorHex,
+        active: true,
+        path: `projects/${pid}/`,
+        config: cfg,
+        data: dat,
+        updated_at: new Date().toISOString(),
+      }, {onConflict: 'project_id'});
+      if (error) throw error;
+      const cloudIdx = await fetchProjectIndexFromSupabase();
+      window._ALL_PROJECTS = Array.isArray(cloudIdx) ? cloudIdx : (window._ALL_PROJECTS || []);
+      window._DATA_SOURCE = 'supabase';
+      renderProjSwitcher(window._ALL_PROJECTS);
+      await loadProject(pid);
+      toast(`Created project in cloud: ${pid}`, 'ok');
+      return;
+    }
     const resp = await fetch('/api/create-project', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -4557,6 +4645,25 @@ async function deleteCurrentProjectFromUI(projectIdOverride = null) {
   const ok = confirm(`Delete project "${deleteId}"?\n\nThis will remove:\n- projects/${deleteId}/ folder\n- project entry from index\n- embedded project snapshot in HTML`);
   if (!ok) return;
   try {
+    if (isSupabaseRemoteConfigured() && await isSupabaseCloudSignedIn()) {
+      const sb = getSupabaseClient();
+      const {error} = await sb.from('dashboard_projects').delete().eq('project_id', deleteId);
+      if (error) throw error;
+      const cloudIdx = await fetchProjectIndexFromSupabase();
+      if (cloudIdx && cloudIdx.length) {
+        window._ALL_PROJECTS = cloudIdx;
+        window._DATA_SOURCE = 'supabase';
+      } else {
+        window._DATA_SOURCE = 'files';
+        const r = await fetch('projects/index.json?t=' + Date.now());
+        window._ALL_PROJECTS = r.ok ? await r.json() : keepProjects;
+      }
+      renderProjSwitcher(window._ALL_PROJECTS);
+      const next = window._ALL_PROJECTS.find(p => p.active !== false) || window._ALL_PROJECTS[0];
+      if (next) await loadProject(next.id);
+      toast(`Deleted project (cloud): ${deleteId}`, 'ok');
+      return;
+    }
     const resp = await fetch('/api/delete-project', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -5555,6 +5662,176 @@ const chartValueLabelPlugin = {
 };
 
 // ══════════════════════════════════════════════════════════════
+// SUPABASE CLOUD (optional — SUPABASE_REMOTE.url + anonKey)
+// ══════════════════════════════════════════════════════════════
+let _supabaseClient = null;
+window._DATA_SOURCE = 'files';
+
+function isSupabaseRemoteConfigured() {
+  const u = String(SUPABASE_REMOTE?.url || '').trim();
+  const k = String(SUPABASE_REMOTE?.anonKey || '').trim();
+  return Boolean(u && k);
+}
+
+function getSupabaseClient() {
+  if (!isSupabaseRemoteConfigured()) return null;
+  if (_supabaseClient) return _supabaseClient;
+  const g = typeof globalThis !== 'undefined' ? globalThis : window;
+  const lib = g.supabase;
+  if (!lib || typeof lib.createClient !== 'function') {
+    console.warn('Supabase JS not loaded');
+    return null;
+  }
+  _supabaseClient = lib.createClient(SUPABASE_REMOTE.url.trim(), SUPABASE_REMOTE.anonKey.trim(), {
+    auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: localStorage},
+  });
+  return _supabaseClient;
+}
+
+async function isSupabaseCloudSignedIn() {
+  const sb = getSupabaseClient();
+  if (!sb) return false;
+  const {data} = await sb.auth.getSession();
+  return Boolean(data?.session?.access_token);
+}
+
+function mapSupabaseRowToIndexEntry(row) {
+  const pid = String(row.project_id || '').trim();
+  return {
+    id: pid,
+    name: String(row.display_name || pid).trim() || pid,
+    path: String(row.path || `projects/${pid}/`).trim() || `projects/${pid}/`,
+    color: String(row.color || '#1d4ed8').trim() || '#1d4ed8',
+    active: row.active !== false,
+    updated: (row.updated_at && String(row.updated_at).slice(0, 10)) || new Date().toISOString().slice(0, 10),
+  };
+}
+
+async function fetchProjectIndexFromSupabase() {
+  const sb = getSupabaseClient();
+  if (!sb) return null;
+  const {data, error} = await sb
+    .from('dashboard_projects')
+    .select('project_id,display_name,color,active,path,updated_at')
+    .order('display_name');
+  if (error) {
+    console.warn('Supabase index read failed', error);
+    return null;
+  }
+  return (data || []).map(mapSupabaseRowToIndexEntry);
+}
+
+async function fetchProjectPayloadFromSupabase(pid) {
+  const sb = getSupabaseClient();
+  if (!sb) return null;
+  const {data, error} = await sb.from('dashboard_projects').select('config,data').eq('project_id', pid).maybeSingle();
+  if (error) {
+    console.warn('Supabase project read failed', error);
+    return null;
+  }
+  if (!data || typeof data.config !== 'object' || typeof data.data !== 'object') return null;
+  return {config: data.config, data: data.data};
+}
+
+async function trySaveProjectViaSupabase(savePayload) {
+  if (!isSupabaseRemoteConfigured()) return false;
+  if (!(await isSupabaseCloudSignedIn())) return false;
+  const sb = getSupabaseClient();
+  if (!sb) return false;
+  const pid = String(savePayload.projectId || '').trim();
+  if (!pid) throw new Error('projectId missing');
+  const idxList = Array.isArray(savePayload.indexEntries) ? savePayload.indexEntries : [];
+  const idxRow = idxList.find(e => String(e?.id || '').trim() === pid) || {};
+  const row = {
+    project_id: pid,
+    display_name: String(idxRow.name || savePayload.config?.project_name || pid).trim() || pid,
+    color: String(idxRow.color || '#1d4ed8').trim() || '#1d4ed8',
+    active: idxRow.active !== false,
+    path: String(idxRow.path || `projects/${pid}/`).trim() || `projects/${pid}/`,
+    config: savePayload.config,
+    data: savePayload.data,
+    updated_at: new Date().toISOString(),
+  };
+  const {error: upErr} = await sb.from('dashboard_projects').upsert(row, {onConflict: 'project_id'});
+  if (upErr) throw upErr;
+  const rep = savePayload.replaceProjectId && String(savePayload.replaceProjectId).trim();
+  if (rep && rep !== pid) {
+    const {error: delErr} = await sb.from('dashboard_projects').delete().eq('project_id', rep);
+    if (delErr) throw delErr;
+  }
+  window._ALL_PROJECTS = idxList;
+  return true;
+}
+
+function updateSupabaseCloudButton() {
+  const btn = document.getElementById('cloud-auth-btn');
+  if (!btn) return;
+  if (!isSupabaseRemoteConfigured()) {
+    btn.style.opacity = '0.35';
+    btn.title = 'Supabase not configured (set SUPABASE_REMOTE in HTML)';
+    return;
+  }
+  btn.style.opacity = '1';
+  getSupabaseClient();
+  _supabaseClient?.auth.getSession().then(({data}) => {
+    const on = Boolean(data?.session);
+    btn.style.boxShadow = on ? '0 0 0 2px rgba(34,197,94,.55)' : 'none';
+  });
+}
+
+function openSupabaseCloudModal() {
+  if (!isSupabaseRemoteConfigured()) {
+    toast('Set SUPABASE_REMOTE.url and SUPABASE_REMOTE.anonKey in this HTML file.', 'err');
+    return;
+  }
+  getSupabaseClient();
+  const ov = document.getElementById('supabase-cloud-overlay');
+  const st = document.getElementById('supabase-cloud-status');
+  const si = document.getElementById('supabase-signin-btn');
+  const so = document.getElementById('supabase-signout-btn');
+  if (!ov) return;
+  _supabaseClient?.auth.getSession().then(({data}) => {
+    const on = Boolean(data?.session);
+    if (st) st.textContent = on
+      ? 'Signed in to Supabase. Project saves will sync to the cloud when you use Save (admin).'
+      : 'Sign in with a Supabase Auth user (Authentication → Users). RLS must allow authenticated writes.';
+    if (si) si.style.display = on ? 'none' : 'inline-block';
+    if (so) so.style.display = on ? 'inline-block' : 'none';
+  });
+  ov.classList.add('on');
+  setTimeout(() => document.getElementById('supabase-email-input')?.focus(), 0);
+}
+function closeSupabaseCloudModal() {
+  document.getElementById('supabase-cloud-overlay')?.classList.remove('on');
+}
+async function submitSupabaseCloudSignIn() {
+  const sb = getSupabaseClient();
+  if (!sb) return;
+  const email = String(document.getElementById('supabase-email-input')?.value || '').trim();
+  const password = String(document.getElementById('supabase-password-input')?.value || '');
+  if (!email || !password) {
+    toast('Enter email and password', 'err');
+    return;
+  }
+  const {error} = await sb.auth.signInWithPassword({email, password});
+  if (error) {
+    toast(error.message || 'Sign-in failed', 'err');
+    return;
+  }
+  toast('Signed in to Supabase cloud', 'ok');
+  updateSupabaseCloudButton();
+  openSupabaseCloudModal();
+}
+async function signOutSupabaseCloud() {
+  const sb = getSupabaseClient();
+  if (!sb) return;
+  await sb.auth.signOut();
+  toast('Signed out from Supabase', 'ok');
+  updateSupabaseCloudButton();
+  openSupabaseCloudModal();
+}
+
+// ══════════════════════════════════════════════════════════════
 // DATA LOADING
 // ══════════════════════════════════════════════════════════════
 async function loadProject(pid) {
@@ -5577,6 +5854,26 @@ async function loadProject(pid) {
       updateProjSwitcherActive(pid);
       updateRoleUI();
       toast('Loaded imported workbook: ' + (CONFIG.project_name || pid), 'ok');
+      return;
+    }
+    if (window._DATA_SOURCE === 'supabase') {
+      const cloud = await fetchProjectPayloadFromSupabase(pid);
+      if (!cloud) throw new Error('Cloud project not found: ' + pid);
+      DATA = cloud.data;
+      CONFIG = normaliseConfig(cloud.config);
+      ensureSiteDoneDates(DATA.sites, (CONFIG.milestones || []).map(ms => ms.key));
+      updateProgressLogFromSummary(DATA, DATA.sites || [], getVisibleBuildTypes());
+      syncIssuesAggregateFromWeekly();
+      PROJ = buildProjFromConfig(CONFIG);
+      selectedProvinceKey = null;
+      COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
+      renderProjBanner();
+      render();
+      const ts2 = DATA.generated ? new Date(DATA.generated).toLocaleString() : new Date().toLocaleString();
+      document.getElementById('last-upd').textContent = 'Last updated: ' + ts2 + ' (cloud)';
+      updateProjSwitcherActive(pid);
+      updateRoleUI();
+      toast('Loaded (cloud): ' + (CONFIG.project_name || pid), 'ok');
       return;
     }
     const ts = '?t=' + Date.now();
@@ -7596,7 +7893,6 @@ async function projectDataSaveClick() {
   closeProjectDataModal();
   COMPUTED = computeAnalytics(DATA.sites || [], CONFIG, DATA);
   render();
-  toast('Project data saved', 'ok');
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -8736,30 +9032,49 @@ async function initApp() {
   applyCCSSettings();
   initVNMap();   // draw empty map shapes first
 
+  const sbEarly = getSupabaseClient();
+  if (sbEarly && !sbEarly.__wndAuthHooked) {
+    sbEarly.__wndAuthHooked = true;
+    sbEarly.auth.onAuthStateChange(() => updateSupabaseCloudButton());
+  }
+  updateSupabaseCloudButton();
+
   // Check URL ?p=projectId override
   const params = new URLSearchParams(location.search);
   const pidParam = params.get('p') || params.get('project');
 
   try {
-    const ts   = '?t=' + Date.now();
-    const resp = await fetch('projects/index.json' + ts);
-    if (!resp.ok) throw new Error('index.json HTTP ' + resp.status);
-    const projects = await resp.json();
-    const mergedProjects = Array.isArray(projects) ? projects : [];
+    const ts = '?t=' + Date.now();
+    let mergedProjects = [];
+    if (isSupabaseRemoteConfigured()) {
+      const cloudIdx = await fetchProjectIndexFromSupabase();
+      if (cloudIdx && cloudIdx.length > 0) {
+        window._DATA_SOURCE = 'supabase';
+        mergedProjects = cloudIdx;
+      }
+    }
+    if (!mergedProjects.length) {
+      window._DATA_SOURCE = 'files';
+      const resp = await fetch('projects/index.json' + ts);
+      if (!resp.ok) throw new Error('index.json HTTP ' + resp.status);
+      const projects = await resp.json();
+      mergedProjects = Array.isArray(projects) ? projects : [];
+    }
 
-    // Store for project switcher
     window._ALL_PROJECTS = mergedProjects;
     renderProjSwitcher(mergedProjects);
 
-    const active  = mergedProjects.filter(p => p.active !== false);
-    const target  = (location.protocol === 'file:')
+    const active = mergedProjects.filter(p => p.active !== false);
+    const target = (location.protocol === 'file:')
       ? active[0]
       : (active.find(p => p.id === pidParam) || active[0]);
-    if (!target) throw new Error('No active projects found in index.json');
+    if (!target) throw new Error('No active projects in index');
 
     await loadProject(target.id);
+    updateSupabaseCloudButton();
   } catch(e) {
     activateDemoMode();
+    updateSupabaseCloudButton();
   }
 }
 
