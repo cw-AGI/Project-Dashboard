@@ -6655,87 +6655,94 @@ charts.issTrend = new Chart(issTrendDom, {
     <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--ccs-chart-text-size);color:var(--ccs-chart-text-color);padding:0 2px;font-family:var(--ccs-chart-font);">
       <span>Total deployed: <b style="color:var(--text)">${lastResTotal}</b></span>
       ${lastResPlan ? `<span>Plan: <b style="color:var(--ccs-chart-text-color);font-family:var(--ccs-chart-font)">${lastResPlan}</b></span>` : ''}
+    </div>
+    <div class="iss-trend-wrap" style="margin-top:10px;margin-bottom:0">
+      <div class="iss-trend-label">Weekly Team Deployment — Last 8 Weeks</div>
+      <div class="chart-stage chart-stage--compact"><canvas id="ov-team-trend-chart"></canvas></div>
     </div>`;
 
-  if (charts.ovTeam) charts.ovTeam.destroy();
-  const ovTeamValueLabels = {
-    id: 'ovTeamValueLabels',
-    afterDatasetsDraw(chart) {
-      const {ctx} = chart;
-      ctx.save();
-      ctx.font = `700 ${Math.max(9, Math.round(parseFloat(textTokens.chartTextSize) || 10))}px ${textTokens.chartFont}`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      chart.data.datasets.forEach((dataset, datasetIndex) => {
-        if (datasetIndex !== 0) return;
-        const meta = chart.getDatasetMeta(datasetIndex);
-        meta.data.forEach((element, i) => {
-          const value = dataset.data[i];
-          ctx.fillStyle = chartPalette.text;
-          ctx.fillText(String(value), element.x, element.y - 6);
-        });
+  if (charts.ovTeam) { try { charts.ovTeam.destroy(); } catch (_) {} delete charts.ovTeam; }
+  const ovTeamTrendDom = document.getElementById('ov-team-trend-chart');
+  if (ovTeamTrendDom && teamTrend.length && typeof Chart !== 'undefined') {
+    Chart.defaults.color = chartPalette.text;
+    Chart.defaults.borderColor = 'rgba(22,43,68,.90)';
+    Chart.defaults.font.family = textTokens.chartFont;
+    Chart.defaults.font.size = Math.max(9, Math.round(parseFloat(textTokens.chartTextSize) || 10));
+    Chart.defaults.plugins.tooltip.backgroundColor = chartPalette.surface;
+    Chart.defaults.plugins.tooltip.titleColor = '#D9E8F7';
+    Chart.defaults.plugins.tooltip.bodyColor = chartPalette.text;
+    Chart.defaults.plugins.tooltip.borderColor = chartPalette.border;
+    Chart.defaults.plugins.tooltip.borderWidth = 1;
+    Chart.defaults.plugins.tooltip.padding = 10;
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.legend.labels.color = textTokens.chartTextColor;
+    Chart.defaults.animation.duration = 600;
+    Chart.defaults.animation.easing = 'easeOutExpo';
+    const teamLineKeyOrder = ['install', 'ssv', 'onair', 'mw', 'power', 'optim'];
+    const teamLineKeys = teamLineKeyOrder.filter(
+      k => teamTypes.some(t => t.key === k) && teamTrend.some(row => Number(row[k] || 0) > 0),
+    );
+    const keysToPlot = teamLineKeys.length ? teamLineKeys : ['total'];
+    const teamDatasets = keysToPlot.map((k, idx) => {
+      const meta = teamTypes.find(t => t.key === k) || {key: k, label: k === 'total' ? 'Total deployed' : k, color: _ovTeamPalette[idx % _ovTeamPalette.length]};
+      const fillFirst = idx === 0 && k !== 'total';
+      return {
+        label: meta.label,
+        data: teamTrend.map(row => Number((k === 'total' ? row.total : row[k]) || 0)),
+        borderColor: meta.color,
+        backgroundColor: fillFirst ? rgbaFromHex(meta.color, 0.1) : 'transparent',
+        fill: fillFirst,
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 2.5,
+        pointBackgroundColor: meta.color,
+        pointBorderColor: chartPalette.surface,
+        pointBorderWidth: 1.5,
+      };
+    });
+    const hasWeeklyPlan = teamTrend.some(row => Number(row.total_plan || 0) > 0);
+    if (hasWeeklyPlan) {
+      teamDatasets.push({
+        label: 'Weekly plan',
+        data: teamTrend.map(row => Number(row.total_plan || 0)),
+        borderColor: textTokens.chartTextColor,
+        backgroundColor: 'transparent',
+        fill: false,
+        tension: 0.35,
+        borderWidth: 1.5,
+        borderDash: [5, 3],
+        pointRadius: 2,
+        pointBackgroundColor: textTokens.chartTextColor,
+        pointBorderColor: chartPalette.surface,
+        pointBorderWidth: 1,
       });
-      ctx.restore();
     }
-  };
-  charts.ovTeam = new Chart(document.getElementById('ov-team-chart'), {
-    type: 'bar',
-    data: {
-      labels: teamTrend.map(row => row.week || '—'),
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Installation Teams',
-          data: teamTrend.map(row => Number(row.install || 0)),
-          backgroundColor: chartPalette.primary,
-          borderRadius: 8,
-          borderSkipped: false,
-          barThickness: 22,
-          order: 2
-        },
-        {
-          type: 'line',
-          label: 'Trend Line',
-          data: teamTrend.map(row => Number(row.install || 0)),
-          borderColor: chartPalette.secondary,
-          backgroundColor: 'transparent',
-          tension: .35,
-          borderWidth: 2.5,
-          pointRadius: 3,
-          pointHoverRadius: 4,
-          pointBackgroundColor: chartPalette.secondary,
-          pointBorderColor: chartPalette.surface,
-          pointBorderWidth: 1.5,
-          fill: false,
-          order: 1
-        }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
-          labels: {boxWidth: 10, boxHeight: 10, color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(10, Math.round(parseFloat(textTokens.chartTextSize) || 11)), weight: '700'}}
-        },
-        tooltip: {enabled: true}
+    charts.ovTeam = new Chart(ovTeamTrendDom, {
+      type: 'line',
+      data: {
+        labels: teamTrend.map(r => r.week || '—'),
+        datasets: teamDatasets,
       },
-      scales: {
-        x: {
-          grid: {display: false},
-          ticks: {color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(9, Math.round(parseFloat(textTokens.chartTextSize) || 10))}}
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {boxWidth: 9, boxHeight: 9, color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(9, parseFloat(textTokens.chartTextSize) || 10), weight: '700'}, padding: 10},
+          },
         },
-        y: {
-          beginAtZero: true,
-          grid: {color: 'rgba(22,43,68,.90)'},
-          ticks: {color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(9, Math.round(parseFloat(textTokens.chartTextSize) || 10))}, precision: 0},
-          suggestedMax: Math.max(...teamTrend.map(row => Number(row.install || 0)), 0) + 3
-        }
-      }
-    },
-    plugins: [ovTeamValueLabels]
-  });
+        scales: {
+          x: {grid: {display: false}, ticks: {color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(9, parseFloat(textTokens.chartTextSize) || 10)}}},
+          y: {
+            beginAtZero: true,
+            grid: {color: 'rgba(22,43,68,.90)'},
+            ticks: {color: textTokens.chartTextColor, font: {family: textTokens.chartFont, size: Math.max(9, parseFloat(textTokens.chartTextSize) || 10)}, precision: 0, maxTicksLimit: 6},
+          },
+        },
+      },
+    });
+  }
   if (charts.ovDaily) charts.ovDaily.destroy();
   const ovDailyDom = document.getElementById('ov-daily-chart');
   if (ovDailyDom) {
